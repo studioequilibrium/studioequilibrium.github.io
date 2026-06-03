@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Equilibrium | Architecture & Interiors</title>
+    <meta name="description" content="Studio Equilibrium is a visionary architectural practice focusing on pure geometry and essentialism.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=2.3">
+</head>
+<body>
+    <canvas id="bg-particle-canvas"></canvas>
+
+    <!-- Custom Cursor & Follower -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="Studio Equilibrium Logo"></a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">HOME</a></li>
+            <li><a href="studio.html">STUDIO</a></li>
+            <li><a href="services.html">SERVICES</a></li>
+            <li><a href="portfolio.html">PORTFOLIO</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section: Title & Branding Centerpiece -->
+        <section id="home" class="hero fade-in is-visible">
+            <div class="hero-content">
+                <div class="hero-logo-glow-wrapper">
+                    <img src="assets/images/logo.png" alt="Studio Equilibrium Logo" class="hero-logo-mark">
+                </div>
+                <h1 class="hero-title">STUDIO<br>EQUILIBRIUM</h1>
+                <p class="hero-tagline"><span>A</span><span>R</span><span>C</span><span>H</span><span>I</span><span>T</span><span>E</span><span>C</span><span>T</span><span>U</span><span>R</span><span>E</span><span>&nbsp;</span><span>+</span><span>&nbsp;</span><span>I</span><span>N</span><span>T</span><span>E</span><span>R</span><span>I</span><span>O</span><span>R</span><span>S</span></p>
+            </div>
+        </section>
+
+        <!-- Majestic Panoramic Slider Section -->
+        <section class="hero-slideshow-section fade-in">
+            <div class="hero-image">
+                <div class="hero-slideshow-container">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=1200" alt="Minimalist concrete architecture with light streaming through" class="hero-slide active">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" alt="Concrete columns and light play detail" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1200" alt="Architectural concrete facade perspective" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200" alt="Concrete walls and geometric opening layout" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=1200" alt="Geometric concrete stairs and sharp shadow detail" class="hero-slide">
+                </div>
+            </div>
+        </section>
+
+        <!-- Executive Introduction Block -->
+        <section id="home-intro" class="section intro-section fade-in">
+            <div class="intro-container">
+                <p class="hero-intro-text">
+                    A Bengaluru-based contemporary architectural practice transforming abstract design briefs into physical spatial realities. We balance structural geometry with contextual logic to design timeless environments.
+                    <a href="studio.html" class="explore-studio-link">EXPLORE THE STUDIO &rarr;</a>
+                </p>
+                <div class="hero-advantage-wrapper">
+                    <span class="hero-advantage-title">OUR COMPETITIVE ADVANTAGE //</span>
+                    <p class="hero-advantage-text">
+                        Traditional architectural practices often suffer from opaque coordination, manual tracking errors, and slow project feedback loops. Studio Equilibrium annihilates these barriers. By combining a fully automated cloud-synchronized 3D BIM ecosystem with cutting-edge AI-driven design optimization tools, we deliver structural clash-detection and energy performance simulations before construction ever breaks ground. Coupled with our industry-first, proprietary Client Assist App, we grant our clients unparalleled 100% transparency, transforming an inherently complex build process into a seamless, high-confidence collaboration.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spatial Solutions Framework (Services Brief) -->
+        <section id="home-services" class="section services-brief-section fade-in">
+            <div class="home-services-brief-header" style="margin-bottom: var(--spacing-lg);">
+                <h2 class="services-brief-title" style="font-family: var(--font-headings); font-size: 2rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-black);">// SPATIAL SOLUTIONS FRAMEWORK</h2>
+            </div>
+            
+            <div class="services-brief-grid">
+                
+                <!-- Card 1: Architectural Design -->
+                <a href="services.html" class="service-brief-card">
+                    <div class="service-brief-image-frame">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600" alt="Architectural Design Massing and Light Detail">
+                    </div>
+                    <div class="service-brief-content">
+                        <h3 class="service-brief-title-card">ARCHITECTURAL DESIGN</h3>
+                        <p class="service-brief-text-card">Concept development, Building Information Modeling (BIM) documentation, GFC coordinates, and strict construction oversight.</p>
+                    </div>
+                </a>
+
+                <!-- Card 2: Interior Design -->
+                <a href="services.html" class="service-brief-card">
+                    <div class="service-brief-image-frame">
+                        <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=600" alt="Interior Design Material Texture Detail">
+                    </div>
+                    <div class="service-brief-content">
+                        <h3 class="service-brief-title-card">INTERIOR DESIGN</h3>
+                        <p class="service-brief-text-card">Curated finishes, custom lighting schedules, specialized material palettes, and bespoke spatial layouts.</p>
+                    </div>
+                </a>
+
+                <!-- Card 3: Master Planning -->
+                <a href="services.html" class="service-brief-card">
+                    <div class="service-brief-image-frame">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Master Planning Site and Landscape Development Detail">
+                    </div>
+                    <div class="service-brief-content">
+                        <h3 class="service-brief-title-card">MASTER PLANNING</h3>
+                        <p class="service-brief-text-card">Terrain contour analysis, macro-scale programmatic layouts, solar exposure optimization, and multi-disciplinary site planning.</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Large Metrics Grid Section -->
+        <section id="home-metrics" class="fade-in" style="padding: 0 5%; border-bottom: 1px solid var(--color-gray-mid);">
+            <div class="hero-metrics-grid" style="margin: 0; border: none; padding: var(--spacing-xl) 0;">
+                <div class="metric-block">
+                    <div class="metric-number metric-number-terracotta">15</div>
+                    <div class="metric-label">Nearing Years of<br>Design Experience.</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-number metric-number-sage">00</div>
+                    <div class="metric-label">Multi-Disciplinary<br>Consultants Ecosystem.</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-number metric-number-mustard">3D</div>
+                    <div class="metric-label">Fully Integrated 3D BIM,<br>AI Integration &amp; Automated Workflows.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integrated App Interaction Stage -->
+        <section id="home-app-blueprint" class="section home-app-blueprint fade-in">
+            <!-- Unified Section Header — matches Spatial Solutions Framework pattern -->
+            <div class="home-services-brief-header" style="margin-bottom: var(--spacing-lg);">
+                <h2 class="services-brief-title" style="font-family: var(--font-headings); font-size: 2rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-black);">// INDUSTRY FIRST</h2>
+            </div>
+
+            <!-- Narrative and Header -->
+            <div class="client-app-info">
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; font-family: var(--font-headings);">ACCORD° DESIGN PORTAL</h3>
+                <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 0;">
+                    We believe that transparency breeds confidence. To eliminate the historical ambiguity of construction timelines and progress reporting, Studio Equilibrium developed the proprietary <strong>ACCORD° Design Portal</strong>. This custom-built digital portal is the first of its kind in local architectural practices, giving our clients real-time visibility into their design and build journey.
+                </p>
+            </div>
+
+            <!-- Editorial Content Stream -->
+            <div class="client-app-card">
+                <div class="client-app-layout-grid">
+
+                    <!-- Dual Device Showcase -->
+                    <div class="client-app-ui-showcase dual-showcase">
+                        <!-- Phone Shell -->
+                        <div class="device-mockup phone-mockup">
+                            <div class="device-speaker"></div>
+                            <div class="device-screen">
+                                <img src="assets/images/app-dashboard.png" alt="ACCORD Phone Dashboard Screen" id="active-screen-img">
+                            </div>
+                        </div>
+                        <!-- Tablet Shell -->
+                        <div class="device-mockup tablet-mockup">
+                            <div class="device-speaker"></div>
+                            <div class="device-screen">
+                                <img src="assets/images/app-dashboard.png" alt="ACCORD Tablet Dashboard Screen" id="active-screen-img-tablet">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Feature Selection Links -->
+                    <div class="client-app-features-vertical">
+                        <div class="client-app-feature-v" data-target="stages">
+                            <a href="javascript:void(0)" class="app-feature-trigger" role="button">01 // LIVE STAGE TRANSITIONS</a>
+                            <div class="accordion-content">
+                                <p>Track active milestones (like Conceptual Design and Schematic Design) and clear task timelines dynamically.</p>
+                            </div>
+                        </div>
+                        <div class="client-app-feature-v" data-target="documents">
+                            <a href="javascript:void(0)" class="app-feature-trigger" role="button">02 // DOCUMENT CENTRAL</a>
+                            <div class="accordion-content">
+                                <p>Access GFC sets, sanctioned blueprints, and view-only project files on-demand.</p>
+                            </div>
+                        </div>
+                        <div class="client-app-feature-v" data-target="materials">
+                            <a href="javascript:void(0)" class="app-feature-trigger" role="button">03 // INTERACTIVE KNOWLEDGE CENTER</a>
+                            <div class="accordion-content">
+                                <p>Browse and approve curated construction materials, complete with pricing transparency (e.g., Flamed Granite, Sandstone) directly through the portal.</p>
+                            </div>
+                        </div>
+                        <div class="client-app-feature-v" data-target="scope">
+                            <a href="javascript:void(0)" class="app-feature-trigger" role="button">04 // TOTAL SCOPE TRANSPARENCY</a>
+                            <div class="accordion-content">
+                                <p>Seamlessly view detailed room-by-room architectural requirements for the Kitchen, Living, Dining, and Foyer layouts.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Clean Projects Grid Section -->
+        <section id="featured-projects" class="section featured-section fade-in">
+            <div class="projects-section-header" style="margin-bottom: var(--spacing-md);">
+                <h2 style="font-family: var(--font-headings); font-size: 2rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-black);">PROJECTS</h2>
+            </div>
+            <!-- Dynamic featured projects rendering -->
+            <div id="featured-grid" class="portfolio-grid featured-grid">
+                <!-- Javascript will inject featured projects here -->
+            </div>
+            <div class="view-all-container">
+                <a href="portfolio.html" class="view-all-projects-link">VIEW PORTFOLIO &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                STUDIO EQUILIBRIUM
+                <div class="footer-tagline">ARCHITECTURE+INTERIORS</div>
+            </div>
+            <div class="footer-info">
+                <h3>CONTACT</h3>
+                <div class="footer-subtitle">STUDIO EQUILIBRIUM</div>
+                <address>
+                    <p>77-E, 3rd Floor, KR Road, Hoskote, Bangalore - 562114</p>
+                    <p><a href="mailto:prashanth@studioequilibrium.in" class="footer-link"><span class="material-icons footer-icon">mail_outline</span> prashanth@studioequilibrium.in</a></p>
+                    <p><a href="tel:+919964514987" class="footer-link"><span class="material-icons footer-icon">phone_in_talk</span> +91 99645 14987</a></p>
+                </address>
+            </div>
+            <div class="footer-social-tray">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link youtube" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link linkedin" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.98 0 1.778-.773 1.778-1.729V1.73C24 .774 23.205 0 22.222 0h.003z"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Studio Equilibrium. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal Overlay -->
+    <div id="project-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-body" id="modal-body-content">
+                <!-- Dynamically injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js?v=2.3"></script>
+</body>
+</html>
