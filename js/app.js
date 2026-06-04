@@ -10,7 +10,7 @@
     if (canvas && (window.location.pathname === "/" || window.location.pathname.endsWith("index.html") || window.location.pathname === "")) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const spacing = 45; // comfortable spacious grid spacing
+        const spacing = 30; // perfect architectural grid spacing
         let pointer = { x: null, y: null, radius: 120 }; // threshold radius 120px
         const returnEase = 0.08; // snappy elasticity return coefficient
         const friction = 0.85;
@@ -38,23 +38,23 @@
                 this.y = y;
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 1.0; // microscopic sharp 1px radius
+                this.radius = 1.5; // uniform baseline particle radius (1.5px)
                 this.activeColor = activeColor;
                 
                 // Color interpolation state
-                this.r = 120;
-                this.g = 120;
-                this.b = 120;
-                this.a = 0.09; // default quiet concrete grey state
+                this.r = 100;
+                this.g = 100;
+                this.b = 100;
+                this.a = 0.16; // default quiet concrete grey state
 
-                this.targetR = 120;
-                this.targetG = 120;
-                this.targetB = 120;
-                this.targetA = 0.09;
+                this.targetR = 100;
+                this.targetG = 100;
+                this.targetB = 100;
+                this.targetA = 0.16;
             }
 
             draw() {
-                // ctx.fillStyle = "rgba(120, 120, 120, 0.09)";
+                // ctx.fillStyle = "rgba(100, 100, 100, 0.16)";
                 ctx.fillStyle = `rgba(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)}, ${this.a})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -100,10 +100,10 @@
                     this.targetB = this.activeColor.b;
                     this.targetA = this.activeColor.a;
                 } else {
-                    this.targetR = 120;
-                    this.targetG = 120;
-                    this.targetB = 120;
-                    this.targetA = 0.09; // fade smoothly back to quiet concrete grey
+                    this.targetR = 100;
+                    this.targetG = 100;
+                    this.targetB = 100;
+                    this.targetA = 0.16; // fade smoothly back to quiet concrete grey
                 }
 
                 // Smooth color transition
