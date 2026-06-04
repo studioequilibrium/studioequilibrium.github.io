@@ -78,12 +78,12 @@
 html {
     scroll-behavior: smooth;
     cursor: none; /* Hide default cursor for custom cursor */
-    background-color: #FBFBFA;
+    background-color: #FFFFFF;
 }
 
 body {
     font-family: var(--font-primary);
-    background: transparent !important;
+    background: #FFFFFF !important;
     color: #4A4A4A;
     line-height: 1.6;
     overflow-x: hidden;
@@ -97,7 +97,7 @@ body {
     height: 100vh;
     z-index: -1;
     pointer-events: none;
-    background-color: #FBFBFA;
+    background-color: #FFFFFF;
 }
 
 ::selection {
@@ -351,19 +351,22 @@ main, section {
     display: none;
     background: none;
     border: none;
-    width: 30px;
-    height: 14px;
+    cursor: pointer;
+    width: 26px;
+    height: 18px;
     position: relative;
     flex-direction: column;
     justify-content: space-between;
     z-index: 1010;
+    padding: 0;
 }
 
 .nav-toggle span {
     display: block;
     width: 100%;
-    height: 2px;
+    height: 1.5px;
     background-color: var(--color-black);
+    border-radius: 1px;
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -409,7 +412,7 @@ main, section {
     overflow: hidden;
     padding: 0 5%;
     box-sizing: border-box;
-    background-color: #FBFBFA; /* Dedicated brand canvas */
+    background-color: #FFFFFF; /* Pure white dedicated brand canvas */
 }
 
 .hero-content {
@@ -463,7 +466,12 @@ main, section {
 .hero-slideshow-section {
     position: relative;
     width: 100%;
-    background-color: #FBFBFA;
+    background-color: #FFFFFF;
+    /* ── Hardened corner clipping for all mobile/tablet viewport layers ── */
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    transform: translateZ(0);
 }
 
 .hero-image {
@@ -485,7 +493,8 @@ main, section {
     overflow: hidden !important;
     border-radius: 12px !important;
     opacity: 1; /* Majestic panoramic gateway showing full-color architectural view */
-    isolation: isolate;
+    isolation: isolate !important;
+    transform: translateZ(0);
     -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
@@ -499,6 +508,11 @@ main, section {
     opacity: 0;
     transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
     filter: grayscale(20%);
+    /* ── Permanent corner mask override ── */
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    transform: translateZ(0);
 }
 
 .hero-slide.active {
@@ -1092,22 +1106,32 @@ footer p {
     gap: 0.35rem;
 }
 
+.footer-info,
+.footer-info * {
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    text-decoration: none !important;
+}
+
+/* Prevent uppercase rule from breaking Google Material Icon ligatures */
+.footer-info .material-icons,
+.footer-info .footer-icon {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
 .footer-info h3 {
     font-family: var(--font-headings);
     font-size: 1.15rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
     color: #FFFFFF !important;
     margin: 0;
-    text-transform: uppercase;
 }
 
 .footer-info .footer-subtitle {
     font-family: var(--font-primary);
     font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
     color: #FFFFFF;
     margin-bottom: 0.2rem;
 }
@@ -1124,7 +1148,6 @@ footer p {
 
 .footer-link {
     color: #FFFFFF !important;
-    text-decoration: none !important; /* Stripped of text underlines */
     transition: opacity 0.3s var(--transition-smooth);
     display: inline-flex;
     align-items: center;
@@ -1424,11 +1447,11 @@ footer p {
     }
     
     .nav-toggle.nav-active span:first-child {
-        transform: translateY(6px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg);
     }
     
     .nav-toggle.nav-active span:last-child {
-        transform: translateY(-6px) rotate(-45deg);
+        transform: translateY(-9px) rotate(-45deg);
     }
     
     .nav-links {
@@ -1717,7 +1740,7 @@ footer p {
 .studio-grid-row {
     display: grid;
     grid-template-columns: 250px 1fr;
-    background-color: #FAF9F6; /* Soft off-white paper texture */
+    background-color: #FFFFFF; /* Pure white card canvas */
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -2880,9 +2903,10 @@ footer p {
         padding: var(--spacing-lg) 5% !important;
     }
 
-    /* ── Ultra-Slim Header Layout ── */
+    /* ── Breathable Mobile Navigation Bar Envelope ── */
     .navbar {
-        padding: 0.5rem 5% !important;
+        padding: var(--spacing-md) 5% !important;
+        min-height: 70px !important;
     }
 
     .logo img {
@@ -2953,7 +2977,7 @@ footer p {
 .portfolio-vertical-sequence,
 .contact-layout,
 .service-narrative-item {
-    background-color: #FAF9F6 !important; /* Soft off-white paper texture */
+    background-color: #FFFFFF !important; /* Pure white card canvas */
     border-radius: 12px !important;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02) !important; /* Diffused pillow drop shadow */
     border: 1px solid rgba(0, 0, 0, 0.04) !important; /* Clean boundary border */

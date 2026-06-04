@@ -878,6 +878,43 @@ document.addEventListener('DOMContentLoaded', () => {
             mouse.y = null;
         });
 
+        // ── Mobile/Tablet Touch Ripple Handler ──
+        // Maps finger-drag gestures directly to the same ripple and
+        // mouse-position tracking as the desktop mousemove handler,
+        // so a continuous swipe generates the fluid particle ripple
+        // effect without requiring individual taps.
+        function handleTouchMove(e) {
+            if (!e.touches || e.touches.length === 0) return;
+            const touch = e.touches[0];
+            const tx = touch.clientX;
+            const ty = touch.clientY;
+
+            mouse.x = tx;
+            mouse.y = ty;
+            mouse.active = true;
+
+            const dist = Math.sqrt((tx - lastX) ** 2 + (ty - lastY) ** 2);
+            if (dist > minMoveDist) {
+                ripples.push({
+                    x: tx,
+                    y: ty,
+                    radius: 0,
+                    maxRadius: 100,
+                    speed: 6,
+                    strength: 2.2
+                });
+                lastX = tx;
+                lastY = ty;
+            }
+        }
+        window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.active = false;
+            mouse.x = null;
+            mouse.y = null;
+        });
+
         initGrid();
         animate();
     }
