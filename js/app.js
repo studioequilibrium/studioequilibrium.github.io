@@ -3,80 +3,51 @@
  */
 
 // ----------------------------------------------------
-// 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Stabilized Drifting Engine)
+// 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Signature Grid Engine)
 // ----------------------------------------------------
 (function() {
     const canvas = document.getElementById('bg-particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const particleCount = 75; // steady array of 75 minimalist tracking dots
-        let pointer = { x: null, y: null, radius: 100 };
-        const returnEase = 0.03; // tiny elasticity coefficient
-        const friction = 0.95;
+        const spacing = 45; // evenly spaced grid every 45px
+        let pointer = { x: null, y: null, radius: 120 }; // threshold radius 120px
+        const returnEase = 0.08; // snappy elastic return coefficient
+        const friction = 0.85; // dampening
+        const colors = ['#db9602', '#db3804', '#339101', '#42009c'];
 
         // Resize handler to occupy 100% of viewport width and height dynamically
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            initParticles();
         }
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
         class Particle {
-            constructor() {
-                this.reset(true);
-            }
-
-            reset(init = false) {
-                // Baseline coordinates that slowly drift
-                if (init) {
-                    this.baseX = Math.random() * canvas.width;
-                    this.baseY = Math.random() * canvas.height;
-                } else {
-                    // Reset at screen edges depending on drift direction
-                    if (this.vxBase > 0) {
-                        this.baseX = 0;
-                        this.baseY = Math.random() * canvas.height;
-                    } else {
-                        this.baseX = canvas.width;
-                        this.baseY = Math.random() * canvas.height;
-                    }
-                }
-                
-                this.x = this.baseX;
-                this.y = this.baseY;
-                
-                // Slowly drift speeds
-                this.vxBase = (Math.random() - 0.5) * 0.4;
-                this.vyBase = (Math.random() - 0.5) * 0.4;
-                
+            constructor(x, y, color) {
+                this.baseX = x;
+                this.baseY = y;
+                this.x = x;
+                this.y = y;
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 1.5 + Math.random() * 0.5; // small random radius (1.5px to 2px)
+                this.radius = 1.5; // small architectural dots
+                this.color = color;
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(100, 100, 100, 0.15)'; // subtle charcoal fill color
+                ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
             }
 
             update() {
-                // Update baseline drifting position
-                this.baseX += this.vxBase;
-                this.baseY += this.vyBase;
-
-                // Screen boundary wrapping
-                if (this.baseX < 0 || this.baseX > canvas.width || this.baseY < 0 || this.baseY > canvas.height) {
-                    this.reset(false);
-                }
-
                 let ax = 0;
                 let ay = 0;
 
-                // Absolute math routine inside frame update loop to monitor cursor proximity
+                // Geometric push away from pointer coordinates
                 if (pointer.x !== null && pointer.y !== null) {
                     const dx = this.x - pointer.x;
                     const dy = this.y - pointer.y;
@@ -85,20 +56,17 @@
                     if (distance < pointer.radius) {
                         const force = (pointer.radius - distance) / pointer.radius;
                         const angle = Math.atan2(dy, dx);
-                        
-                        // Push away from pointer with angle/force
-                        ax = Math.cos(angle) * force * 0.8;
-                        ay = Math.sin(angle) * force * 0.8;
+                        ax = Math.cos(angle) * force * 5.0; // strong snappy slide
+                        ay = Math.sin(angle) * force * 5.0;
                     }
                 }
 
-                // Spring force back to drifting baseline coordinates (elasticity returnEase)
+                // Spring return force to baseline grid coordinates (elasticity returnEase)
                 const dxBase = this.baseX - this.x;
                 const dyBase = this.baseY - this.y;
                 ax += dxBase * returnEase;
                 ay += dyBase * returnEase;
 
-                // Physics integration
                 this.vx += ax;
                 this.vy += ay;
                 this.vx *= friction;
@@ -108,14 +76,23 @@
             }
         }
 
-        // Initialize particles
+        // Initialize particles in a strict 2D coordinate grid
         function initParticles() {
             particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+            const cols = Math.floor(canvas.width / spacing) + 1;
+            const rows = Math.floor(canvas.height / spacing) + 1;
+            const offsetX = (canvas.width - (cols - 1) * spacing) / 2;
+            const offsetY = (canvas.height - (rows - 1) * spacing) / 2;
+
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    const x = offsetX + i * spacing;
+                    const y = offsetY + j * spacing;
+                    const color = colors[(i + j) % colors.length]; // alternating structured pattern
+                    particles.push(new Particle(x, y, color));
+                }
             }
         }
-        initParticles();
 
         // Animation Loop
         function animate() {
@@ -126,6 +103,9 @@
             });
             requestAnimationFrame(animate);
         }
+
+        // Trigger initial sizing and loop
+        resizeCanvas();
         animate();
 
         // ── Desktop Mousemove Event mapping ──
