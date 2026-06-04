@@ -378,8 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const viewport = modal.querySelector('.modal-carousel-viewport');
             const close = modal.querySelector('.close-modal');
             
-            // If click is not inside the viewport, arrows, or close button, close the modal
-            if (viewport && !viewport.contains(e.target) && !e.target.classList.contains('carousel-arrow') && e.target !== close) {
+            // Arrows are inside the viewport, so viewport.contains() covers them
+            if (viewport && !viewport.contains(e.target) && e.target !== close) {
                 closeModalFunc();
             }
         });
@@ -402,16 +402,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateModal(project, images, container) {
         container.innerHTML = `
             <div class="slider-overlay-container">
-                <button class="carousel-arrow prev-arrow" aria-label="Previous Slide">←</button>
                 <div class="modal-carousel-viewport">
                     <img class="carousel-active-image" src="${images[0]}" alt="${project.title}">
+                    <!-- Arrows float absolutely over the image -->
+                    <button class="carousel-arrow prev-arrow" aria-label="Previous Slide">&#8592;</button>
+                    <button class="carousel-arrow next-arrow" aria-label="Next Slide">&#8594;</button>
                     <div class="carousel-caption">
                         <h3 class="carousel-project-title">${project.title.toUpperCase()}</h3>
                         <p class="carousel-project-meta">${project.typology} &bull; ${project.location}</p>
                         <span class="carousel-index">1 / ${images.length}</span>
                     </div>
                 </div>
-                <button class="carousel-arrow next-arrow" aria-label="Next Slide">→</button>
             </div>
         `;
     }
