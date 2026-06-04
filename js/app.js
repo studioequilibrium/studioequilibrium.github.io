@@ -2,6 +2,164 @@
  * Studio Equilibrium - Enhanced Interactivity (Multi-page Safe & Custom Physics Follower)
  */
 
+// ----------------------------------------------------
+// 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Stabilized Drifting Engine)
+// ----------------------------------------------------
+(function() {
+    const canvas = document.getElementById('bg-particle-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 75; // steady array of 75 minimalist tracking dots
+        let pointer = { x: null, y: null, radius: 100 };
+        const returnEase = 0.03; // tiny elasticity coefficient
+        const friction = 0.95;
+
+        // Resize handler to occupy 100% of viewport width and height dynamically
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(init = false) {
+                // Baseline coordinates that slowly drift
+                if (init) {
+                    this.baseX = Math.random() * canvas.width;
+                    this.baseY = Math.random() * canvas.height;
+                } else {
+                    // Reset at screen edges depending on drift direction
+                    if (this.vxBase > 0) {
+                        this.baseX = 0;
+                        this.baseY = Math.random() * canvas.height;
+                    } else {
+                        this.baseX = canvas.width;
+                        this.baseY = Math.random() * canvas.height;
+                    }
+                }
+                
+                this.x = this.baseX;
+                this.y = this.baseY;
+                
+                // Slowly drift speeds
+                this.vxBase = (Math.random() - 0.5) * 0.4;
+                this.vyBase = (Math.random() - 0.5) * 0.4;
+                
+                this.vx = 0;
+                this.vy = 0;
+                this.radius = 1.5 + Math.random() * 0.5; // small random radius (1.5px to 2px)
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(100, 100, 100, 0.15)'; // subtle charcoal fill color
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            update() {
+                // Update baseline drifting position
+                this.baseX += this.vxBase;
+                this.baseY += this.vyBase;
+
+                // Screen boundary wrapping
+                if (this.baseX < 0 || this.baseX > canvas.width || this.baseY < 0 || this.baseY > canvas.height) {
+                    this.reset(false);
+                }
+
+                let ax = 0;
+                let ay = 0;
+
+                // Absolute math routine inside frame update loop to monitor cursor proximity
+                if (pointer.x !== null && pointer.y !== null) {
+                    const dx = this.x - pointer.x;
+                    const dy = this.y - pointer.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < pointer.radius) {
+                        const force = (pointer.radius - distance) / pointer.radius;
+                        const angle = Math.atan2(dy, dx);
+                        
+                        // Push away from pointer with angle/force
+                        ax = Math.cos(angle) * force * 0.8;
+                        ay = Math.sin(angle) * force * 0.8;
+                    }
+                }
+
+                // Spring force back to drifting baseline coordinates (elasticity returnEase)
+                const dxBase = this.baseX - this.x;
+                const dyBase = this.baseY - this.y;
+                ax += dxBase * returnEase;
+                ay += dyBase * returnEase;
+
+                // Physics integration
+                this.vx += ax;
+                this.vy += ay;
+                this.vx *= friction;
+                this.vy *= friction;
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+        }
+
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ── Desktop Mousemove Event mapping ──
+        window.addEventListener('mousemove', (e) => {
+            pointer.x = e.clientX;
+            pointer.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            pointer.x = null;
+            pointer.y = null;
+        });
+
+        // ── Mobile/Tablet Passive Touchmove Event mapping ──
+        window.addEventListener('touchmove', function(e) {
+            if (e.touches.length > 0) {
+                pointer.x = e.touches[0].clientX;
+                pointer.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        // Clear tracking coordinates on mobile finger lift
+        window.addEventListener('touchend', function() {
+            pointer.x = null;
+            pointer.y = null;
+        });
+
+        window.addEventListener('touchcancel', function() {
+            pointer.x = null;
+            pointer.y = null;
+        });
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // ----------------------------------------------------
@@ -686,162 +844,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const step = timelineSteps[index];
                 if (step) centerStep(step);
             });
-        });
-    }
-
-    // ----------------------------------------------------
-    // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Stabilized Drifting Engine)
-    // ----------------------------------------------------
-    const canvas = document.getElementById('bg-particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const particleCount = 75; // steady array of 75 minimalist tracking dots
-        let pointer = { x: null, y: null, radius: 100 };
-        const returnEase = 0.03; // tiny elasticity coefficient
-        const friction = 0.95;
-
-        // Resize handler to occupy 100% of viewport width and height dynamically
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.reset(true);
-            }
-
-            reset(init = false) {
-                // Baseline coordinates that slowly drift
-                if (init) {
-                    this.baseX = Math.random() * canvas.width;
-                    this.baseY = Math.random() * canvas.height;
-                } else {
-                    // Reset at screen edges depending on drift direction
-                    if (this.vxBase > 0) {
-                        this.baseX = 0;
-                        this.baseY = Math.random() * canvas.height;
-                    } else {
-                        this.baseX = canvas.width;
-                        this.baseY = Math.random() * canvas.height;
-                    }
-                }
-                
-                this.x = this.baseX;
-                this.y = this.baseY;
-                
-                // Slowly drift speeds
-                this.vxBase = (Math.random() - 0.5) * 0.4;
-                this.vyBase = (Math.random() - 0.5) * 0.4;
-                
-                this.vx = 0;
-                this.vy = 0;
-                this.radius = 1.5 + Math.random() * 0.5; // small random radius (1.5px to 2px)
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(100, 100, 100, 0.15)'; // subtle charcoal fill color
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            update() {
-                // Update baseline drifting position
-                this.baseX += this.vxBase;
-                this.baseY += this.vyBase;
-
-                // Screen boundary wrapping
-                if (this.baseX < 0 || this.baseX > canvas.width || this.baseY < 0 || this.baseY > canvas.height) {
-                    this.reset(false);
-                }
-
-                let ax = 0;
-                let ay = 0;
-
-                // Absolute math routine inside frame update loop to monitor cursor proximity
-                if (pointer.x !== null && pointer.y !== null) {
-                    const dx = this.x - pointer.x;
-                    const dy = this.y - pointer.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < pointer.radius) {
-                        const force = (pointer.radius - distance) / pointer.radius;
-                        const angle = Math.atan2(dy, dx);
-                        
-                        // Push away from pointer with angle/force
-                        ax = Math.cos(angle) * force * 0.8;
-                        ay = Math.sin(angle) * force * 0.8;
-                    }
-                }
-
-                // Spring force back to drifting baseline coordinates (elasticity returnEase)
-                const dxBase = this.baseX - this.x;
-                const dyBase = this.baseY - this.y;
-                ax += dxBase * returnEase;
-                ay += dyBase * returnEase;
-
-                // Physics integration
-                this.vx += ax;
-                this.vy += ay;
-                this.vx *= friction;
-                this.vy *= friction;
-                this.x += this.vx;
-                this.y += this.vy;
-            }
-        }
-
-        // Initialize particles
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
-
-        // Animation Loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // ── Desktop Mousemove Event mapping ──
-        window.addEventListener('mousemove', (e) => {
-            pointer.x = e.clientX;
-            pointer.y = e.clientY;
-        });
-
-        window.addEventListener('mouseleave', () => {
-            pointer.x = null;
-            pointer.y = null;
-        });
-
-        // ── Mobile/Tablet Passive Touchmove Event mapping ──
-        window.addEventListener('touchmove', function(e) {
-            if (e.touches.length > 0) {
-                pointer.x = e.touches[0].clientX;
-                pointer.y = e.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        // Clear tracking coordinates on mobile finger lift
-        window.addEventListener('touchend', function() {
-            pointer.x = null;
-            pointer.y = null;
-        });
-
-        window.addEventListener('touchcancel', function() {
-            pointer.x = null;
-            pointer.y = null;
         });
     }
 });
