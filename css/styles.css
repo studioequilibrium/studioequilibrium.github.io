@@ -78,12 +78,12 @@
 html {
     scroll-behavior: smooth;
     cursor: none; /* Hide default cursor for custom cursor */
-    background-color: #FFFFFF;
+    background: transparent !important;
 }
 
 body {
     font-family: var(--font-primary);
-    background: #FFFFFF !important;
+    background: transparent !important;
     color: #4A4A4A;
     line-height: 1.6;
     overflow-x: hidden;
@@ -403,7 +403,7 @@ main, section {
     overflow: hidden;
     padding: 0 5%;
     box-sizing: border-box;
-    background-color: #FFFFFF; /* Pure white dedicated brand canvas */
+    background: transparent !important; /* Allow the underlying background canvas to show through */
 }
 
 .hero-content {
