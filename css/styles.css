@@ -89,6 +89,10 @@ body {
     overflow-x: hidden;
 }
 
+main {
+    padding-top: 90px !important;
+}
+
 #bg-particle-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background: #FFFFFF; display: block; }
 
 ::selection {
@@ -2891,7 +2895,13 @@ footer p {
 
     /* ── Primary Structural Zones padding footprint compression ── */
     .section {
-        padding: var(--spacing-lg) 5% !important;
+        padding: var(--spacing-md) 5% !important;
+    }
+
+    .projects-section-header,
+    .contact-section-header {
+        padding-top: var(--spacing-sm) !important;
+        padding-bottom: var(--spacing-sm) !important;
     }
 
     /* ── Breathable Mobile Navigation Bar Envelope ── */
