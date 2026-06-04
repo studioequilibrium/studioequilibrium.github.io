@@ -10,11 +10,17 @@
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const spacing = 45; // evenly spaced grid every 45px
+        const spacing = 20; // micro-scaled spacing (20px to 25px)
         let pointer = { x: null, y: null, radius: 120 }; // threshold radius 120px
-        const returnEase = 0.08; // snappy elastic return coefficient
-        const friction = 0.85; // dampening
-        const colors = ['#db9602', '#db3804', '#339101', '#42009c'];
+        const returnEase = 0.08; // snappy elasticity return coefficient
+        const friction = 0.85;
+        
+        const activeColors = [
+            { r: 219, g: 150, b: 2 },  // Yellow #db9602
+            { r: 219, g: 56, b: 4 },   // Orange #db3804
+            { r: 51, g: 145, b: 1 },   // Green #339101
+            { r: 66, g: 0, b: 156 }    // Purple #42009c
+        ];
 
         // Resize handler to occupy 100% of viewport width and height dynamically
         function resizeCanvas() {
@@ -25,19 +31,30 @@
         window.addEventListener('resize', resizeCanvas);
 
         class Particle {
-            constructor(x, y, color) {
+            constructor(x, y, activeColor) {
                 this.baseX = x;
                 this.baseY = y;
                 this.x = x;
                 this.y = y;
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 1.5; // small architectural dots
-                this.color = color;
+                this.radius = 0.8; // crisp uniform micro radius
+                this.activeColor = activeColor;
+                
+                // Color interpolation state
+                this.r = 150;
+                this.g = 150;
+                this.b = 150;
+                this.a = 0.25; // default concrete grey state
+
+                this.targetR = 150;
+                this.targetG = 150;
+                this.targetB = 150;
+                this.targetA = 0.25;
             }
 
             draw() {
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = `rgba(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)}, ${this.a})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
@@ -47,7 +64,7 @@
                 let ax = 0;
                 let ay = 0;
 
-                // Geometric push away from pointer coordinates
+                // Proximity push from pointer coordinates
                 if (pointer.x !== null && pointer.y !== null) {
                     const dx = this.x - pointer.x;
                     const dy = this.y - pointer.y;
@@ -56,7 +73,7 @@
                     if (distance < pointer.radius) {
                         const force = (pointer.radius - distance) / pointer.radius;
                         const angle = Math.atan2(dy, dx);
-                        ax = Math.cos(angle) * force * 5.0; // strong snappy slide
+                        ax = Math.cos(angle) * force * 5.0; // snappy slide
                         ay = Math.sin(angle) * force * 5.0;
                     }
                 }
@@ -73,6 +90,26 @@
                 this.vy *= friction;
                 this.x += this.vx;
                 this.y += this.vy;
+
+                // Color morphing loop based on active motion velocity
+                let velocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (velocity > 0.1) {
+                    this.targetR = this.activeColor.r;
+                    this.targetG = this.activeColor.g;
+                    this.targetB = this.activeColor.b;
+                    this.targetA = 0.85; // pop vividly against pure white background
+                } else {
+                    this.targetR = 150;
+                    this.targetG = 150;
+                    this.targetB = 150;
+                    this.targetA = 0.25; // fade smoothly back to quiet concrete grey
+                }
+
+                // Smooth color transition
+                this.r += (this.targetR - this.r) * 0.1;
+                this.g += (this.targetG - this.g) * 0.1;
+                this.b += (this.targetB - this.b) * 0.1;
+                this.a += (this.targetA - this.a) * 0.1;
             }
         }
 
@@ -88,8 +125,8 @@
                 for (let j = 0; j < rows; j++) {
                     const x = offsetX + i * spacing;
                     const y = offsetY + j * spacing;
-                    const color = colors[(i + j) % colors.length]; // alternating structured pattern
-                    particles.push(new Particle(x, y, color));
+                    const activeColor = activeColors[(i + j) % activeColors.length]; // alternating structured pattern
+                    particles.push(new Particle(x, y, activeColor));
                 }
             }
         }
