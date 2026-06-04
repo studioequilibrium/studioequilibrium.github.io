@@ -10,16 +10,16 @@
     if (canvas && (window.location.pathname === "/" || window.location.pathname.endsWith("index.html") || window.location.pathname === "")) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const spacing = 20; // micro-scaled spacing (20px to 25px)
+        const spacing = 45; // comfortable spacious grid spacing
         let pointer = { x: null, y: null, radius: 120 }; // threshold radius 120px
         const returnEase = 0.08; // snappy elasticity return coefficient
         const friction = 0.85;
         
         const activeColors = [
-            { r: 221, g: 175, b: 76, a: 0.4 },  // Yellow: Pale Champagne
-            { r: 214, g: 106, b: 72, a: 0.4 },  // Orange: Washed Terracotta/Rust
-            { r: 122, g: 139, b: 113, a: 0.4 }, // Green: Muted Sage
-            { r: 66, g: 0, b: 156, a: 0.25 }    // Purple: Faint Twilight Slate
+            { r: 219, g: 150, b: 2, a: 0.85 },  // Yellow
+            { r: 219, g: 56, b: 4, a: 0.85 },   // Orange
+            { r: 51, g: 145, b: 1, a: 0.85 },   // Green
+            { r: 66, g: 0, b: 156, a: 0.85 }    // Purple
         ];
 
         // Resize handler to occupy 100% of viewport width and height dynamically
@@ -38,23 +38,23 @@
                 this.y = y;
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 0.8; // crisp uniform micro radius
+                this.radius = 1.0; // microscopic sharp 1px radius
                 this.activeColor = activeColor;
                 
                 // Color interpolation state
-                this.r = 80;
-                this.g = 80;
-                this.b = 80;
-                this.a = 0.8; // default concrete grey state
+                this.r = 120;
+                this.g = 120;
+                this.b = 120;
+                this.a = 0.09; // default quiet concrete grey state
 
-                this.targetR = 80;
-                this.targetG = 80;
-                this.targetB = 80;
-                this.targetA = 0.8;
+                this.targetR = 120;
+                this.targetG = 120;
+                this.targetB = 120;
+                this.targetA = 0.09;
             }
 
             draw() {
-                // ctx.fillStyle = "rgba(80, 80, 80, 0.8)";
+                // ctx.fillStyle = "rgba(120, 120, 120, 0.09)";
                 ctx.fillStyle = `rgba(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)}, ${this.a})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -100,10 +100,10 @@
                     this.targetB = this.activeColor.b;
                     this.targetA = this.activeColor.a;
                 } else {
-                    this.targetR = 80;
-                    this.targetG = 80;
-                    this.targetB = 80;
-                    this.targetA = 0.8; // fade smoothly back to quiet concrete grey
+                    this.targetR = 120;
+                    this.targetG = 120;
+                    this.targetB = 120;
+                    this.targetA = 0.09; // fade smoothly back to quiet concrete grey
                 }
 
                 // Smooth color transition
