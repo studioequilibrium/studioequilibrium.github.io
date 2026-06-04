@@ -2830,4 +2830,71 @@ footer p {
     }
 }
 
+/* 
+========================================
+   UNIFIED SOFT-CARD DESIGN SYSTEM
+========================================
+*/
+.intro-container,
+.services-brief-grid,
+.client-app-card,
+.featured-grid,
+.studio-grid-row,
+.portfolio-vertical-sequence,
+.contact-layout,
+.service-narrative-item {
+    background-color: #FAF9F6 !important; /* Soft off-white paper texture */
+    border-radius: 12px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02) !important; /* Diffused pillow drop shadow */
+    border: 1px solid rgba(0, 0, 0, 0.04) !important; /* Clean boundary border */
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Individual padding and margin adjustments for layout rhythm */
+.intro-container {
+    padding: var(--spacing-md) !important;
+}
+
+.services-brief-grid {
+    padding: var(--spacing-md) !important;
+}
+
+.client-app-card {
+    padding: var(--spacing-md) !important;
+}
+
+.featured-grid {
+    padding: var(--spacing-md) !important;
+}
+
+.portfolio-vertical-sequence {
+    padding: var(--spacing-lg) var(--spacing-md) !important;
+}
+
+.contact-layout {
+    padding: var(--spacing-lg) var(--spacing-md) !important;
+}
+
+.service-narrative-item {
+    padding: var(--spacing-md) !important;
+    margin-bottom: var(--spacing-lg) !important;
+    border-bottom: none !important; /* Remove legacy border-bottom for card look */
+}
+
+/* Responsive padding adjustments for mobile viewports */
+@media (max-width: 768px) {
+    .intro-container,
+    .services-brief-grid,
+    .client-app-card,
+    .featured-grid,
+    .studio-grid-row,
+    .portfolio-vertical-sequence,
+    .contact-layout,
+    .service-narrative-item {
+        padding: 1.25rem !important;
+    }
+}
+
+
 
