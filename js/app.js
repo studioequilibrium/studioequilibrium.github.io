@@ -7,7 +7,7 @@
 // ----------------------------------------------------
 (function() {
     const canvas = document.getElementById('bg-particle-canvas');
-    if (canvas) {
+    if (canvas && (window.location.pathname === "/" || window.location.pathname.endsWith("index.html") || window.location.pathname === "")) {
         const ctx = canvas.getContext('2d');
         let particles = [];
         const spacing = 20; // micro-scaled spacing (20px to 25px)
@@ -16,10 +16,10 @@
         const friction = 0.85;
         
         const activeColors = [
-            { r: 219, g: 150, b: 2 },  // Yellow #db9602
-            { r: 219, g: 56, b: 4 },   // Orange #db3804
-            { r: 51, g: 145, b: 1 },   // Green #339101
-            { r: 66, g: 0, b: 156 }    // Purple #42009c
+            { r: 221, g: 175, b: 76, a: 0.4 },  // Yellow: Pale Champagne
+            { r: 214, g: 106, b: 72, a: 0.4 },  // Orange: Washed Terracotta/Rust
+            { r: 122, g: 139, b: 113, a: 0.4 }, // Green: Muted Sage
+            { r: 66, g: 0, b: 156, a: 0.25 }    // Purple: Faint Twilight Slate
         ];
 
         // Resize handler to occupy 100% of viewport width and height dynamically
@@ -42,18 +42,19 @@
                 this.activeColor = activeColor;
                 
                 // Color interpolation state
-                this.r = 150;
-                this.g = 150;
-                this.b = 150;
-                this.a = 0.25; // default concrete grey state
+                this.r = 80;
+                this.g = 80;
+                this.b = 80;
+                this.a = 0.8; // default concrete grey state
 
-                this.targetR = 150;
-                this.targetG = 150;
-                this.targetB = 150;
-                this.targetA = 0.25;
+                this.targetR = 80;
+                this.targetG = 80;
+                this.targetB = 80;
+                this.targetA = 0.8;
             }
 
             draw() {
+                // ctx.fillStyle = "rgba(80, 80, 80, 0.8)";
                 ctx.fillStyle = `rgba(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)}, ${this.a})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -97,12 +98,12 @@
                     this.targetR = this.activeColor.r;
                     this.targetG = this.activeColor.g;
                     this.targetB = this.activeColor.b;
-                    this.targetA = 0.85; // pop vividly against pure white background
+                    this.targetA = this.activeColor.a;
                 } else {
-                    this.targetR = 150;
-                    this.targetG = 150;
-                    this.targetB = 150;
-                    this.targetA = 0.25; // fade smoothly back to quiet concrete grey
+                    this.targetR = 80;
+                    this.targetG = 80;
+                    this.targetB = 80;
+                    this.targetA = 0.8; // fade smoothly back to quiet concrete grey
                 }
 
                 // Smooth color transition
