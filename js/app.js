@@ -690,96 +690,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Upgraded Ripple Engine)
+    // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Optimized Drifting Engine)
     // ----------------------------------------------------
     const canvas = document.getElementById('bg-particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let mouse = { x: null, y: null, active: false };
-        let ripples = [];
-        let lastX = 0;
-        let lastY = 0;
+        const particleCount = 70; // 60 to 80 particles
+        let mouseX = null;
+        let mouseY = null;
+        const pushRadius = 120; // proximity tracking radius
+        const pushStrength = 0.8;
+        const returnEase = 0.03;
+        const friction = 0.95;
 
-        const spacing = 22; // grid spacing (increased density for drafting matrix)
-        const returnEase = 0.05; // spring constant
-        const friction = 0.85; // damping/friction
-        const minMoveDist = 15; // minimum distance to spawn next ripple
-
-        const idleColor = { r: 51, g: 51, b: 51 }; // dark grey #333333
-        const idleAlpha = 0.15; // low opacity grid
-
-        const palette = [
-            { r: 214, g: 106, b: 72 },   // rust orange #D66A48
-            { r: 122, g: 139, b: 113 }, // sage green #7A8B71
-            { r: 221, g: 175, b: 76 }    // mustard gold #DDAF4C
-        ];
+        // Resize handler to occupy 100% of viewport width and height dynamically
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         class Particle {
-            constructor(x, y) {
-                this.baseX = x;
-                this.baseY = y;
-                this.x = x;
-                this.y = y;
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(init = false) {
+                // Baseline coordinates that slowly drift
+                if (init) {
+                    this.baseX = Math.random() * canvas.width;
+                    this.baseY = Math.random() * canvas.height;
+                } else {
+                    // Reset at screen edges depending on drift direction
+                    if (this.vxBase > 0) {
+                        this.baseX = 0;
+                        this.baseY = Math.random() * canvas.height;
+                    } else {
+                        this.baseX = canvas.width;
+                        this.baseY = Math.random() * canvas.height;
+                    }
+                }
+                
+                this.x = this.baseX;
+                this.y = this.baseY;
+                
+                // Slowly drift speeds
+                this.vxBase = (Math.random() - 0.5) * 0.4;
+                this.vyBase = (Math.random() - 0.5) * 0.4;
+                
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 1;
-                
-                // Color interpolation state
-                this.color = { ...idleColor };
-                this.alpha = idleAlpha;
-                this.targetColor = { ...idleColor };
-                this.targetAlpha = idleAlpha;
-                this.isShifted = false;
+                this.radius = 1.5; // small subtle dots
             }
 
             draw() {
-                ctx.fillStyle = `rgba(${Math.round(this.color.r)}, ${Math.round(this.color.g)}, ${Math.round(this.color.b)}, ${this.alpha})`;
+                ctx.fillStyle = 'rgba(150, 150, 150, 0.25)'; // subtle grey color
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
             }
 
             update() {
-                // Spring force returning to base coordinates
-                const dxBase = this.baseX - this.x;
-                const dyBase = this.baseY - this.y;
-                let ax = dxBase * returnEase;
-                let ay = dyBase * returnEase;
+                // Update baseline drifting position
+                this.baseX += this.vxBase;
+                this.baseY += this.vyBase;
 
-                let isCurrentlyPushed = false;
+                // Screen boundary wrapping
+                if (this.baseX < 0 || this.baseX > canvas.width || this.baseY < 0 || this.baseY > canvas.height) {
+                    this.reset(false);
+                }
 
-                // 1. Direct magnetic deflection from cursor (short range: 50px)
-                if (mouse.active && mouse.x !== null && mouse.y !== null) {
-                    const dxMouse = this.x - mouse.x;
-                    const dyMouse = this.y - mouse.y;
-                    const distance = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                let ax = 0;
+                let ay = 0;
 
-                    if (distance < 50) {
-                        const force = (50 - distance) / 50 * 1.5;
-                        const angle = Math.atan2(dyMouse, dxMouse);
-                        ax += Math.cos(angle) * force;
-                        ay += Math.sin(angle) * force;
-                        isCurrentlyPushed = true;
+                // Calculate push force if mouse or touch is near
+                if (mouseX !== null && mouseY !== null) {
+                    const dx = this.x - mouseX;
+                    const dy = this.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < pushRadius) {
+                        const force = (pushRadius - dist) / pushRadius;
+                        const angle = Math.atan2(dy, dx);
+                        ax = Math.cos(angle) * force * pushStrength;
+                        ay = Math.sin(angle) * force * pushStrength;
                     }
                 }
 
-                // 2. Deflection from expanding ripple waves (max radius: 180px)
-                ripples.forEach(ripple => {
-                    const dxRipple = this.x - ripple.x;
-                    const dyRipple = this.y - ripple.y;
-                    const distance = Math.sqrt(dxRipple * dxRipple + dyRipple * dyRipple);
-                    const thickness = 25;
-                    const distFromWave = Math.abs(distance - ripple.radius);
-
-                    if (distFromWave < thickness && distance > 10) {
-                        const force = (1 - distFromWave / thickness) * ripple.strength * (1 - ripple.radius / ripple.maxRadius);
-                        const angle = Math.atan2(dyRipple, dxRipple);
-                        ax += Math.cos(angle) * force;
-                        ay += Math.sin(angle) * force;
-                        isCurrentlyPushed = true;
-                    }
-                });
+                // Spring force back to drifting baseline coordinates
+                const dxBase = this.baseX - this.x;
+                const dyBase = this.baseY - this.y;
+                ax += dxBase * returnEase;
+                ay += dyBase * returnEase;
 
                 // Physics integration
                 this.vx += ax;
@@ -788,134 +792,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.vy *= friction;
                 this.x += this.vx;
                 this.y += this.vy;
-
-                // Color shift state manager
-                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                if (isCurrentlyPushed || speed > 0.3) {
-                    if (!this.isShifted) {
-                        const randomColor = palette[Math.floor(Math.random() * palette.length)];
-                        this.targetColor = { ...randomColor };
-                        this.targetAlpha = 0.75; // vivid color opacity
-                        this.isShifted = true;
-                    }
-                } else if (speed < 0.05) {
-                    this.targetColor = { ...idleColor };
-                    this.targetAlpha = idleAlpha;
-                    this.isShifted = false;
-                }
-
-                // Smooth color transition
-                this.color.r += (this.targetColor.r - this.color.r) * 0.06;
-                this.color.g += (this.targetColor.g - this.color.g) * 0.06;
-                this.color.b += (this.targetColor.b - this.color.b) * 0.06;
-                this.alpha += (this.targetAlpha - this.alpha) * 0.06;
             }
         }
 
-        function initGrid() {
+        // Initialize particles
+        function initParticles() {
             particles = [];
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const cols = Math.floor(canvas.width / spacing) + 2;
-            const rows = Math.floor(canvas.height / spacing) + 2;
-
-            const offsetX = (canvas.width - (cols - 1) * spacing) / 2;
-            const offsetY = (canvas.height - (rows - 1) * spacing) / 2;
-
-            for (let i = 0; i < cols; i++) {
-                for (let j = 0; j < rows; j++) {
-                    const x = offsetX + i * spacing;
-                    const y = offsetY + j * spacing;
-                    particles.push(new Particle(x, y));
-                }
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
             }
         }
+        initParticles();
 
+        // Animation Loop
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Propagate ripple wave fronts
-            ripples.forEach(r => {
-                r.radius += r.speed;
-            });
-            ripples = ripples.filter(r => r.radius <= r.maxRadius);
-
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
             requestAnimationFrame(animate);
         }
+        animate();
 
-        window.addEventListener('resize', () => {
-            initGrid();
-        });
-
+        // ── Desktop Proximity event ──
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            mouse.active = true;
-
-            const dist = Math.sqrt((e.clientX - lastX) ** 2 + (e.clientY - lastY) ** 2);
-            if (dist > minMoveDist) {
-                ripples.push({
-                    x: e.clientX,
-                    y: e.clientY,
-                    radius: 0,
-                    maxRadius: 100, // deflection radius: 100px (localized precision)
-                    speed: 6,
-                    strength: 2.2
-                });
-                lastX = e.clientX;
-                lastY = e.clientY;
-            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
         window.addEventListener('mouseleave', () => {
-            mouse.active = false;
-            mouse.x = null;
-            mouse.y = null;
+            mouseX = null;
+            mouseY = null;
         });
 
-        // ── Mobile/Tablet Touch Ripple Handler ──
-        // Maps finger-drag gestures directly to the same ripple and
-        // mouse-position tracking as the desktop mousemove handler,
-        // so a continuous swipe generates the fluid particle ripple
-        // effect without requiring individual taps.
-        function handleTouchMove(e) {
-            if (!e.touches || e.touches.length === 0) return;
-            const touch = e.touches[0];
-            const tx = touch.clientX;
-            const ty = touch.clientY;
-
-            mouse.x = tx;
-            mouse.y = ty;
-            mouse.active = true;
-
-            const dist = Math.sqrt((tx - lastX) ** 2 + (ty - lastY) ** 2);
-            if (dist > minMoveDist) {
-                ripples.push({
-                    x: tx,
-                    y: ty,
-                    radius: 0,
-                    maxRadius: 100,
-                    speed: 6,
-                    strength: 2.2
-                });
-                lastX = tx;
-                lastY = ty;
+        // ── Mobile/Tablet Passive touch event ──
+        window.addEventListener('touchmove', function(e) {
+            if(e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
             }
-        }
-        window.addEventListener('touchmove', handleTouchMove, { passive: true });
+        }, { passive: true });
 
         window.addEventListener('touchend', () => {
-            mouse.active = false;
-            mouse.x = null;
-            mouse.y = null;
+            mouseX = null;
+            mouseY = null;
         });
 
-        initGrid();
-        animate();
+        window.addEventListener('touchcancel', () => {
+            mouseX = null;
+            mouseY = null;
+        });
     }
 });

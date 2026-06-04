@@ -89,16 +89,7 @@ body {
     overflow-x: hidden;
 }
 
-#bg-particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    pointer-events: none;
-    background-color: #FFFFFF;
-}
+#bg-particle-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background: #FFFFFF; }
 
 ::selection {
     background-color: var(--color-sage-light);
