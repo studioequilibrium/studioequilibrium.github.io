@@ -86,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hover effect for standard interactive elements
         const setupCursorHovers = () => {
+            const hasHover = window.matchMedia('(hover: hover)').matches;
+            if (!hasHover) return; // Do not attach hover triggers on touchscreen devices
+
             const interactiveElements = document.querySelectorAll('a, button, .project-card, .close-modal, .view-all-btn, .submit-btn, select, option, input, textarea, .client-app-feature-v');
             interactiveElements.forEach(el => {
                 el.removeEventListener('mouseenter', addHoverState);
@@ -105,16 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 heading.addEventListener('mouseleave', removeTitleHoverState);
             });
 
-            // Specific blueprint hover state for ACCORD showcase features
+            // Specific blueprint click/tap visual state for ACCORD showcase features (prevents sticky mobile hover)
             const blueprintFeatures = document.querySelectorAll('.client-app-feature-v');
             blueprintFeatures.forEach(bf => {
-                bf.addEventListener('mouseenter', () => {
+                bf.addEventListener('click', () => {
                     follower.classList.add('blueprint-hover');
                     follower.innerHTML = '<span class="blueprint-cursor-label">VIEW</span>';
-                });
-                bf.addEventListener('mouseleave', () => {
-                    follower.classList.remove('blueprint-hover');
-                    follower.innerHTML = '';
+                    
+                    // Clear visual indicator state automatically after 800ms
+                    setTimeout(() => {
+                        follower.classList.remove('blueprint-hover');
+                        follower.innerHTML = '';
+                    }, 800);
                 });
             });
         };
@@ -535,6 +540,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (featureBlocks.length > 0 && activeScreenImg) {
+        const hasHover = window.matchMedia('(hover: hover)').matches;
+
         featureBlocks.forEach(block => {
             const target = block.getAttribute('data-target');
             
@@ -548,13 +555,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            block.addEventListener('mouseenter', () => {
-                applyState(target, true);
-            });
-            
-            block.addEventListener('mouseleave', () => {
-                applyState(currentActiveTarget, true);
-            });
+            if (hasHover) {
+                block.addEventListener('mouseenter', () => {
+                    applyState(target, true);
+                });
+                
+                block.addEventListener('mouseleave', () => {
+                    applyState(currentActiveTarget, true);
+                });
+            }
 
             const triggerLink = block.querySelector('.app-feature-trigger');
             if (triggerLink) {
@@ -569,10 +578,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         applyState(target, true);
                     }
                 });
-                triggerLink.addEventListener('mouseenter', (e) => {
-                    e.stopPropagation();
-                    applyState(target, true);
-                });
+                if (hasHover) {
+                    triggerLink.addEventListener('mouseenter', (e) => {
+                        e.stopPropagation();
+                        applyState(target, true);
+                    });
+                }
             }
         });
     }

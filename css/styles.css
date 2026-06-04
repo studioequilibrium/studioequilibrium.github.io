@@ -173,6 +173,13 @@ a, button {
     border-color: white;
 }
 
+@media (pointer: coarse) {
+    .cursor, .cursor-follower {
+        display: none !important;
+    }
+}
+
+
 /* 
 ========================================
    SCROLL ANIMATIONS (Fade-in)
@@ -471,8 +478,8 @@ main, section {
     position: relative;
     width: 100%;
     height: 70vh;
-    overflow: hidden;
-    border-radius: 12px;
+    overflow: hidden !important;
+    border-radius: 12px !important;
     opacity: 1; /* Majestic panoramic gateway showing full-color architectural view */
     isolation: isolate;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -731,10 +738,10 @@ main, section {
 
 .project-card {
     position: relative;
-    overflow: hidden;
+    overflow: hidden !important;
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-light);
-    border-radius: 12px;
+    border-radius: 12px !important;
     box-shadow: var(--shadow-card);
     padding: 12px;
     display: flex;
@@ -757,9 +764,9 @@ main, section {
 .project-image-container {
     width: 100%;
     height: 500px;
-    overflow: hidden;
+    overflow: hidden !important;
     position: relative;
-    border-radius: 8px;
+    border-radius: 12px !important;
     transition: transform 0.5s var(--transition-smooth);
 }
 
@@ -995,11 +1002,15 @@ footer p {
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
     margin-bottom: var(--spacing-lg);
     border-bottom: 1px solid #333;
     padding-bottom: var(--spacing-md);
+    gap: var(--spacing-md);
 }
 
 .footer-logo {
@@ -1026,7 +1037,7 @@ footer p {
     background-color: #1E1E1E; /* Bold contrasting solid charcoal block */
     padding: 1.5rem 2rem;
     border-radius: 8px;
-    border-left: 3px solid #42009c; /* Isolated Purple Border Override */
+    border: 1px solid #42009c !important; /* Hardened Purple Border Override */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
@@ -1167,29 +1178,45 @@ footer p {
     transform-origin: center center;
 }
 
-/* Specific hover highlights using app accent colors and scale up */
-.client-app-feature-v[data-target="stages"] .app-feature-trigger:hover,
+/* Specific active highlights using app accent colors and scale up */
 .client-app-feature-v[data-target="stages"].active-sage .app-feature-trigger {
     color: var(--color-sage) !important;
     transform: scale(1.03);
 }
 
-.client-app-feature-v[data-target="documents"] .app-feature-trigger:hover,
 .client-app-feature-v[data-target="documents"].active-mustard .app-feature-trigger {
     color: var(--color-mustard) !important;
     transform: scale(1.03);
 }
 
-.client-app-feature-v[data-target="materials"] .app-feature-trigger:hover,
 .client-app-feature-v[data-target="materials"].active-terracotta .app-feature-trigger {
     color: var(--color-terracotta) !important;
     transform: scale(1.03);
 }
 
-.client-app-feature-v[data-target="scope"] .app-feature-trigger:hover,
 .client-app-feature-v[data-target="scope"].active-mustard .app-feature-trigger {
     color: var(--color-mustard) !important;
     transform: scale(1.03);
+}
+
+/* Specific hover highlights - restricted to devices that support true pointer hovers */
+@media (hover: hover) {
+    .client-app-feature-v[data-target="stages"] .app-feature-trigger:hover {
+        color: var(--color-sage) !important;
+        transform: scale(1.03);
+    }
+    .client-app-feature-v[data-target="documents"] .app-feature-trigger:hover {
+        color: var(--color-mustard) !important;
+        transform: scale(1.03);
+    }
+    .client-app-feature-v[data-target="materials"] .app-feature-trigger:hover {
+        color: var(--color-terracotta) !important;
+        transform: scale(1.03);
+    }
+    .client-app-feature-v[data-target="scope"] .app-feature-trigger:hover {
+        color: var(--color-mustard) !important;
+        transform: scale(1.03);
+    }
 }
 
 /* Active Highlight States on Feature Narrative Block */
@@ -1237,15 +1264,12 @@ footer p {
 
 /* Custom Geometric Blueprint Pointer Follower Badge */
 .cursor-follower.blueprint-hover {
-    width: 80px !important;
-    height: 80px !important;
-    border: 1.5px dashed var(--color-terracotta) !important;
-    border-radius: 4px;
-    background-color: rgba(211, 97, 53, 0.9) !important;
+    pointer-events: none;
+    mix-blend-mode: normal !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    mix-blend-mode: normal !important;
+    animation: blueprintFadeOut 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .blueprint-cursor-label {
@@ -1256,6 +1280,42 @@ footer p {
     font-weight: 600;
     text-transform: uppercase;
 }
+
+@keyframes blueprintFadeOut {
+    0% {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background-color: transparent;
+        opacity: 0;
+    }
+    15% {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        border: 1.5px dashed var(--color-terracotta) !important;
+        background-color: rgba(211, 97, 53, 0.9) !important;
+        opacity: 1;
+    }
+    75% {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        border: 1.5px dashed var(--color-terracotta) !important;
+        background-color: rgba(211, 97, 53, 0.9) !important;
+        opacity: 1;
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+        border: 1.5px dashed var(--color-terracotta) !important;
+        background-color: rgba(211, 97, 53, 0) !important;
+        opacity: 0;
+    }
+}
+
 
 .footer-bottom {
     font-size: 0.8rem;
@@ -1418,7 +1478,7 @@ footer p {
     .footer-content {
         flex-direction: column;
         gap: var(--spacing-lg);
-        align-items: flex-start;
+        align-items: center;
     }
     
     .footer-social-tray {
@@ -2302,6 +2362,8 @@ footer p {
     align-items: center;
     gap: var(--spacing-xl);
     margin-top: var(--spacing-md);
+    container-type: inline-size;
+    --phone-height: min(480px, 28cqw);
 }
 
 .device-mockup {
@@ -2316,15 +2378,15 @@ footer p {
 }
 
 .phone-mockup {
-    width: 240px;
-    height: 480px; /* Precise height */
-    border-radius: 40px; /* True rounded borders */
+    height: var(--phone-height);
+    width: calc(var(--phone-height) / 2);
+    border-radius: calc(var(--phone-height) * 0.0833); /* Proportional true rounded borders */
 }
 
 .tablet-mockup {
-    height: 480px; /* Exact height matching phone mockup */
-    aspect-ratio: 16 / 10; /* High-fidelity landscape aspect ratio */
-    border-radius: 36px; /* True rounded borders */
+    height: calc(var(--phone-height) - 16px); /* Matches physical height of phone screen box */
+    width: calc((var(--phone-height) - 16px) * 1.6); /* aspect-ratio 16:10 */
+    border-radius: calc((var(--phone-height) - 16px) * 0.075); /* Proportional true rounded borders */
 }
 
 .device-speaker {
@@ -2375,13 +2437,25 @@ footer p {
     filter: none !important; /* Retain screenshots colors */
 }
 
-@media (max-width: 1024px) {
+/* Proportional scaling on laptop & tablet viewports */
+@media (max-width: 1200px) {
+    .client-app-ui-showcase.dual-showcase {
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
     .client-app-ui-showcase.dual-showcase {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
     .tablet-mockup {
-        display: none !important;
+        display: none !important; /* Hide tablet on smartphone screens for optimal mobile view */
+    }
+    .phone-mockup {
+        width: 240px !important;
+        height: 480px !important;
+        border-radius: 40px !important;
     }
 }
 
@@ -2533,7 +2607,8 @@ footer p {
 .project-vertical-image-container {
     width: 100%;
     height: 520px;
-    overflow: hidden;
+    overflow: hidden !important;
+    border-radius: 12px !important;
     border: 1px solid var(--color-gray-mid);
     background-color: var(--color-gray-light);
     position: relative;
@@ -2703,4 +2778,56 @@ footer p {
     opacity: 1;
     animation: movingLaser 3s linear infinite;
 }
+
+/* ── Tablet and smartphone screen adaptations for Studio Page ── */
+@media (max-width: 1024px) {
+    .studio-grid-row {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .studio-grid-header {
+        border-right: none !important;
+        border-bottom: 1px solid var(--color-gray-mid) !important;
+        padding-bottom: var(--spacing-sm) !important;
+    }
+
+    .studio-grid-content {
+        padding: var(--spacing-md) 0 !important;
+    }
+
+    .values-layout-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .tech-layout-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--spacing-md) !important;
+    }
+
+    .studio-values-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+    
+    .studio-tech-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+
+    .values-image-container {
+        height: 350px !important;
+        width: 100% !important;
+        margin-top: var(--spacing-md) !important;
+    }
+
+    .tech-widescreen-image-container {
+        height: 350px !important;
+        width: 100% !important;
+        margin-top: var(--spacing-md) !important;
+    }
+}
+
 
