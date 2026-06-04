@@ -690,18 +690,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Optimized Drifting Engine)
+    // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Stabilized Drifting Engine)
     // ----------------------------------------------------
     const canvas = document.getElementById('bg-particle-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const particleCount = 70; // 60 to 80 particles
-        let mouseX = null;
-        let mouseY = null;
-        const pushRadius = 120; // proximity tracking radius
-        const pushStrength = 0.8;
-        const returnEase = 0.03;
+        const particleCount = 75; // steady array of 75 minimalist tracking dots
+        let pointer = { x: null, y: null, radius: 100 };
+        const returnEase = 0.03; // tiny elasticity coefficient
         const friction = 0.95;
 
         // Resize handler to occupy 100% of viewport width and height dynamically
@@ -742,11 +739,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 this.vx = 0;
                 this.vy = 0;
-                this.radius = 1.5; // small subtle dots
+                this.radius = 1.5 + Math.random() * 0.5; // small random radius (1.5px to 2px)
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(150, 150, 150, 0.25)'; // subtle grey color
+                ctx.fillStyle = 'rgba(100, 100, 100, 0.15)'; // subtle charcoal fill color
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
@@ -765,21 +762,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 let ax = 0;
                 let ay = 0;
 
-                // Calculate push force if mouse or touch is near
-                if (mouseX !== null && mouseY !== null) {
-                    const dx = this.x - mouseX;
-                    const dy = this.y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+                // Absolute math routine inside frame update loop to monitor cursor proximity
+                if (pointer.x !== null && pointer.y !== null) {
+                    const dx = this.x - pointer.x;
+                    const dy = this.y - pointer.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < pushRadius) {
-                        const force = (pushRadius - dist) / pushRadius;
+                    if (distance < pointer.radius) {
+                        const force = (pointer.radius - distance) / pointer.radius;
                         const angle = Math.atan2(dy, dx);
-                        ax = Math.cos(angle) * force * pushStrength;
-                        ay = Math.sin(angle) * force * pushStrength;
+                        
+                        // Push away from pointer with angle/force
+                        ax = Math.cos(angle) * force * 0.8;
+                        ay = Math.sin(angle) * force * 0.8;
                     }
                 }
 
-                // Spring force back to drifting baseline coordinates
+                // Spring force back to drifting baseline coordinates (elasticity returnEase)
                 const dxBase = this.baseX - this.x;
                 const dyBase = this.baseY - this.y;
                 ax += dxBase * returnEase;
@@ -815,33 +814,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         animate();
 
-        // ── Desktop Proximity event ──
+        // ── Desktop Mousemove Event mapping ──
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            pointer.x = e.clientX;
+            pointer.y = e.clientY;
         });
 
         window.addEventListener('mouseleave', () => {
-            mouseX = null;
-            mouseY = null;
+            pointer.x = null;
+            pointer.y = null;
         });
 
-        // ── Mobile/Tablet Passive touch event ──
+        // ── Mobile/Tablet Passive Touchmove Event mapping ──
         window.addEventListener('touchmove', function(e) {
-            if(e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
+            if (e.touches.length > 0) {
+                pointer.x = e.touches[0].clientX;
+                pointer.y = e.touches[0].clientY;
             }
         }, { passive: true });
 
-        window.addEventListener('touchend', () => {
-            mouseX = null;
-            mouseY = null;
+        // Clear tracking coordinates on mobile finger lift
+        window.addEventListener('touchend', function() {
+            pointer.x = null;
+            pointer.y = null;
         });
 
-        window.addEventListener('touchcancel', () => {
-            mouseX = null;
-            mouseY = null;
+        window.addEventListener('touchcancel', function() {
+            pointer.x = null;
+            pointer.y = null;
         });
     }
 });
