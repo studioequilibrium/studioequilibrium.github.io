@@ -2874,6 +2874,70 @@ footer p {
         width: 100% !important;
         margin-top: var(--spacing-md) !important;
     }
+
+    /* ── Primary Structural Zones padding footprint compression ── */
+    .section {
+        padding: var(--spacing-lg) 5% !important;
+    }
+
+    /* ── Ultra-Slim Header Layout ── */
+    .navbar {
+        padding: 0.5rem 5% !important;
+    }
+
+    .logo img {
+        max-height: 28px !important;
+    }
+
+    /* ── Low-Profile Footer Strip ── */
+    footer {
+        padding: var(--spacing-sm) 0 !important;
+    }
+
+    .footer-content {
+        margin-bottom: 0.75rem !important;
+        padding: 0 5% 0.75rem 5% !important;
+        gap: 0.75rem !important;
+    }
+
+    .footer-logo {
+        font-size: 1.15rem !important;
+    }
+
+    .footer-tagline {
+        font-size: 0.6rem !important;
+    }
+
+    .footer-info {
+        padding: 0.75rem 1rem !important;
+        gap: 0.25rem !important;
+        font-size: 0.75rem !important;
+    }
+
+    .footer-info h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .footer-info .footer-subtitle {
+        font-size: 0.75rem !important;
+    }
+
+    .footer-info address {
+        gap: 0.25rem !important;
+    }
+
+    .footer-social-tray {
+        gap: 0.85rem !important;
+    }
+
+    .social-link svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .footer-bottom {
+        font-size: 0.7rem !important;
+    }
 }
 
 /* 
