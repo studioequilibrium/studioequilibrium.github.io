@@ -742,6 +742,8 @@ main, section {
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-light);
     border-radius: 12px !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Force WebKit corner clip */
+    isolation: isolate;
     box-shadow: var(--shadow-card);
     padding: 12px;
     display: flex;
