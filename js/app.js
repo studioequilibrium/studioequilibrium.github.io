@@ -393,7 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'assets/images/app-brief.png',
         'assets/images/Enscape_2023-12-03-00-52-43.png',
         'assets/images/Enscape_2023-12-03-00-54-00.png',
-        'assets/images/Enscape_2023-12-03-00-57-33.png'
+        'assets/images/Enscape_2023-12-03-00-57-33.png',
+        'assets/images/projects/vivek-residence/main.png',
+        'assets/images/projects/vivek-residence/AR24-10-01.png',
+        'assets/images/projects/vivek-residence/AR24-10-02.png',
+        'assets/images/projects/vivek-residence/AR24-10-03.png',
+        'assets/images/projects/vivek-residence/AR24-10-04.png'
     ];
 
     // Architectural fallback images list from Unsplash to ensure visual variety and high-fidelity aesthetics
@@ -510,12 +515,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentProject) {
                     activeSlideIndex = 0;
                     const mainImage = getAssetImage(currentProject.image, currentProject.id);
-                    currentProjectImages = [
-                        mainImage,
-                        fallbackImages[(currentProject.id) % fallbackImages.length],
-                        fallbackImages[(currentProject.id + 1) % fallbackImages.length],
-                        fallbackImages[(currentProject.id + 2) % fallbackImages.length]
-                    ];
+                    if (projectId === 1) {
+                        currentProjectImages = [
+                            mainImage,
+                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-01.png', 1),
+                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-02.png', 1),
+                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-03.png', 1),
+                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-04.png', 1)
+                        ];
+                    } else {
+                        currentProjectImages = [
+                            mainImage,
+                            fallbackImages[(currentProject.id) % fallbackImages.length],
+                            fallbackImages[(currentProject.id + 1) % fallbackImages.length],
+                            fallbackImages[(currentProject.id + 2) % fallbackImages.length]
+                        ];
+                    }
                     
                     populateModal(currentProject, currentProjectImages, modalBody);
                     modal.classList.add('active');

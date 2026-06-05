@@ -1,17 +1,23 @@
 [
   {
     "id": 1,
-    "title": "Estuate Software",
-    "typology": "Commercial",
-    "client": "Estuate Software Pvt. Ltd.",
-    "scale": "43,560 sq ft Site Area",
-    "builtUpArea": "1,30,000 sq ft",
-    "location": "KIADB - SEZ, Bangalore, India",
-    "year": "2022",
-    "status": "Completed",
-    "description": "Designed using a progressive two-phase strategy. Incorporates pre-fabricated structural modules for the upper floors alongside energy-efficient western sun shading elements to mitigate solar heat gain.",
-    "image": "assets/images/estuate-software/main.jpg",
-    "featured": true
+    "title": "Vivek Residence",
+    "typology": "Residential",
+    "client": "Private Client",
+    "scale": "3,000 sq ft Site Area",
+    "builtUpArea": "3,600 sq ft",
+    "location": "Virajpet, India",
+    "year": "2025",
+    "status": "Ongoing",
+    "description": "A tranquil retreat nestled in the coffee plantations of Kodagu. The design balances the rustic character of the region with modern spatial planning, creating a seamless indoor-outdoor living experience.",
+    "image": "assets/images/projects/vivek-residence/main.png",
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/vivek-residence/AR24-10-R01.png",
+      "assets/images/projects/vivek-residence/AR24-10-R02.png",
+      "assets/images/projects/vivek-residence/AR24-10-R03.png",
+      "assets/images/projects/vivek-residence/AR24-10-R04.png"
+    ]
   },
   {
     "id": 2,
