@@ -5,7 +5,7 @@
 // ----------------------------------------------------
 // 8. INTERACTIVE PARTICLE CANVAS BACKGROUND (Signature Grid Engine)
 // ----------------------------------------------------
-(function() {
+(function () {
     const canvas = document.getElementById('bg-particle-canvas');
     if (canvas && (window.location.pathname === "/" || window.location.pathname.endsWith("index.html") || window.location.pathname === "")) {
         const ctx = canvas.getContext('2d');
@@ -14,7 +14,7 @@
         let pointer = { x: null, y: null, radius: 120 }; // threshold radius 120px
         const returnEase = 0.08; // snappy elasticity return coefficient
         const friction = 0.85;
-        
+
         const activeColors = [
             { r: 219, g: 150, b: 2, a: 0.85 },  // Yellow
             { r: 219, g: 56, b: 4, a: 0.85 },   // Orange
@@ -40,7 +40,7 @@
                 this.vy = 0;
                 this.radius = 1.5; // uniform baseline particle radius (1.5px)
                 this.activeColor = activeColor;
-                
+
                 // Color interpolation state
                 this.r = 100;
                 this.g = 100;
@@ -158,7 +158,7 @@
         });
 
         // ── Mobile/Tablet Passive Touchmove Event mapping ──
-        window.addEventListener('touchmove', function(e) {
+        window.addEventListener('touchmove', function (e) {
             if (e.touches.length > 0) {
                 pointer.x = e.touches[0].clientX;
                 pointer.y = e.touches[0].clientY;
@@ -166,12 +166,12 @@
         }, { passive: true });
 
         // Clear tracking coordinates on mobile finger lift
-        window.addEventListener('touchend', function() {
+        window.addEventListener('touchend', function () {
             pointer.x = null;
             pointer.y = null;
         });
 
-        window.addEventListener('touchcancel', function() {
+        window.addEventListener('touchcancel', function () {
             pointer.x = null;
             pointer.y = null;
         });
@@ -179,31 +179,31 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // ----------------------------------------------------
     // 0. MOBILE NAVIGATION HAMBURGER GENERATOR
     // ----------------------------------------------------
     const navbar = document.querySelector('.navbar');
     const navLinks = document.querySelector('.nav-links');
-    
+
     if (navbar && navLinks) {
         const toggleBtn = document.createElement('button');
         toggleBtn.className = 'nav-toggle';
         toggleBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
         toggleBtn.innerHTML = '<span></span><span></span>';
         navbar.appendChild(toggleBtn);
-        
+
         toggleBtn.addEventListener('click', () => {
             toggleBtn.classList.toggle('nav-active');
             navLinks.classList.toggle('nav-active');
-            
+
             if (navLinks.classList.contains('nav-active')) {
                 document.body.style.overflow = 'hidden';
             } else {
                 document.body.style.overflow = '';
             }
         });
-        
+
         // Close menu when a navigation item is clicked
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
+
     // ----------------------------------------------------
     // 0B. AUTOMATED HERO LANDING BACKGROUND SLIDESHOW
     // ----------------------------------------------------
@@ -232,12 +232,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
-    
+
     if (cursor && follower) {
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
         let followerX = 0, followerY = 0;
-        
+
         // Track raw mouse coordinates
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
             interactiveElements.forEach(el => {
                 el.removeEventListener('mouseenter', addHoverState);
                 el.removeEventListener('mouseleave', removeHoverState);
-                
+
                 el.addEventListener('mouseenter', addHoverState);
                 el.addEventListener('mouseleave', removeHoverState);
             });
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             massiveHeadings.forEach(heading => {
                 heading.removeEventListener('mouseenter', addTitleHoverState);
                 heading.removeEventListener('mouseleave', removeTitleHoverState);
-                
+
                 heading.addEventListener('mouseenter', addTitleHoverState);
                 heading.addEventListener('mouseleave', removeTitleHoverState);
             });
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bf.addEventListener('click', () => {
                     follower.classList.add('blueprint-hover');
                     follower.innerHTML = '<span class="blueprint-cursor-label">VIEW</span>';
-                    
+
                     // Clear visual indicator state automatically after 800ms
                     setTimeout(() => {
                         follower.classList.remove('blueprint-hover');
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         };
-        
+
         const addHoverState = () => {
             cursor.classList.add('hovering');
             follower.classList.add('hovering');
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. SCROLL ANIMATIONS (Intersection Observer)
     // ----------------------------------------------------
     const fadeElements = document.querySelectorAll('.fade-in');
-    
+
     if (fadeElements.length > 0) {
         const observerOptions = {
             root: null,
@@ -359,11 +359,11 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(projects => {
                 projectsData = projects;
-                
-                const dataToRender = isFeaturedOnly 
-                    ? projects.filter(p => p.featured === true).slice(0, 4) 
+
+                const dataToRender = isFeaturedOnly
+                    ? projects.filter(p => p.featured === true).slice(0, 4)
                     : projects;
-                
+
                 renderProjects(dataToRender, container);
                 setupModal();
                 if (window.setupCursorHovers) {
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderProjects(projects, container) {
         container.innerHTML = '';
         const isVerticalSequence = container.classList.contains('portfolio-vertical-sequence');
-        
+
         projects.forEach(project => {
             const card = document.createElement(isVerticalSequence ? 'div' : 'article');
             card.className = isVerticalSequence ? 'project-vertical-row' : 'project-card';
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', () => {
                 const projectId = parseInt(card.dataset.id);
                 currentProject = projectsData.find(p => p.id === projectId);
-                
+
                 if (currentProject) {
                     activeSlideIndex = 0;
                     const mainImage = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             fallbackImages[(currentProject.id + 2) % fallbackImages.length]
                         ];
                     }
-                    
+
                     populateModal(currentProject, currentProjectImages, modalBody);
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
@@ -529,12 +529,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         closeBtn.addEventListener('click', closeModalFunc);
-        
+
         // Click outside active display viewport dismisses modal
         modal.addEventListener('click', (e) => {
             const viewport = modal.querySelector('.modal-carousel-viewport');
             const close = modal.querySelector('.close-modal');
-            
+
             // Arrows are inside the viewport, so viewport.contains() covers them
             if (viewport && !viewport.contains(e.target) && e.target !== close) {
                 closeModalFunc();
@@ -581,34 +581,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // Extract values securely
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const projectType = document.getElementById('project-type').value;
             const message = document.getElementById('message').value;
-            
+
             const payload = {
                 name: name.trim(),
                 email: email.trim(),
                 projectType: projectType,
                 message: message.trim()
             };
-            
+
             // Log payload structure ready for backend transmission
             console.log('Dispatching request to email service endpoint...', payload);
-            
+
             const submitBtn = contactForm.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
-            
+
             submitBtn.textContent = 'SENDING...';
             submitBtn.disabled = true;
-            
+
             // Mock security processing and delay
             setTimeout(() => {
                 submitBtn.textContent = 'MESSAGE SENT';
                 contactForm.reset();
-                
+
                 setTimeout(() => {
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
@@ -624,13 +624,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeScreenImgTablet = document.getElementById('active-screen-img-tablet');
     const deviceMockup = document.querySelector('.device-mockup');
     const featureBlocks = document.querySelectorAll('.client-app-feature-v');
-    
+
     const defaultImgPhone = 'assets/images/app/app-dashboard.jpg';
     const defaultImgTablet = 'assets/images/app/tab-app-dashboard.jpg';
     const targetConfigs = {
         stages: {
             phoneImg: 'assets/images/app/app-stages.jpg',
-            tabletImg: 'assets/images/app/tab-app-dashboard.jpg',
+            tabletImg: 'assets/images/app/tab-app-stages.jpg',
             accent: 'active-sage'
         },
         documents: {
@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const applyState = (target, animate = true) => {
         if (!activeScreenImg) return;
-        
+
         featureBlocks.forEach(fb => {
             fb.classList.remove('active-sage', 'active-terracotta', 'active-mustard');
         });
@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
             phoneImgToSet = config.phoneImg;
             tabletImgToSet = config.tabletImg;
             accentToSet = config.accent;
-            
+
             const matchingBlock = Array.from(featureBlocks).find(fb => fb.getAttribute('data-target') === target);
             if (matchingBlock) {
                 matchingBlock.classList.add(accentToSet);
@@ -702,7 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         featureBlocks.forEach(block => {
             const target = block.getAttribute('data-target');
-            
+
             block.addEventListener('click', (e) => {
                 if (currentActiveTarget === target) {
                     currentActiveTarget = null;
@@ -712,12 +712,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     applyState(target, true);
                 }
             });
-            
+
             if (hasHover) {
                 block.addEventListener('mouseenter', () => {
                     applyState(target, true);
                 });
-                
+
                 block.addEventListener('mouseleave', () => {
                     applyState(currentActiveTarget, true);
                 });
@@ -787,7 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ── Dynamic Accordion Layout for Timeline Steps ──
         const ribaNodes = document.querySelectorAll('.riba-node');
-        
+
         const deactivateAllSteps = () => {
             timelineSteps.forEach(step => step.classList.remove('expanded'));
             ribaNodes.forEach(node => node.classList.remove('node-active'));
