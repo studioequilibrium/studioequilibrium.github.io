@@ -382,25 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchAndRender(featuredGrid, true);
     }
 
-    // Define known existing files in assets directory to detect missing assets dynamically
-    const existingAssets = [
-        'assets/images/logo.png',
-        'assets/images/logo-mark.png',
-        'assets/images/app-dashboard.png',
-        'assets/images/app-stages.png',
-        'assets/images/app-documents.png',
-        'assets/images/app-materials.png',
-        'assets/images/app-brief.png',
-        'assets/images/Enscape_2023-12-03-00-52-43.png',
-        'assets/images/Enscape_2023-12-03-00-54-00.png',
-        'assets/images/Enscape_2023-12-03-00-57-33.png',
-        'assets/images/projects/vivek-residence/main.png',
-        'assets/images/projects/vivek-residence/AR24-10-01.png',
-        'assets/images/projects/vivek-residence/AR24-10-02.png',
-        'assets/images/projects/vivek-residence/AR24-10-03.png',
-        'assets/images/projects/vivek-residence/AR24-10-04.png'
-    ];
-
     // Architectural fallback images list from Unsplash to ensure visual variety and high-fidelity aesthetics
     const fallbackImages = [
         'https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&q=80&w=800', // Concrete architectural abstraction
@@ -414,15 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800'  // Architect drafting layout
     ];
 
-    function getAssetImage(path, projectId = 1) {
-        const isPathBlank = !path || path.trim() === '';
-        const isMissing = path && path.startsWith('assets/') && !existingAssets.includes(path);
-        if (isPathBlank || isMissing) {
-            return fallbackImages[(projectId - 1) % fallbackImages.length];
-        }
-        return path;
-    }
-
     function renderProjects(projects, container) {
         container.innerHTML = '';
         const isVerticalSequence = container.classList.contains('portfolio-vertical-sequence');
@@ -433,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.dataset.id = project.id;
 
             const fallbackImage = fallbackImages[(project.id - 1) % fallbackImages.length];
-            const imgSrc = getAssetImage(project.image, project.id);
+            const imgSrc = project.image || fallbackImage;
 
             if (isVerticalSequence) {
                 card.innerHTML = `
@@ -514,15 +486,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (currentProject) {
                     activeSlideIndex = 0;
-                    const mainImage = getAssetImage(currentProject.image, currentProject.id);
-                    if (projectId === 1) {
-                        currentProjectImages = [
-                            mainImage,
-                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-01.png', 1),
-                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-02.png', 1),
-                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-03.png', 1),
-                            getAssetImage('assets/images/projects/vivek-residence/AR24-10-04.png', 1)
-                        ];
+                    const mainImage = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
+                    if (currentProject.gallery && Array.isArray(currentProject.gallery) && currentProject.gallery.length > 0) {
+                        currentProjectImages = currentProject.gallery;
                     } else {
                         currentProjectImages = [
                             mainImage,

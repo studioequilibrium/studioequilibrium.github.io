@@ -3,35 +3,44 @@
     "id": 1,
     "title": "Vivek Residence",
     "typology": "Residential",
-    "client": "Private Client",
-    "scale": "3,000 sq ft Site Area",
+    "client": "Mr. Vivek K P",
+    "scale": "6,000 sq ft Site Area",
     "builtUpArea": "3,600 sq ft",
     "location": "Virajpet, India",
     "year": "2025",
     "status": "Ongoing",
     "description": "A tranquil retreat nestled in the coffee plantations of Kodagu. The design balances the rustic character of the region with modern spatial planning, creating a seamless indoor-outdoor living experience.",
     "image": "assets/images/projects/vivek-residence/main.png",
-    "featured": true,
     "gallery": [
-      "assets/images/projects/vivek-residence/AR24-10-R01.png",
-      "assets/images/projects/vivek-residence/AR24-10-R02.png",
-      "assets/images/projects/vivek-residence/AR24-10-R03.png",
-      "assets/images/projects/vivek-residence/AR24-10-R04.png"
-    ]
+      "assets/images/projects/vivek-residence/main.png",
+      "assets/images/projects/vivek-residence/AR24-10-01.png",
+      "assets/images/projects/vivek-residence/AR24-10-02.png",
+      "assets/images/projects/vivek-residence/AR24-10-03.png",
+      "assets/images/projects/vivek-residence/AR24-10-04.png"
+    ],
+    "featured": true
   },
   {
     "id": 2,
-    "title": "Boys Campus, GSIS",
-    "typology": "Institutional",
-    "client": "Good Shepherd International School",
-    "scale": "90 Acres Campus",
-    "builtUpArea": "3,00,000 sq ft",
-    "location": "Ooty, Tamil Nadu, India",
-    "year": "2015",
-    "status": "Completed",
-    "description": "Part of the extensive phase-2 expansion. The master planning carefully integrates educational, residential, and athletic infrastructure onto steep hillside contours while optimizing movement corridors.",
-    "image": "assets/images/boys-campus-gsis/main.jpg",
-    "featured": true
+    "title": "Radhakrishna Residence",
+    "typology": "Residential",
+    "client": "Mr. Radhakrishna",
+    "scale": "1 Acres",
+    "builtUpArea": "4,000 sq ft",
+    "location": "Hoskote, India",
+    "year": "2025",
+    "status": "Ongoing",
+    "description": "A spacious 4-bedroom home designed on modern minimalistic ideals. Flat terrain ground, neutral palettes, and an abundant flow of natural light deliver spatial tranquility.",
+    "image": "assets/images/projects/radhakrishna-residence/main.png",
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/radhakrishna-residence/main.png",
+      "assets/images/projects/radhakrishna-residence/AR25-03-01.png",
+      "assets/images/projects/radhakrishna-residence/AR25-03-02.png",
+      "assets/images/projects/radhakrishna-residence/AR25-03-03.png",
+      "assets/images/projects/radhakrishna-residence/AR25-03-04.png",
+      "assets/images/projects/radhakrishna-residence/AR25-03-05.png"
+    ]
   },
   {
     "id": 3,
