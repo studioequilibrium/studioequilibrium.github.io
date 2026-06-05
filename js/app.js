@@ -625,27 +625,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const deviceMockup = document.querySelector('.device-mockup');
     const featureBlocks = document.querySelectorAll('.client-app-feature-v');
     
-    const defaultImgPhone = 'assets/images/app-dashboard.png';
-    const defaultImgTablet = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800'; // Analytics dashboard mockup
+    const defaultImgPhone = 'assets/images/app/app-dashboard.jpg';
+    const defaultImgTablet = 'assets/images/app/tab-app-dashboard.jpg';
     const targetConfigs = {
         stages: {
-            phoneImg: 'assets/images/app-stages.png',
-            tabletImg: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800', // Web plan stages mockup
+            phoneImg: 'assets/images/app/app-stages.jpg',
+            tabletImg: 'assets/images/app/tab-app-dashboard.jpg',
             accent: 'active-sage'
         },
         documents: {
-            phoneImg: 'assets/images/app-documents.png',
-            tabletImg: 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80&w=800', // Documents/workstation mockup
+            phoneImg: 'assets/images/app/app-documents.jpg',
+            tabletImg: 'assets/images/app/tab-app-documents.jpg',
             accent: 'active-mustard'
         },
         materials: {
-            phoneImg: 'assets/images/app-materials.png',
-            tabletImg: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', // Architectural materials library
+            phoneImg: 'assets/images/app/app-materials.jpg',
+            tabletImg: 'assets/images/app/tab-app-materials.jpg',
             accent: 'active-terracotta'
         },
         scope: {
-            phoneImg: 'assets/images/app-brief.png',
-            tabletImg: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800', // Product scope/wireframes mockup
+            phoneImg: 'assets/images/app/app-brief.jpg',
+            tabletImg: 'assets/images/app/tab-app-brief.jpg',
             accent: 'active-mustard'
         }
     };

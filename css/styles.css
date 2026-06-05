@@ -2651,10 +2651,11 @@ footer p {
 .device-mockup {
     position: relative;
     background-color: #000;
-    border: 8px solid #1a1a1a;
+    border: 3.5px solid #0f0f10;
     /* Sleek, ultra-thin realistic outline bezel */
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
     overflow: hidden;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.3s ease;
@@ -2663,7 +2664,7 @@ footer p {
 .phone-mockup {
     height: var(--phone-height);
     width: calc(var(--phone-height) / 2);
-    border-radius: calc(var(--phone-height) * 0.0833);
+    border-radius: 28px !important;
     /* Proportional true rounded borders */
 }
 
@@ -2672,7 +2673,7 @@ footer p {
     /* Matches physical height of phone screen box */
     width: calc((var(--phone-height) - 16px) * 1.6);
     /* aspect-ratio 16:10 */
-    border-radius: calc((var(--phone-height) - 16px) * 0.075);
+    border-radius: 20px !important;
     /* Proportional true rounded borders */
 }
 
@@ -2681,6 +2682,7 @@ footer p {
     background-color: #2c2c2c;
     border-radius: 4px;
     z-index: 18;
+    display: none !important;
 }
 
 .phone-mockup .device-speaker {
@@ -2689,6 +2691,7 @@ footer p {
     transform: translateX(-50%);
     width: 45px;
     height: 4px;
+    display: none !important;
 }
 
 .tablet-mockup .device-speaker {
@@ -2697,7 +2700,7 @@ footer p {
     transform: translateY(-50%);
     width: 4px;
     height: 30px;
-    display: none;
+    display: none !important;
     /* Hidden for clean symmetric bezel */
 }
 
