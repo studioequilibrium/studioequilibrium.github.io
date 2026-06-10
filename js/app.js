@@ -579,41 +579,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Extract values securely
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const projectType = document.getElementById('project-type').value;
-            const message = document.getElementById('message').value;
-
-            const payload = {
-                name: name.trim(),
-                email: email.trim(),
-                projectType: projectType,
-                message: message.trim()
-            };
-
-            // Log payload structure ready for backend transmission
-            console.log('Dispatching request to email service endpoint...', payload);
-
-            const submitBtn = contactForm.querySelector('.submit-btn');
+            const submitBtn = document.getElementById('contact-submit-btn');
+            const successOverlay = document.getElementById('form-success-overlay');
             const originalText = submitBtn.textContent;
+
+            // Swap email replyto token with live value before POST
+            const emailInput = document.getElementById('email');
+            const replytoField = contactForm.querySelector('input[name="replyto"]');
+            if (replytoField && emailInput) {
+                replytoField.value = emailInput.value.trim();
+            }
 
             submitBtn.textContent = 'SENDING...';
             submitBtn.disabled = true;
 
-            // Mock security processing and delay
-            setTimeout(() => {
-                submitBtn.textContent = 'MESSAGE SENT';
-                contactForm.reset();
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Hide the form and show success overlay
+                    contactForm.style.display = 'none';
+                    if (successOverlay) {
+                        successOverlay.style.display = 'flex';
+                    }
+                    contactForm.reset();
+                } else {
+                    throw new Error(data.message || 'Submission failed.');
+                }
+            } catch (err) {
+                console.error('Form submission error:', err);
+                submitBtn.textContent = 'FAILED — TRY AGAIN';
+                submitBtn.style.color = 'var(--color-rust-orange)';
+                submitBtn.disabled = false;
 
                 setTimeout(() => {
                     submitBtn.textContent = originalText;
+                    submitBtn.style.color = '';
                     submitBtn.disabled = false;
-                }, 3000);
-            }, 1200);
+                }, 3500);
+            }
         });
     }
 
