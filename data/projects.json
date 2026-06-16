@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Vivek Residence",
+    "title": "The Crimson Courtyard",
     "typology": "Residential",
     "client": "Mr. Vivek K P",
     "scale": "6,000 sq ft Site Area",
@@ -9,7 +9,7 @@
     "location": "Virajpet, India",
     "year": "2025",
     "status": "Ongoing",
-    "description": "A tranquil retreat nestled in the coffee plantations of Kodagu. The design balances the rustic character of the region with modern spatial planning, creating a seamless indoor-outdoor living experience.",
+    "description": "Nestled within Kodagu’s coffee plantations, The Crimson Courtyard seamlessly blends contemporary geometry with regional materiality. Robust exposed concrete frames striking terracotta block façades, while an integrated open courtyard anchors the design—redefining the traditional plantation retreat into a sophisticated, light-filled sanctuary of indoor-outdoor living.",
     "image": "assets/images/projects/vivek-residence/main.png",
     "gallery": [
       "assets/images/projects/vivek-residence/main.png",
@@ -22,7 +22,7 @@
   },
   {
     "id": 2,
-    "title": "Radhakrishna Residence",
+    "title": "The Linea Cuboid",
     "typology": "Residential",
     "client": "Mr. Radhakrishna",
     "scale": "1 Acres",
@@ -30,7 +30,7 @@
     "location": "Hoskote, India",
     "year": "2025",
     "status": "Ongoing",
-    "description": "A modernistic 4-bedroom home. Flat terrain ground, neutral palettes, and an abundant flow of natural light deliver spatial tranquility.",
+    "description": "The Linea Cuboid stands as a sophisticated manifestation of modern contemporary design. Characterized by crisp white monolithic volumes, the residence masterfully integrates a bold geometric layout with striking terracotta relief facades and concrete accents. Its thoughtful spatial programming balances luxurious tranquility with sharp architectural precision.",
     "image": "assets/images/projects/radhakrishna-residence/main.png",
     "featured": true,
     "gallery": [
@@ -44,7 +44,7 @@
   },
   {
     "id": 3,
-    "title": "Nandeesh Residence",
+    "title": "The Serene Monolith",
     "typology": "Residential",
     "client": "Mr. Nandeesh",
     "scale": "3,200 sq ft Site Area",
@@ -52,7 +52,7 @@
     "location": "Bangalore, India",
     "year": "2023",
     "status": "Completed",
-    "description": "A spacious 5-bedroom home designed on Scandinavian minimalistic ideals. Simple contours, neutral palettes, and an abundant flow of natural light deliver spatial tranquility.",
+    "description": "This contemporary five-bedroom residence masterfully contrasts an imposing structural presence with a tranquil interior aesthetic. Seamlessly bridging dramatic double-height volumes and light-flooded expanses with crisp, minimalist detailing, the home reimagines modern Indian luxury through a lens of understated, functional restraint.",
     "image": "assets/images/projects/nandeesh-residence/main.png",
     "featured": true,
     "gallery": [
@@ -63,21 +63,20 @@
       "assets/images/projects/nandeesh-residence/AR23-01- (4).png",
       "assets/images/projects/nandeesh-residence/AR23-01- (5).png",
       "assets/images/projects/nandeesh-residence/AR23-01- (6).png",
-      "assets/images/projects/nandeesh-residence/AR23-01- (7).png",
       "assets/images/projects/nandeesh-residence/AR23-01- (8).png"
     ]
   },
   {
     "id": 4,
-    "title": "Rajendra Residence",
+    "title": "The Layered House",
     "typology": "Residential",
     "client": "Mr. Rajendra",
     "scale": "2,600 sq ft Site Area",
-    "builtUpArea": "4,000 sq ft",
+    "builtUpArea": "4,500 sq ft",
     "location": "Channapattana, India",
     "year": "2025",
     "status": "Ongoing",
-    "description": "A modernistic 4-bedroom home. Clean lines, rich material palettes, and an abundant flow of natural light deliver spatial tranquility.",
+    "description": "The Layered House orchestrates a striking dialogue between bold geometric forms, varying roof levels, and raw stone textures. Designed around a light-filled central core, its clean architectural lines define an inward-looking sanctuary meticulously crafted to balance deep spatial tranquility with urban privacy for modern Indian living.",
     "image": "assets/images/projects/rajendra-residence/main.png",
     "featured": true,
     "gallery": [
@@ -97,7 +96,7 @@
     "location": "Hoskote, Karnataka, India",
     "year": "2025",
     "status": "Design Proposal",
-    "description": "A cafe designed for Naveraa Resorts and Event Center. A minimalist cafe with a focus on clean lines and natural materials.",
+    "description": "Activating the resort's street frontage, this open-air cafe captures the essence of indoor-outdoor living. Monolithic stucco arches echo Naveraa’s heritage language, juxtaposed against a lightweight timber and reed canopy. Tucked inside the compound wall, the layout creates a shaded, intimate retreat immersed in nature.",
     "image": "assets/images/projects/naveraa-cafe/main.png",
     "featured": true,
     "gallery": [
