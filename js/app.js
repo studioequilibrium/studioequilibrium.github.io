@@ -424,10 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <td>${project.client}</td>
                             </tr>
                             <tr>
-                                <td>SCALE</td>
-                                <td>${project.scale}</td>
-                            </tr>
-                            <tr>
                                 <td>AREA</td>
                                 <td>${project.builtUpArea}</td>
                             </tr>
