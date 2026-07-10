@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgEl = modalBody.querySelector('.carousel-active-image');
             const indexEl = modalBody.querySelector('.carousel-index');
             if (imgEl && indexEl) {
-                imgEl.src = currentProjectImages[activeSlideIndex];
+                imgEl.src = currentProjectImages[activeSlideIndex].replace(/\.(png|jpg|jpeg)$/i, '.webp');
                 indexEl.textContent = `${activeSlideIndex + 1} / ${currentProjectImages.length}`;
             }
         };
@@ -471,16 +471,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (currentProject) {
                     activeSlideIndex = 0;
-                    const mainImage = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
+                    const mainImageRaw = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
+                    const mainImage = mainImageRaw.replace(/\.(png|jpg|jpeg)$/i, '.webp');
                     if (currentProject.gallery && Array.isArray(currentProject.gallery) && currentProject.gallery.length > 0) {
-                        currentProjectImages = currentProject.gallery;
+                        currentProjectImages = currentProject.gallery.map(imgUrl => imgUrl.replace(/\.(png|jpg|jpeg)$/i, '.webp'));
                     } else {
                         currentProjectImages = [
                             mainImage,
                             fallbackImages[(currentProject.id) % fallbackImages.length],
                             fallbackImages[(currentProject.id + 1) % fallbackImages.length],
                             fallbackImages[(currentProject.id + 2) % fallbackImages.length]
-                        ];
+                        ].map(imgUrl => imgUrl.replace(/\.(png|jpg|jpeg)$/i, '.webp'));
                     }
 
                     populateModal(currentProject, currentProjectImages, modalBody);
@@ -545,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = `
             <div class="slider-overlay-container">
                 <div class="modal-carousel-viewport">
-                    <img class="carousel-active-image" src="${images[0]}" alt="${project.title}">
+                    <img class="carousel-active-image" src="${images[0].replace(/\.(png|jpg|jpeg)$/i, '.webp')}" alt="${project.title}">
                     <!-- Arrows float absolutely over the image -->
                     <button class="carousel-arrow prev-arrow" aria-label="Previous Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
                     <button class="carousel-arrow next-arrow" aria-label="Next Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
