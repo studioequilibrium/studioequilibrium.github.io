@@ -451,36 +451,6 @@ section {
     padding-bottom: 2px;
 }
 
-.nav-cta-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: var(--spacing-md);
-}
-.nav-cta-button {
-    font-family: var(--font-headings);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: var(--color-black) !important;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.nav-cta-button:hover {
-    background-color: var(--color-charcoal);
-    color: #FFFFFF !important;
-    border-color: var(--color-charcoal);
-}
-
-@media (max-width: 768px) {
-    .nav-cta-wrapper {
-        margin-left: 0 !important;
-        margin-top: var(--spacing-sm);
-    }
-}
-
 /* 
 ========================================
    HERO SECTION (HOME)
@@ -3302,4 +3272,59 @@ footer {
     .service-narrative-item {
         padding: 1.25rem !important;
     }
+}
+
+/* 
+========================================
+   HOME PAGE REACH OUT SECTION
+========================================
+*/
+.home-reach-out-section {
+    background-color: transparent;
+    padding: var(--spacing-xl) var(--spacing-md);
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 4rem auto;
+}
+.reach-out-label {
+    font-family: var(--font-headings);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--color-mustard) !important;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.reach-out-heading {
+    font-family: var(--font-headings);
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--color-black) !important;
+    margin-bottom: 1.5rem;
+}
+.reach-out-text {
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #666666 !important;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg) auto;
+}
+.reach-out-link-btn {
+    font-family: var(--font-headings);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-black) !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+.reach-out-link-btn:hover {
+    color: var(--color-mustard) !important;
+    border-bottom-color: var(--color-mustard);
+    padding-left: 0.5rem; /* Subtle elegant slide movement */
 }
