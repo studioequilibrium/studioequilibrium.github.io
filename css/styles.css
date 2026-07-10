@@ -1208,8 +1208,9 @@ footer {
     font-family: var(--font-headings);
     font-size: 1.4rem;
     letter-spacing: 0.08em;
+    line-height: 1.1; /* Keeps the stacked words structurally tight */
     color: #FFFFFF !important;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 .footer-tagline {
     font-family: var(--font-headings);
