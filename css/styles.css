@@ -3281,11 +3281,11 @@ footer {
 */
 .home-reach-out-section {
     background-color: transparent;
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: 1.5rem var(--spacing-md); /* Tighter top and bottom internal spacing */
     text-align: center;
     width: 100%;
     max-width: 800px;
-    margin: 4rem auto;
+    margin: 1.5rem auto 2.5rem auto; /* Compacted layout margins to perfectly balance the stats section below */
 }
 .reach-out-label {
     font-family: var(--font-headings);
