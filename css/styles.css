@@ -727,14 +727,12 @@ section {
 
 .service-brief-image-frame {
     width: 100%;
-    overflow: hidden !important;
-    /* Clips image inside the frame */
-    border-radius: 12px !important;
-    transform: translateZ(0);
-    /* Force GPU rasterisation layer for corner mask */
-    isolation: isolate;
     aspect-ratio: 3 / 4;
     flex-shrink: 0;
+    border-radius: 16px !important; /* Matches your exact card profile radius */
+    overflow: hidden !important;    /* Prevents the image from spilling past the boundaries on hover */
+    isolation: isolate !important;   /* Forces separate rendering layer to patch mobile WebKit bugs */
+    transform: translateZ(0);       /* Hardens hardware acceleration clipping */
 }
 
 .service-brief-image-frame img {
