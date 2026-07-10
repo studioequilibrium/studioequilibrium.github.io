@@ -526,11 +526,6 @@ section {
     position: relative;
     width: 100%;
     background-color: #FFFFFF;
-    /* ── Hardened corner clipping for all mobile/tablet viewport layers ── */
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    isolation: isolate !important;
-    transform: translateZ(0);
 }
 
 .hero-image {
@@ -549,13 +544,7 @@ section {
     position: relative;
     width: 100%;
     height: 70vh;
-    overflow: hidden !important;
-    border-radius: 12px !important;
     opacity: 1;
-    /* Majestic panoramic gateway showing full-color architectural view */
-    isolation: isolate !important;
-    transform: translateZ(0);
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .hero-slide {
@@ -568,11 +557,17 @@ section {
     opacity: 0;
     transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
     filter: grayscale(20%);
-    /* ── Permanent corner mask override ── */
+}
+
+.hero-slideshow-section,
+.hero-slideshow-container,
+.hero-slide {
     border-radius: 12px !important;
     overflow: hidden !important;
     isolation: isolate !important;
-    transform: translateZ(0);
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
 }
 
 .hero-slide.active {

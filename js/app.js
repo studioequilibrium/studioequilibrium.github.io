@@ -220,10 +220,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.hero-slide');
     if (slides.length > 0) {
         let currentSlideIndex = 0;
+
+        // Ensure the initial active video starts playing if it is a video element
+        const initialActive = slides[currentSlideIndex];
+        if (initialActive && initialActive.tagName === 'VIDEO') {
+            initialActive.play().catch(err => console.log('Autoplay blocked or video not ready:', err));
+        }
+
         setInterval(() => {
-            slides[currentSlideIndex].classList.remove('active');
+            const previousSlide = slides[currentSlideIndex];
+            previousSlide.classList.remove('active');
+            if (previousSlide.tagName === 'VIDEO') {
+                previousSlide.pause();
+                previousSlide.currentTime = 0;
+            }
+
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-            slides[currentSlideIndex].classList.add('active');
+
+            const nextSlide = slides[currentSlideIndex];
+            nextSlide.classList.add('active');
+            if (nextSlide.tagName === 'VIDEO') {
+                nextSlide.play().catch(err => console.log('Video play failed:', err));
+            }
         }, 4000);
     }
 
