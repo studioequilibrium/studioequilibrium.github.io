@@ -1554,7 +1554,10 @@ footer p {
     }
 
     .hero-image {
-        height: 50vh;
+        height: 50vh !important;
+    }
+    .hero-image .hero-slideshow-container {
+        height: 100% !important; /* Forces the video viewport to stay perfectly inside the rounded frame bounds */
     }
 
     .portfolio-grid {
