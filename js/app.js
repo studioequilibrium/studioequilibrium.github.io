@@ -493,8 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.body.style.overflow = 'hidden';
 
                     // Attach arrow listeners
-                    const prevBtn = modalBody.querySelector('.prev-arrow');
-                    const nextBtn = modalBody.querySelector('.next-arrow');
+                    const prevBtn = modalBody.querySelector('.modal-prev');
+                    const nextBtn = modalBody.querySelector('.modal-next');
 
                     if (prevBtn && nextBtn) {
                         prevBtn.addEventListener('click', (e) => {
@@ -552,8 +552,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="modal-carousel-viewport">
                     <img class="carousel-active-image" src="${images[0]}" alt="${project.title}" onerror="if(this.src.endsWith('.webp')){this.src=this.src.replace('.webp','.png');}">
                     <!-- Arrows float absolutely over the image -->
-                    <button class="carousel-arrow prev-arrow" aria-label="Previous Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                    <button class="carousel-arrow next-arrow" aria-label="Next Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                    <button class="modal-prev" aria-label="Previous Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                    <button class="modal-next" aria-label="Next Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
                     <div class="carousel-caption">
                         <h3 class="carousel-project-title">${project.title.toUpperCase()}</h3>
                         <p class="carousel-project-meta">${project.typology} &bull; ${project.location}</p>

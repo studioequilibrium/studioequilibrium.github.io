@@ -1113,43 +1113,47 @@ section {
     letter-spacing: 0.05em;
 }
 
-/* Floating overlay arrows — sit inside the viewport absolutely centred */
-.carousel-arrow {
+/* Floating overlay arrows — large transparent 10% clickable zones */
+.modal-prev, .modal-next {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 110;
-    background: none;
+    top: 0;
+    width: 10%; /* Makes exactly 10% of the sides heavily clickable */
+    height: 100%;
+    background: rgba(0, 0, 0, 0); /* Completely transparent resting state */
     border: none;
-    font-family: var(--font-headings);
-    font-size: 2.5rem;
-    color: #FFFFFF;
-    filter: none !important;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-    opacity: 0.4;
-    padding: 0.5rem;
-    user-select: none;
-    line-height: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    color: #FFFFFF;
+    outline: none;
+    padding: 0;
 }
-
-.carousel-arrow.prev-arrow {
-    left: var(--spacing-md);
+.modal-prev {
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 20px;
 }
-
-.carousel-arrow.next-arrow {
-    right: var(--spacing-md);
+.modal-next {
+    right: 0;
+    justify-content: flex-end;
+    padding-right: 20px;
 }
-
-.carousel-arrow:hover {
-    opacity: 1;
+/* Gentle hover indicator to hint at interactivity without visual clutter */
+.modal-prev:hover, .modal-next:hover {
+    background: rgba(0, 0, 0, 0.05); 
 }
-
-.carousel-arrow:active {
-    opacity: 1;
+/* Ensure the embedded icon vectors remain centered within the padding */
+.modal-prev svg, .modal-next svg,
+.modal-prev i, .modal-next i {
+    font-size: 1.5rem;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+.modal-prev:hover svg, .modal-next:hover svg,
+.modal-prev:hover i, .modal-next:hover i {
+    opacity: 1 !important; /* Makes the arrow crisp and clear only when interacting */
 }
 
 /* 
@@ -1627,9 +1631,8 @@ footer {
         height: 50vh;
     }
 
-    .carousel-arrow {
-        font-size: 2.5rem;
-        padding: 0.5rem;
+    .modal-prev, .modal-next {
+        width: 15%; /* Make them slightly wider on mobile viewports to ease touch access */
     }
 
     .slider-overlay-container {
