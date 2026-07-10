@@ -741,8 +741,8 @@ section {
     object-fit: cover;
     display: block;
     transform: translateZ(0);
-    /* Prevents subpixel bleed on zoom transitions */
-    transition: transform 0.6s var(--transition-smooth);
+    border-radius: 16px !important; /* Force the image itself to match the card radius */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .service-brief-card:hover .service-brief-image-frame img {
