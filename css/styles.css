@@ -2468,9 +2468,18 @@ footer {
 
 .founder-image-container {
     width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    padding-bottom: 0 !important;
+}
+.founder-image-container img {
+    width: 100%;
     height: auto;
-    max-width: 450px; /* Limits the portrait size on extra-large screens */
-    margin: 0 auto;  /* Centers the image nicely when columns stack */
+    display: block;
+    margin-bottom: 0 !important;
+}
+.founder-quote-block {
+    margin-top: 1rem !important; /* Smoothly locks the signature block right below the portrait frame */
 }
 
 .client-app-layout-grid {

@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isVerticalSequence) {
                 card.innerHTML = `
                     <div class="project-vertical-image-container">
-                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';" loading="lazy">
+                        <img src="${imgSrc}" alt="${project.title}" onerror="if(this.src.endsWith('.webp')){this.src=this.src.replace('.webp','.png');}else{this.onerror=null;this.src='${fallbackImage}';}" loading="lazy">
                     </div>
                     <div class="project-vertical-spec-container">
                         <h3 class="project-vertical-title">${project.title.toUpperCase()}</h3>
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 card.innerHTML = `
                     <div class="project-image-container">
-                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';" loading="lazy">
+                        <img src="${imgSrc}" alt="${project.title}" onerror="if(this.src.endsWith('.webp')){this.src=this.src.replace('.webp','.png');}else{this.onerror=null;this.src='${fallbackImage}';}" loading="lazy">
                         <div class="project-info-overlay">
                             <h3>${project.title}</h3>
                             <span>${project.typology}</span>
@@ -458,7 +458,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgEl = modalBody.querySelector('.carousel-active-image');
             const indexEl = modalBody.querySelector('.carousel-index');
             if (imgEl && indexEl) {
-                imgEl.src = currentProjectImages[activeSlideIndex].replace(/\.(png|jpg|jpeg)$/i, '.webp');
+                imgEl.onerror = function() {
+                    if (this.src.endsWith('.webp')) {
+                        this.src = this.src.replace('.webp', '.png');
+                    }
+                };
+                imgEl.src = currentProjectImages[activeSlideIndex];
                 indexEl.textContent = `${activeSlideIndex + 1} / ${currentProjectImages.length}`;
             }
         };
@@ -471,17 +476,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (currentProject) {
                     activeSlideIndex = 0;
-                    const mainImageRaw = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
-                    const mainImage = mainImageRaw.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+                    const mainImage = currentProject.image || fallbackImages[(currentProject.id - 1) % fallbackImages.length];
                     if (currentProject.gallery && Array.isArray(currentProject.gallery) && currentProject.gallery.length > 0) {
-                        currentProjectImages = currentProject.gallery.map(imgUrl => imgUrl.replace(/\.(png|jpg|jpeg)$/i, '.webp'));
+                        currentProjectImages = currentProject.gallery;
                     } else {
                         currentProjectImages = [
                             mainImage,
                             fallbackImages[(currentProject.id) % fallbackImages.length],
                             fallbackImages[(currentProject.id + 1) % fallbackImages.length],
                             fallbackImages[(currentProject.id + 2) % fallbackImages.length]
-                        ].map(imgUrl => imgUrl.replace(/\.(png|jpg|jpeg)$/i, '.webp'));
+                        ];
                     }
 
                     populateModal(currentProject, currentProjectImages, modalBody);
@@ -546,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = `
             <div class="slider-overlay-container">
                 <div class="modal-carousel-viewport">
-                    <img class="carousel-active-image" src="${images[0].replace(/\.(png|jpg|jpeg)$/i, '.webp')}" alt="${project.title}">
+                    <img class="carousel-active-image" src="${images[0]}" alt="${project.title}" onerror="if(this.src.endsWith('.webp')){this.src=this.src.replace('.webp','.png');}">
                     <!-- Arrows float absolutely over the image -->
                     <button class="carousel-arrow prev-arrow" aria-label="Previous Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
                     <button class="carousel-arrow next-arrow" aria-label="Next Slide"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
