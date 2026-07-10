@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isVerticalSequence) {
                 card.innerHTML = `
                     <div class="project-vertical-image-container">
-                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';">
+                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';" loading="lazy">
                     </div>
                     <div class="project-vertical-spec-container">
                         <h3 class="project-vertical-title">${project.title.toUpperCase()}</h3>
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 card.innerHTML = `
                     <div class="project-image-container">
-                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';">
+                        <img src="${imgSrc}" alt="${project.title}" onerror="this.onerror=null; this.src='${fallbackImage}';" loading="lazy">
                         <div class="project-info-overlay">
                             <h3>${project.title}</h3>
                             <span>${project.typology}</span>
@@ -623,27 +623,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const deviceMockup = document.querySelector('.device-mockup');
     const featureBlocks = document.querySelectorAll('.client-app-feature-v');
 
-    const defaultImgPhone = 'assets/images/app/app-dashboard.jpg';
-    const defaultImgTablet = 'assets/images/app/tab-app-dashboard.jpg';
+    const defaultImgPhone = 'assets/images/app/app-dashboard.webp';
+    const defaultImgTablet = 'assets/images/app/tab-app-dashboard.webp';
     const targetConfigs = {
         stages: {
-            phoneImg: 'assets/images/app/app-stages.jpg',
-            tabletImg: 'assets/images/app/tab-app-stages.jpg',
+            phoneImg: 'assets/images/app/app-stages.webp',
+            tabletImg: 'assets/images/app/tab-app-stages.webp',
             accent: 'active-sage'
         },
         documents: {
-            phoneImg: 'assets/images/app/app-documents.jpg',
-            tabletImg: 'assets/images/app/tab-app-documents.jpg',
+            phoneImg: 'assets/images/app/app-documents.webp',
+            tabletImg: 'assets/images/app/tab-app-documents.webp',
             accent: 'active-mustard'
         },
         materials: {
-            phoneImg: 'assets/images/app/app-materials.jpg',
-            tabletImg: 'assets/images/app/tab-app-materials.jpg',
+            phoneImg: 'assets/images/app/app-materials.webp',
+            tabletImg: 'assets/images/app/tab-app-materials.webp',
             accent: 'active-terracotta'
         },
         scope: {
-            phoneImg: 'assets/images/app/app-brief.jpg',
-            tabletImg: 'assets/images/app/tab-app-brief.jpg',
+            phoneImg: 'assets/images/app/app-brief.webp',
+            tabletImg: 'assets/images/app/tab-app-brief.webp',
             accent: 'active-mustard'
         }
     };
