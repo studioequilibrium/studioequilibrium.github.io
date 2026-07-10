@@ -2469,7 +2469,10 @@ footer {
 }
 
 .founder-image-container {
-    height: 480px;
+    width: 100%;
+    height: auto;
+    max-width: 450px; /* Limits the portrait size on extra-large screens */
+    margin: 0 auto;  /* Centers the image nicely when columns stack */
 }
 
 .client-app-layout-grid {
@@ -2508,9 +2511,7 @@ footer {
         gap: var(--spacing-md);
     }
 
-    .founder-image-container {
-        height: 350px;
-    }
+
 
     .client-app-layout-grid {
         grid-template-columns: 1fr;
