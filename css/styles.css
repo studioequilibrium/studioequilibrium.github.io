@@ -3343,42 +3343,54 @@ footer {
     padding-left: 0.5rem; /* Subtle elegant slide movement */
 }
 
-/* Design Portal Header & Interactive Preview Link */
-.design-portal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+/* Prominent Design Portal CTA */
+.portal-cta-container {
+    text-align: center;
+    margin: 3.5rem auto 1.5rem auto;
+    width: 100%;
 }
-.portal-preview-btn {
-    font-family: var(--font-headings);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: var(--color-black) !important;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.75rem 1.75rem;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: transparent;
-    transition: all 0.3s ease-in-out;
+.portal-prominent-cta {
     display: inline-block;
-}
-.portal-preview-btn:hover {
-    background: var(--color-black);
+    background-color: var(--color-terracotta);
     color: #FFFFFF !important;
-    border-color: var(--color-black);
+    font-family: var(--font-headings);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2.8rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(214, 106, 72, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+.portal-prominent-cta .arrow-indicator {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    margin-left: 0.5rem;
+}
+.portal-prominent-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(214, 106, 72, 0.45);
+    background-color: #e27855; /* Slightly lighter terracotta for active feedback */
+}
+.portal-prominent-cta:hover .arrow-indicator {
+    transform: translateX(6px);
 }
 
 @media (max-width: 768px) {
-    .design-portal-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
+    .portal-cta-container {
+        margin: 2.5rem auto 1rem auto;
+        padding: 0 1rem;
+        box-sizing: border-box;
     }
-    .portal-preview-btn {
-        margin: 0.5rem auto 0 auto;
+    .portal-prominent-cta {
+        display: block;
+        width: 100%;
+        padding: 1.1rem 1.5rem;
+        box-sizing: border-box;
     }
 }
