@@ -3342,3 +3342,43 @@ footer {
     border-bottom-color: var(--color-mustard);
     padding-left: 0.5rem; /* Subtle elegant slide movement */
 }
+
+/* Design Portal Header & Interactive Preview Link */
+.design-portal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+.portal-preview-btn {
+    font-family: var(--font-headings);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-black) !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+}
+.portal-preview-btn:hover {
+    background: var(--color-black);
+    color: #FFFFFF !important;
+    border-color: var(--color-black);
+}
+
+@media (max-width: 768px) {
+    .design-portal-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    .portal-preview-btn {
+        margin: 0.5rem auto 0 auto;
+    }
+}
