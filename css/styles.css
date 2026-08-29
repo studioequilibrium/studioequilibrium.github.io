@@ -3351,8 +3351,9 @@ footer {
 }
 .portal-prominent-cta {
     display: inline-block;
-    background-color: var(--color-terracotta);
-    color: #FFFFFF !important;
+    background-color: #1C1D1F; /* Dark charcoal fill */
+    color: var(--color-terracotta) !important; /* Bold theme-colored text */
+    border: 2px solid var(--color-terracotta); /* Slightly thicker border matching our theme accent colors */
     font-family: var(--font-headings);
     font-size: 0.85rem;
     font-weight: 700;
@@ -3361,10 +3362,8 @@ footer {
     text-decoration: none;
     padding: 1.1rem 2.8rem;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(214, 106, 72, 0.25);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
-    border: none;
     outline: none;
 }
 .portal-prominent-cta .arrow-indicator {
@@ -3374,11 +3373,24 @@ footer {
 }
 .portal-prominent-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(214, 106, 72, 0.45);
-    background-color: #e27855; /* Slightly lighter terracotta for active feedback */
+    background-color: #252629; /* Slightly lighter charcoal on hover */
+    color: var(--color-terracotta) !important;
+    animation: portal-pulse-glow 1.8s infinite;
 }
 .portal-prominent-cta:hover .arrow-indicator {
-    transform: translateX(6px);
+    transform: translate(4px, -4px); /* Diagonal nudge for top-right arrow */
+}
+
+@keyframes portal-pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(214, 106, 72, 0.65);
+    }
+    70% {
+        box-shadow: 0 0 0 12px rgba(214, 106, 72, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(214, 106, 72, 0);
+    }
 }
 
 @media (max-width: 768px) {
