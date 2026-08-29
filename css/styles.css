@@ -3343,66 +3343,87 @@ footer {
     padding-left: 0.5rem; /* Subtle elegant slide movement */
 }
 
-/* Prominent Design Portal CTA */
+/* Prominent Design Portal CTA — Massive scale and glowing laser border */
 .portal-cta-container {
     text-align: center;
-    margin: 3.5rem auto 1.5rem auto;
+    margin: 4.5rem auto 2.5rem auto;
     width: 100%;
 }
 .portal-prominent-cta {
+    position: relative;
     display: inline-block;
-    background-color: #1C1D1F; /* Dark charcoal fill */
-    color: var(--color-terracotta) !important; /* Bold theme-colored text */
-    border: 2px solid var(--color-terracotta); /* Slightly thicker border matching our theme accent colors */
-    font-family: var(--font-headings);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    background: transparent; /* Completely transparent background */
     text-decoration: none;
-    padding: 1.1rem 2.8rem;
+    padding: 1.8rem 3.5rem;
     border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
     outline: none;
+    z-index: 1;
 }
+
+/* Moving laser border around the button */
+.portal-prominent-cta::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    padding: 2px; /* Thicker border */
+    background: linear-gradient(90deg, #db9602, #db3804, #339101, #42009c, #db9602);
+    background-size: 200% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: xor;
+    mask-composite: exclude;
+    animation: movingLaser 3s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(218, 56, 4, 0.7));
+    transition: opacity 0.3s ease;
+}
+
+.portal-prominent-cta-text {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3.2vw, 2.8rem); /* Massive bold scale matching metrics typography */
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    color: var(--color-terracotta) !important;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
 .portal-prominent-cta .arrow-indicator {
     display: inline-block;
     transition: transform 0.3s ease;
-    margin-left: 0.5rem;
-}
-.portal-prominent-cta:hover {
-    transform: translateY(-2px);
-    background-color: #252629; /* Slightly lighter charcoal on hover */
-    color: var(--color-terracotta) !important;
-    animation: portal-pulse-glow 1.8s infinite;
-}
-.portal-prominent-cta:hover .arrow-indicator {
-    transform: translate(4px, -4px); /* Diagonal nudge for top-right arrow */
+    margin-left: 0.6rem;
 }
 
-@keyframes portal-pulse-glow {
-    0% {
-        box-shadow: 0 0 0 0 rgba(214, 106, 72, 0.65);
-    }
-    70% {
-        box-shadow: 0 0 0 12px rgba(214, 106, 72, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(214, 106, 72, 0);
-    }
+.portal-prominent-cta:hover .portal-prominent-cta-text {
+    transform: scale(1.02);
+    text-shadow: 0 0 12px rgba(214, 106, 72, 0.5);
+}
+
+.portal-prominent-cta:hover .arrow-indicator {
+    transform: translate(6px, -6px); /* Smooth diagonal nudge */
 }
 
 @media (max-width: 768px) {
     .portal-cta-container {
-        margin: 2.5rem auto 1rem auto;
+        margin: 3rem auto 1.5rem auto;
         padding: 0 1rem;
         box-sizing: border-box;
     }
     .portal-prominent-cta {
         display: block;
         width: 100%;
-        padding: 1.1rem 1.5rem;
+        padding: 1.2rem 1rem;
         box-sizing: border-box;
+    }
+    .portal-prominent-cta-text {
+        font-size: clamp(1.05rem, 4.2vw, 1.4rem); /* Scale down smoothly so it never breaks layout boundaries */
+        letter-spacing: 0.05em;
     }
 }
