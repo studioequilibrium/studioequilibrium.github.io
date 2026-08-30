@@ -3385,7 +3385,7 @@ footer {
 
 .portal-prominent-cta-text {
     font-family: var(--font-headings);
-    font-weight: 700;
+    font-weight: 800;
     font-size: clamp(1.4rem, 3.2vw, 2.8rem); /* Massive bold scale matching metrics typography */
     line-height: 1.1;
     letter-spacing: 0.08em;
