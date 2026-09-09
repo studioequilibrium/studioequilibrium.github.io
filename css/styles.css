@@ -3344,10 +3344,17 @@ footer {
 }
 
 /* Prominent Design Portal CTA — Massive scale and glowing laser border */
-.portal-cta-container {
+.portal-cta-container,
+.portal-cta-wrapper,
+.explore-cta-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem !important; /* Space between EXPLORE NOW and the laser button */
+    width: 100%;
     text-align: center;
     margin: 4.5rem auto 2.5rem auto;
-    width: 100%;
 }
 
 .portal-cta-intro {
@@ -3361,7 +3368,7 @@ footer {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-black);
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     user-select: none;
 }
 
@@ -3446,14 +3453,17 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .portal-cta-container {
+    .portal-cta-container,
+    .portal-cta-wrapper,
+    .explore-cta-container {
         margin: 3rem auto 1.5rem auto;
         padding: 0 1rem;
+        gap: 0.85rem !important;
         box-sizing: border-box;
     }
     .portal-cta-intro {
         font-size: 0.8rem;
-        margin-bottom: 0.85rem;
+        margin-bottom: 0;
         gap: 0.6rem;
     }
     .portal-cta-intro .chevron-arrow {
