@@ -289,7 +289,7 @@
 }
 
 .dna-interactive-card:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-4px) scale(1.02);
     border-color: rgba(214, 106, 72, 0.4);
     box-shadow: 0 16px 36px rgba(214, 106, 72, 0.14);
 }
@@ -347,9 +347,9 @@
 }
 
 /* Subtle Architectural Motion Animations */
-@keyframes dnaDashMove {
+@keyframes dnaAirflowDrift {
     from {
-        stroke-dashoffset: 32;
+        stroke-dashoffset: 48;
     }
     to {
         stroke-dashoffset: 0;
@@ -357,10 +357,40 @@
 }
 
 .dna-wind-path,
-.dna-flow-arrow,
+.dna-flow-arrow {
+    stroke-dasharray: 8 6 !important;
+    animation: dnaAirflowDrift 4s linear infinite !important;
+}
+
+@keyframes dnaSunPathDrift {
+    from {
+        stroke-dashoffset: 40;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
 .dna-sun-path {
     stroke-dasharray: 6 4;
-    animation: dnaDashMove 5s linear infinite;
+    animation: dnaSunPathDrift 6s linear infinite;
+}
+
+@keyframes dnaSunRayPulse {
+    0%, 100% {
+        opacity: 0.35;
+        transform: scaleY(0.97);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scaleY(1.02);
+    }
+}
+
+.dna-sun-beam,
+.dna-light-ray {
+    transform-origin: top center;
+    animation: dnaSunRayPulse 3.5s ease-in-out infinite !important;
 }
 
 @keyframes dnaPulseFocal {
@@ -372,9 +402,7 @@
     }
 }
 
-.dna-pulse-focal,
-.dna-light-ray,
-.dna-sun-beam {
+.dna-pulse-focal {
     animation: dnaPulseFocal 3.5s ease-in-out infinite;
 }
 
@@ -721,6 +749,286 @@
     color: #FFFFFF;
 }
 
+/* Download PDF Button */
+.dna-download-btn {
+    background: #272727;
+    border: 1px solid #1C1D1F;
+    color: #FFFFFF !important;
+    font-family: var(--font-headings, 'Lintel', sans-serif);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.85rem;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dna-download-btn:hover {
+    background: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Complete Selections Preview Ledger ── */
+.dna-ledger-section {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+}
+
+.dna-ledger-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding-bottom: 0.75rem;
+}
+
+.dna-ledger-title {
+    font-family: var(--font-headings, 'Lintel', sans-serif);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #1C1D1F;
+    text-transform: uppercase;
+}
+
+.dna-ledger-sub {
+    font-size: 0.8rem;
+    color: #777777;
+}
+
+.dna-selections-ledger {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem 1.25rem;
+}
+
+.dna-ledger-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAF9F6;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.25s ease;
+}
+
+.dna-ledger-item:hover {
+    border-color: rgba(214, 106, 72, 0.4);
+    background: #FFFDFC;
+}
+
+.dna-ledger-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex-grow: 1;
+    min-width: 0;
+    padding-right: 0.75rem;
+}
+
+.dna-ledger-meta {
+    font-family: var(--font-headings, 'Lintel', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-terracotta, #D66A48);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dna-ledger-choice {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #1C1D1F;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dna-ledger-edit-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    font-family: var(--font-headings, 'Lintel', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #555555;
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.dna-ledger-edit-btn:hover {
+    background: #1C1D1F;
+    color: #FFFFFF;
+    border-color: #1C1D1F;
+}
+
+/* Edit Mode Notification Banner */
+.dna-edit-mode-banner {
+    background: rgba(214, 106, 72, 0.08);
+    border: 1px solid rgba(214, 106, 72, 0.35);
+    border-radius: 8px;
+    padding: 0.65rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    animation: fadeInNotice 0.35s ease;
+}
+
+.dna-edit-mode-text {
+    font-size: 0.82rem;
+    color: #8C391D;
+    font-weight: 600;
+}
+
+.dna-return-dossier-btn {
+    background: var(--color-terracotta, #D66A48);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-headings, 'Lintel', sans-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.dna-return-dossier-btn:hover {
+    background: #BF5736;
+}
+
+/* ── Print Styles for 1-Page Architectural Dossier PDF Export ── */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+    
+    #dna-modal-overlay,
+    #dna-modal-overlay *,
+    #dna-modal-result-view,
+    #dna-modal-result-view * {
+        visibility: visible !important;
+    }
+    
+    #dna-modal-overlay {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: #FFFFFF !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 0 !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    .dna-modal-dialog {
+        max-width: 100% !important;
+        max-height: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: #FFFFFF !important;
+        transform: none !important;
+        overflow: visible !important;
+    }
+    
+    .dna-modal-body {
+        overflow: visible !important;
+        padding: 0.8cm !important;
+    }
+    
+    .dna-modal-header,
+    .dna-modal-footer,
+    .dna-modal-close-btn,
+    .dna-floating-dock,
+    .dna-result-btn-row,
+    .dna-ledger-edit-btn,
+    .dna-secondary-btn,
+    .dna-download-btn,
+    .navbar,
+    footer,
+    canvas {
+        display: none !important;
+    }
+    
+    #dna-modal-result-view {
+        display: block !important;
+        padding: 0 !important;
+    }
+    
+    .dna-result-hero {
+        background: #1C1D1F !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        padding: 1.5rem !important;
+        border-radius: 8px !important;
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .dna-takeaways-grid {
+        gap: 0.85rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .dna-takeaway-card {
+        border: 1px solid #D0D0D0 !important;
+        padding: 0.85rem !important;
+        box-shadow: none !important;
+    }
+    
+    .dna-selections-ledger {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.5rem !important;
+    }
+    
+    .dna-ledger-item {
+        border: 1px solid #E0E0E0 !important;
+        background: #FAFAFA !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        padding: 0.45rem 0.65rem !important;
+    }
+    
+    .dna-ledger-section {
+        border: 1px solid #D0D0D0 !important;
+        padding: 1rem 1.25rem !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .dna-result-cta-box {
+        display: none !important;
+    }
+}
+
 /* ── 9. Responsive Rules ── */
 @media (max-width: 860px) {
     .dna-cards-pair {
@@ -731,6 +1039,11 @@
     .dna-takeaways-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .dna-selections-ledger {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
     
     .dna-card-image-wrap {
@@ -769,12 +1082,17 @@
     .dna-result-hero {
         padding: 1.75rem 1.25rem;
     }
+
+    .dna-ledger-section {
+        padding: 1.25rem 1rem;
+    }
     
     .dna-result-cta-box {
         padding: 1.5rem 1rem;
     }
     
     .dna-inquiry-cta-btn,
+    .dna-download-btn,
     .dna-secondary-btn {
         width: 100%;
         justify-content: center;

@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/images/logo.png?v=7.9">
-    <link rel="apple-touch-icon" href="assets/images/logo.png?v=7.9">
-    <link rel="stylesheet" href="css/styles.css?v=7.9">
-    <link rel="stylesheet" href="css/dna-modal.css?v=7.9">
+    <link rel="icon" type="image/png" href="assets/images/logo.png?v=8.0">
+    <link rel="apple-touch-icon" href="assets/images/logo.png?v=8.0">
+    <link rel="stylesheet" href="css/styles.css?v=8.0">
+    <link rel="stylesheet" href="css/dna-modal.css?v=8.0">
 </head>
 
 <body>
@@ -470,12 +470,25 @@
                         </div>
                     </div>
 
+                    <!-- Complete Selections Preview Ledger & Step-Back Editing -->
+                    <div class="dna-ledger-section">
+                        <div class="dna-ledger-header">
+                            <h3 class="dna-ledger-title">// REVIEW &amp; CALIBRATE SELECTIONS</h3>
+                            <span class="dna-ledger-sub">Click 'EDIT ✎' on any parameter to revisit and modify that chapter</span>
+                        </div>
+                        <div id="dna-selections-ledger" class="dna-selections-ledger">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+
                     <!-- CTA Action Box -->
                     <div class="dna-result-cta-box">
                         <h3 class="dna-result-cta-title">Ready to Bring Your Spatial DNA to Life?</h3>
                         <p class="dna-result-cta-sub">We’ve compiled your 12 architectural parameters. Share your results directly with our design studio in Bangalore to start your concept schematic.</p>
                         <div class="dna-result-btn-row">
                             <a id="dna-inquiry-cta-btn" href="contact.html" class="dna-inquiry-cta-btn">TRANSLATE DNA INTO A PROJECT &rarr;</a>
+                            <button id="dna-download-pdf-btn" class="dna-download-btn">&#128462; DOWNLOAD ARCHITECTURAL DOSSIER (PDF)</button>
+                            <button id="dna-result-modify-btn" class="dna-secondary-btn">&larr; MODIFY CHOICES</button>
                             <button id="dna-result-reset-btn" class="dna-secondary-btn">RE-EXPLORE DNA</button>
                             <button id="dna-result-close-btn" class="dna-secondary-btn">CLOSE</button>
                         </div>
@@ -492,8 +505,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/app.js?v=7.9"></script>
-    <script src="js/dna-modal.js?v=7.9"></script>
+    <script src="js/app.js?v=8.0"></script>
+    <script src="js/dna-modal.js?v=8.0"></script>
 </body>
 
 </html>
