@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" href="assets/images/logo.png?v=7.8">
     <link rel="apple-touch-icon" href="assets/images/logo.png?v=7.8">
     <link rel="stylesheet" href="css/styles.css?v=7.8">
+    <link rel="stylesheet" href="css/dna-modal.css?v=1.0">
 </head>
 
 <body>
@@ -368,8 +369,131 @@
         </div>
     </div>
 
+    <!-- Spatial DNA Discovery Floating Dock Trigger -->
+    <div id="dna-floating-dock" class="dna-floating-dock" role="button" aria-label="Explore Spatial DNA">
+        <span>// SPATIAL DNA DISCOVERY</span>
+        <span class="dock-action">EXPLORE YOUR SPACE DNA &rarr;</span>
+    </div>
+
+    <!-- Spatial DNA Discovery Modal Overlay -->
+    <div id="dna-modal-overlay" class="dna-modal-overlay" aria-modal="true" role="dialog">
+        <div class="dna-modal-dialog">
+            <button id="dna-modal-close-btn" class="dna-modal-close-btn" aria-label="Close modal">&times;</button>
+            
+            <!-- Modal Header -->
+            <div class="dna-modal-header">
+                <div class="dna-modal-brand-row">
+                    <div class="dna-modal-brand">
+                        <img src="assets/images/logo.png" alt="Studio Equilibrium" class="dna-modal-logo">
+                        <span class="dna-modal-title">THE SPATIAL DNA DISCOVERY</span>
+                    </div>
+                    <div id="dna-modal-counter" class="dna-modal-counter">01 <span class="counter-total">/ 12</span></div>
+                </div>
+                <div class="dna-modal-progress-track">
+                    <div id="dna-modal-progress-bar" class="dna-modal-progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Modal Body: Interactive 12 Chapters -->
+            <div class="dna-modal-body">
+                <div id="dna-modal-interactive-body">
+                    <div id="dna-slide-container" class="dna-slide-container slide-active">
+                        <div class="dna-slide-header">
+                            <div id="dna-chapter-category" class="dna-chapter-category">Project Typology // Purpose & Scope</div>
+                            <h2 id="dna-slide-question" class="dna-slide-question">What kind of space are we designing together?</h2>
+                        </div>
+
+                        <!-- 2 Choice Cards -->
+                        <div class="dna-cards-pair">
+                            <!-- Card A -->
+                            <div id="dna-card-a" class="dna-interactive-card">
+                                <div class="dna-card-image-wrap">
+                                    <div class="dna-card-image"></div>
+                                    <div class="dna-card-image-overlay">
+                                        <span class="dna-card-tag">Option A</span>
+                                        <div class="dna-card-radio"></div>
+                                    </div>
+                                </div>
+                                <div class="dna-card-body">
+                                    <h3 class="dna-card-title">Title A</h3>
+                                    <p class="dna-card-desc">Description A</p>
+                                    <div class="dna-card-perks"></div>
+                                </div>
+                            </div>
+
+                            <!-- Card B -->
+                            <div id="dna-card-b" class="dna-interactive-card">
+                                <div class="dna-card-image-wrap">
+                                    <div class="dna-card-image"></div>
+                                    <div class="dna-card-image-overlay">
+                                        <span class="dna-card-tag">Option B</span>
+                                        <div class="dna-card-radio"></div>
+                                    </div>
+                                </div>
+                                <div class="dna-card-body">
+                                    <h3 class="dna-card-title">Title B</h3>
+                                    <p class="dna-card-desc">Description B</p>
+                                    <div class="dna-card-perks"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Architectural Tip -->
+                        <div id="dna-modal-tip" class="dna-modal-tip"></div>
+                    </div>
+                </div>
+
+                <!-- Results View (Hidden by default until Chapter 12 completes) -->
+                <div id="dna-modal-result-view" class="dna-modal-result-view">
+                    <div class="dna-result-hero">
+                        <div class="dna-result-eyebrow">// SYNTHESIZED ARCHITECTURAL PROFILE</div>
+                        <h2 id="dna-result-persona" class="dna-result-persona">The Tropical Courtyard Modernist</h2>
+                        <p id="dna-result-strapline" class="dna-result-strapline"></p>
+                    </div>
+
+                    <!-- 3 Simple Takeaways -->
+                    <div class="dna-takeaways-grid">
+                        <div class="dna-takeaway-card">
+                            <div class="dna-takeaway-num">KEY PRINCIPLE 01</div>
+                            <h4 id="takeaway-1-title" class="dna-takeaway-title">Residential Identity</h4>
+                            <p id="takeaway-1-text" class="dna-takeaway-text"></p>
+                        </div>
+                        <div class="dna-takeaway-card">
+                            <div class="dna-takeaway-num">KEY PRINCIPLE 02</div>
+                            <h4 id="takeaway-2-title" class="dna-takeaway-title">Summer Heat & Climate Control</h4>
+                            <p id="takeaway-2-text" class="dna-takeaway-text"></p>
+                        </div>
+                        <div class="dna-takeaway-card">
+                            <div class="dna-takeaway-num">KEY PRINCIPLE 03</div>
+                            <h4 id="takeaway-3-title" class="dna-takeaway-title">Lifestyle & Family Privacy</h4>
+                            <p id="takeaway-3-text" class="dna-takeaway-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- CTA Action Box -->
+                    <div class="dna-result-cta-box">
+                        <h3 class="dna-result-cta-title">Ready to Bring Your Spatial DNA to Life?</h3>
+                        <p class="dna-result-cta-sub">We’ve compiled your 12 architectural parameters. Share your results directly with our design studio in Bangalore to start your concept schematic.</p>
+                        <div class="dna-result-btn-row">
+                            <a id="dna-inquiry-cta-btn" href="contact.html" class="dna-inquiry-cta-btn">TRANSLATE DNA INTO A PROJECT &rarr;</a>
+                            <button id="dna-result-reset-btn" class="dna-secondary-btn">RE-EXPLORE DNA</button>
+                            <button id="dna-result-close-btn" class="dna-secondary-btn">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer Controls -->
+            <div class="dna-modal-footer">
+                <button id="dna-modal-btn-prev" class="dna-btn-back" disabled>&larr; PREVIOUS CHAPTER</button>
+                <button id="dna-modal-btn-next" class="dna-btn-forward" disabled>NEXT CHAPTER &rarr;</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/app.js?v=7.8"></script>
+    <script src="js/dna-modal.js?v=1.0"></script>
 </body>
 
 </html>
