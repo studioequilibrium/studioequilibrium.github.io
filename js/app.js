@@ -565,10 +565,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 5. CONTACT FORM PROCESSOR
+    // 5. CONTACT FORM PROCESSOR & SPATIAL DNA PREFILL
     // ----------------------------------------------------
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
+        // Check for URL parameters (e.g. from Spatial DNA Discovery)
+        const urlParams = new URLSearchParams(window.location.search);
+        const messageParam = urlParams.get('message');
+        const subjectParam = urlParams.get('subject');
+        const messageField = document.querySelector('textarea[name="message"]') || document.querySelector('#message');
+        const subjectField = document.querySelector('input[name="subject"]') || document.querySelector('#subject');
+
+        if (messageField && messageParam) {
+            try {
+                messageField.value = decodeURIComponent(messageParam);
+            } catch (e) {
+                messageField.value = messageParam;
+            }
+            messageField.rows = 12;
+            messageField.style.borderColor = 'var(--color-rust-orange, #D66A48)';
+            const dnaNotice = document.getElementById('dna-loaded-badge');
+            if (dnaNotice) {
+                dnaNotice.style.display = 'inline-flex';
+            }
+        }
+
+        if (subjectField && subjectParam) {
+            try {
+                subjectField.value = decodeURIComponent(subjectParam);
+            } catch (e) {
+                subjectField.value = subjectParam;
+            }
+        }
+
+        // Auto-select Architecture if Spatial DNA profile loaded
+        const projectTypeSelect = document.getElementById('project-type');
+        if (projectTypeSelect && (messageParam || subjectParam)) {
+            projectTypeSelect.value = 'Architecture';
+        }
+
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 

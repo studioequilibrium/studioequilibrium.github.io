@@ -1,13 +1,13 @@
 /**
  * STUDIO EQUILIBRIUM — THE SPATIAL DNA DISCOVERY MODAL
- * 12-Chapter Photorealistic Interactive Engine & Book-Slide Transition
+ * 12-Chapter Animated Architectural Vector Wireframe Engine
  * Standalone Implementation (js/dna-modal.js)
  */
 
 (function () {
     'use strict';
 
-    // 12 Refined Chapters in Natural Indian English with Authentic Project Imagery
+    // 12 Refined Chapters in Natural Indian English with Animated Architectural SVG Wireframes
     const DNA_CHAPTERS_MODAL = [
         {
             id: 1,
@@ -20,7 +20,31 @@
                 title: "Villas, Bungalows & Apartments",
                 desc: "A bespoke private residence designed around family comfort, quiet sanctuaries, and multi-generational peace.",
                 perks: ["Private Living", "Family Comfort", "Rest & Solitude"],
-                image: "assets/images/projects/radhakrishna-residence/main.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="20" y1="140" x2="300" y2="140" stroke="#888888" stroke-width="0.5" stroke-dasharray="3 3"/>
+    <line x1="50" y1="25" x2="50" y2="135" stroke="#D66A48" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+    <line x1="270" y1="25" x2="270" y2="135" stroke="#D66A48" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+    <rect x="75" y="75" width="170" height="60" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.7)"/>
+    <rect x="60" y="38" width="135" height="42" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.85)"/>
+    <rect x="60" y="38" width="8" height="42" fill="#D66A48"/>
+    <line x1="195" y1="65" x2="255" y2="65" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="205" y1="65" x2="205" y2="75" stroke="#1C1D1F" stroke-width="1.2"/>
+    <line x1="220" y1="65" x2="220" y2="75" stroke="#1C1D1F" stroke-width="1.2"/>
+    <line x1="235" y1="65" x2="235" y2="75" stroke="#1C1D1F" stroke-width="1.2"/>
+    <line x1="250" y1="65" x2="250" y2="75" stroke="#1C1D1F" stroke-width="1.2"/>
+    <rect x="80" y="48" width="55" height="24" stroke="#1C1D1F" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="108" y1="48" x2="108" y2="72" stroke="#1C1D1F" stroke-width="1"/>
+    <rect x="208" y="90" width="22" height="45" stroke="#D66A48" stroke-width="1.5"/>
+    <circle cx="224" cy="114" r="1.5" fill="#D66A48"/>
+    <rect x="90" y="90" width="70" height="35" stroke="#1C1D1F" stroke-width="1"/>
+    <line x1="125" y1="90" x2="125" y2="125" stroke="#1C1D1F" stroke-width="1"/>
+    <path d="M42 135 L42 105 M35 110 L42 100 L49 110 M38 102 L42 94 L46 102" stroke="#7A8B71" stroke-width="1.5"/>
+    <circle cx="42" cy="85" r="14" stroke="#7A8B71" stroke-width="1.2" stroke-dasharray="3 2" fill="rgba(122, 139, 113, 0.08)"/>
+    <line x1="60" y1="148" x2="245" y2="148" stroke="#888888" stroke-width="1"/>
+    <path d="M60 145 L60 151 M245 145 L245 151" stroke="#888888" stroke-width="1"/>
+    <text x="152" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PRIVATE RESIDENCE // 24.0M</text>
+</svg>`
             },
             optionB: {
                 key: "B",
@@ -28,7 +52,35 @@
                 title: "Offices, Retail, F&B Cafes & Clinics",
                 desc: "A dynamic commercial workspace, retail boutique, or public hospitality venue engineered for high customer footfall and brand impact.",
                 perks: ["Brand Experience", "Customer Flow", "Functional Impact"],
-                image: "assets/images/projects/naveraa-cafe/main.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="60" y1="30" x2="60" y2="135" stroke="#1C1D1F" stroke-width="1.8"/>
+    <line x1="125" y1="30" x2="125" y2="135" stroke="#1C1D1F" stroke-width="1.8"/>
+    <line x1="195" y1="30" x2="195" y2="135" stroke="#1C1D1F" stroke-width="1.8"/>
+    <line x1="260" y1="30" x2="260" y2="135" stroke="#1C1D1F" stroke-width="1.8"/>
+    <rect x="56" y="30" width="208" height="6" fill="#1C1D1F"/>
+    <rect x="56" y="75" width="208" height="5" fill="#1C1D1F"/>
+    <circle cx="60" cy="20" r="6" stroke="#D66A48" stroke-width="1"/>
+    <text x="60" y="23" font-family="'Lintel', sans-serif" font-size="7" fill="#D66A48" text-anchor="middle">A</text>
+    <circle cx="125" cy="20" r="6" stroke="#D66A48" stroke-width="1"/>
+    <text x="125" y="23" font-family="'Lintel', sans-serif" font-size="7" fill="#D66A48" text-anchor="middle">B</text>
+    <circle cx="195" cy="20" r="6" stroke="#D66A48" stroke-width="1"/>
+    <text x="195" y="23" font-family="'Lintel', sans-serif" font-size="7" fill="#D66A48" text-anchor="middle">C</text>
+    <circle cx="260" cy="20" r="6" stroke="#D66A48" stroke-width="1"/>
+    <text x="260" y="23" font-family="'Lintel', sans-serif" font-size="7" fill="#D66A48" text-anchor="middle">D</text>
+    <line x1="82" y1="36" x2="82" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <line x1="104" y1="36" x2="104" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <line x1="148" y1="36" x2="148" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <line x1="172" y1="36" x2="172" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <line x1="216" y1="36" x2="216" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <line x1="238" y1="36" x2="238" y2="75" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <path d="M30 120 Q120 120 160 100 T220 110" stroke="#D66A48" stroke-width="1.5" class="dna-flow-arrow" fill="none"/>
+    <polygon points="222,110 214,107 217,114" fill="#D66A48"/>
+    <line x1="110" y1="80" x2="210" y2="80" stroke="#DDAF4C" stroke-width="2"/>
+    <rect x="135" y="90" width="50" height="45" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.8)"/>
+    <line x1="160" y1="90" x2="160" y2="135" stroke="#1C1D1F" stroke-width="1"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">COMMERCIAL FOOTFALL &amp; BRAND ATRIUM</text>
+</svg>`
             }
         },
         {
@@ -42,7 +94,28 @@
                 title: "Earthy & Tropical Modernism",
                 desc: "Exposed wire-cut clay brickwork, local Sadarahalli stone, pitched roof profiles, warm timber rafters, and lush indoor courtyards.",
                 perks: ["Exposed Brickwork", "Natural Stone", "Lush Courtyards"],
-                image: "assets/images/projects/vivek-residence/main.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <polygon points="45,75 140,30 235,75" stroke="#1C1D1F" stroke-width="1.8" fill="none"/>
+    <line x1="60" y1="70" x2="70" y2="85" stroke="#D66A48" stroke-width="1.2"/>
+    <line x1="80" y1="60" x2="90" y2="75" stroke="#D66A48" stroke-width="1.2"/>
+    <line x1="100" y1="50" x2="110" y2="65" stroke="#D66A48" stroke-width="1.2"/>
+    <line x1="120" y1="40" x2="130" y2="55" stroke="#D66A48" stroke-width="1.2"/>
+    <g stroke="#D66A48" stroke-width="0.9" opacity="0.85">
+        <rect x="55" y="75" width="70" height="60" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(214,106,72,0.06)"/>
+        <line x1="55" y1="87" x2="125" y2="87"/><line x1="55" y1="99" x2="125" y2="99"/><line x1="55" y1="111" x2="125" y2="111"/><line x1="55" y1="123" x2="125" y2="123"/>
+        <line x1="72" y1="75" x2="72" y2="87"/><line x1="108" y1="75" x2="108" y2="87"/>
+        <line x1="90" y1="87" x2="90" y2="99"/>
+        <line x1="72" y1="99" x2="72" y2="111"/><line x1="108" y1="99" x2="108" y2="111"/>
+        <line x1="90" y1="111" x2="90" y2="123"/>
+    </g>
+    <line x1="175" y1="75" x2="175" y2="135" stroke="#1C1D1F" stroke-width="2"/>
+    <line x1="225" y1="75" x2="225" y2="135" stroke="#1C1D1F" stroke-width="2"/>
+    <rect x="50" y="130" width="220" height="5" stroke="#1C1D1F" stroke-width="1" fill="#ECEAE4"/>
+    <path d="M198 135 Q195 105 190 95 M190 95 Q175 88 165 95 M190 95 Q195 80 205 85 M190 95 Q210 92 215 102" stroke="#7A8B71" stroke-width="1.5" fill="none"/>
+    <circle cx="198" cy="133" r="3" fill="#7A8B71"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">EXPOSED BRICK // PITCHED ROOFLINE // STONE PLINTH</text>
+</svg>`
             },
             optionB: {
                 key: "B",
@@ -50,7 +123,19 @@
                 title: "Contemporary Minimalist",
                 desc: "Crisp clean monolithic volumes, expansive floor-to-ceiling glass, subtle exposed concrete accents, and seamless modern elegance.",
                 perks: ["Clean Geometric Lines", "Expansive Glass", "Contemporary Polish"],
-                image: "assets/images/projects/radhakrishna-residence/AR25-03-01.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="70" y1="132" x2="250" y2="132" stroke="#D66A48" stroke-width="1" stroke-dasharray="4 2"/>
+    <polygon points="60,35 240,35 260,75 60,75" stroke="#1C1D1F" stroke-width="1.8" fill="rgba(255,255,255,0.9)"/>
+    <line x1="240" y1="75" x2="240" y2="135" stroke="#D66A48" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+    <rect x="80" y="75" width="130" height="57" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.6)"/>
+    <line x1="125" y1="75" x2="125" y2="132" stroke="#888888" stroke-width="1"/>
+    <line x1="170" y1="75" x2="170" y2="132" stroke="#888888" stroke-width="1"/>
+    <line x1="90" y1="110" x2="115" y2="110" stroke="#D66A48" stroke-width="1.2"/>
+    <rect x="220" y="115" width="45" height="17" stroke="#7A8B71" stroke-width="1" fill="rgba(122,139,113,0.08)"/>
+    <text x="242" y="127" font-family="'Lintel', sans-serif" font-size="6" fill="#7A8B71" text-anchor="middle">WATER POOL</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PURE GEOMETRIC CANTILEVER // SEAMLESS GLAZING</text>
+</svg>`
             }
         },
         {
@@ -64,7 +149,31 @@
                 title: "Deep Balcony Overhangs & Jali Screens",
                 desc: "Generous 2-meter shaded overhangs and breathable terracotta brick jalis that shade rooms naturally and capture refreshing breezes.",
                 perks: ["Natural Solar Shading", "Low AC Power Bills", "Soft Ambient Glow"],
-                image: "assets/images/projects/rajendra-residence/AR25-01- (1).webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <g class="dna-sun-path">
+        <circle cx="45" cy="30" r="12" stroke="#DDAF4C" stroke-width="1.5" fill="rgba(221, 175, 76, 0.12)"/>
+        <line x1="45" y1="12" x2="45" y2="6" stroke="#DDAF4C" stroke-width="1.5"/>
+        <line x1="63" y1="30" x2="69" y2="30" stroke="#DDAF4C" stroke-width="1.5"/>
+        <line x1="58" y1="43" x2="63" y2="48" stroke="#DDAF4C" stroke-width="1.5"/>
+        <line x1="58" y1="17" x2="63" y2="12" stroke="#DDAF4C" stroke-width="1.5"/>
+    </g>
+    <path d="M58 38 L140 85" stroke="#DDAF4C" stroke-width="1.5" stroke-dasharray="4 3" class="dna-sun-beam"/>
+    <polygon points="120,45 270,45 270,55 140,55" fill="#1C1D1F" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="230" y="55" width="40" height="80" stroke="#1C1D1F" stroke-width="1.5"/>
+    <g stroke="#D66A48" stroke-width="1" opacity="0.9">
+        <rect x="145" y="55" width="28" height="80" stroke="#D66A48" stroke-width="1.5" fill="rgba(214,106,72,0.06)"/>
+        <circle cx="152" cy="65" r="2.5"/><circle cx="166" cy="65" r="2.5"/>
+        <circle cx="152" cy="77" r="2.5"/><circle cx="166" cy="77" r="2.5"/>
+        <circle cx="152" cy="89" r="2.5"/><circle cx="166" cy="89" r="2.5"/>
+        <circle cx="152" cy="101" r="2.5"/><circle cx="166" cy="101" r="2.5"/>
+        <circle cx="152" cy="113" r="2.5"/><circle cx="166" cy="113" r="2.5"/>
+        <circle cx="152" cy="125" r="2.5"/><circle cx="166" cy="125" r="2.5"/>
+    </g>
+    <path d="M110 95 Q140 92 180 95 T220 95" stroke="#7A8B71" stroke-width="1.5" stroke-dasharray="4 3" class="dna-wind-path"/>
+    <rect x="175" y="55" width="55" height="80" fill="rgba(0,0,0,0.03)" stroke="#1C1D1F" stroke-width="1"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PASSIVE SHADE OVERHANG // BREATHABLE JALI SCREEN</text>
+</svg>`
             },
             optionB: {
                 key: "B",
@@ -72,7 +181,28 @@
                 title: "High-Performance Glass & Automated Louvers",
                 desc: "Double-glazed Low-E insulated glass panels paired with sleek motorized exterior architectural louvers for precision climate control.",
                 perks: ["Double-Glazed Insulation", "Motorized Sun Louvers", "Unobstructed Views"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (2).webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="120" y="25" width="150" height="15" fill="#1C1D1F"/>
+    <rect x="120" y="120" width="150" height="15" fill="#1C1D1F"/>
+    <line x1="180" y1="40" x2="180" y2="120" stroke="#1C1D1F" stroke-width="2"/>
+    <line x1="186" y1="40" x2="186" y2="120" stroke="#1C1D1F" stroke-width="2"/>
+    <line x1="183" y1="45" x2="183" y2="115" stroke="#D66A48" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <g stroke="#1C1D1F" stroke-width="1.5">
+        <line x1="140" y1="48" x2="165" y2="40"/>
+        <line x1="140" y1="62" x2="165" y2="54"/>
+        <line x1="140" y1="76" x2="165" y2="68"/>
+        <line x1="140" y1="90" x2="165" y2="82"/>
+        <line x1="140" y1="104" x2="165" y2="96"/>
+        <line x1="140" y1="118" x2="165" y2="110"/>
+    </g>
+    <line x1="152" y1="35" x2="152" y2="125" stroke="#D66A48" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <path d="M70 60 L145 78 L95 105" stroke="#DDAF4C" stroke-width="1.5" class="dna-sun-beam"/>
+    <polygon points="95,105 104,103 100,97" fill="#DDAF4C"/>
+    <text x="220" y="82" font-family="'Lintel', sans-serif" font-size="8" fill="#1C1D1F" text-anchor="middle">24°C</text>
+    <text x="220" y="93" font-family="'Lintel', sans-serif" font-size="6" fill="#888888" text-anchor="middle">CLIMATE SEALED</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">INSULATED DOUBLE GLAZING // MOTORIZED SUN LOUVERS</text>
+</svg>`
             }
         },
         {
@@ -86,169 +216,364 @@
                 title: "Soft, Indirect Light & Skylights",
                 desc: "Gentle, uniform daylight brought down through central lightwells and north-facing glass slots that keeps rooms cool and calm.",
                 perks: ["Zero Harsh Glare", "Gallery-Grade Serenity", "Cooler Rooms"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (3).webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <polygon points="60,135 60,65 140,25 140,65 240,25 240,135" stroke="#1C1D1F" stroke-width="1.8" fill="none"/>
+    <line x1="140" y1="25" x2="140" y2="65" stroke="#D66A48" stroke-width="2"/>
+    <line x1="240" y1="25" x2="240" y2="65" stroke="#D66A48" stroke-width="2"/>
+    <g stroke="#DDAF4C" stroke-width="1.2" stroke-dasharray="4 3" class="dna-light-ray">
+        <line x1="142" y1="35" x2="190" y2="125"/>
+        <line x1="142" y1="48" x2="170" y2="125"/>
+        <line x1="142" y1="60" x2="150" y2="125"/>
+        <line x1="242" y1="35" x2="280" y2="125"/>
+        <line x1="242" y1="52" x2="260" y2="125"/>
+    </g>
+    <line x1="125" y1="65" x2="155" y2="65" stroke="#1C1D1F" stroke-width="2"/>
+    <rect x="75" y="80" width="22" height="30" stroke="#1C1D1F" stroke-width="1" fill="rgba(214,106,72,0.1)"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">NORTH CLERESTORY LIGHTWELL // 100% GLARE-FREE CALM</text>
+</svg>`
             },
             optionB: {
                 key: "B",
                 tag: "Light Approach B",
-                title: "Bold Sunlight & Shadow Play",
-                desc: "Dramatic sunlit cutouts, architectural pergolas, and deep shadow patterns that shift dynamically as the sun moves across the sky.",
-                perks: ["Dynamic Shadow Casts", "Sculptural Atmosphere", "High-Impact Drama"],
-                image: "assets/images/projects/vivek-residence/AR24-10-02.webp"
+                title: "Direct Dramatic Sun & Shadow Play",
+                desc: "Intentional sunbeams piercing deep into high-ceiling living areas, creating ever-changing geometric shadow art on bare stone walls.",
+                perks: ["Dynamic Day Experience", "Architectural Shadow Art", "Warm Morning Radiance"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="70" y="30" width="180" height="105" stroke="#1C1D1F" stroke-width="1.8" fill="none"/>
+    <line x1="100" y1="30" x2="130" y2="30" stroke="#FAF9F6" stroke-width="3"/>
+    <line x1="100" y1="30" x2="100" y2="38" stroke="#D66A48" stroke-width="1.5"/>
+    <line x1="130" y1="30" x2="130" y2="38" stroke="#D66A48" stroke-width="1.5"/>
+    <polygon points="100,30 130,30 225,135 175,135" fill="rgba(221, 175, 76, 0.2)" stroke="#DDAF4C" stroke-width="1.2" class="dna-sun-beam"/>
+    <g stroke="#1C1D1F" stroke-width="0.8" opacity="0.35">
+        <line x1="185" y1="35" x2="250" y2="100"/>
+        <line x1="200" y1="35" x2="250" y2="85"/>
+        <line x1="215" y1="35" x2="250" y2="70"/>
+        <line x1="230" y1="35" x2="250" y2="55"/>
+    </g>
+    <line x1="140" y1="118" x2="140" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <circle cx="140" cy="115" r="2.5" fill="#1C1D1F"/>
+    <line x1="140" y1="135" x2="170" y2="135" stroke="#1C1D1F" stroke-width="1.5" opacity="0.4"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">HIGH-CONTRAST CHIAROSCURO // GEOMETRIC SUN SLOTS</text>
+</svg>`
             }
         },
         {
             id: 5,
-            category: "Indoor Air // Fresh Ventilation",
-            question: "How would you prefer fresh air to circulate inside?",
-            tip: "Courtyards act as natural air engines—warm air rises out through top vents, pulling in cooler air from shaded ground water features without any fan noise.",
+            category: "Thermal Envelope // Cooling Strategy",
+            question: "How do you prefer to keep your indoor spaces cool?",
+            tip: "Central open-to-sky courtyards naturally vent hot air upward like a chimney, creating continuous fresh breezes across living spaces without electricity.",
             optionA: {
                 key: "A",
-                tag: "Ventilation A",
-                title: "Central Open Courtyard & Cross-Breeze",
-                desc: "An open-to-sky central courtyard that constantly pulls cool breeze through living spaces naturally without relying solely on ceiling fans or AC.",
-                perks: ["100% Natural Fresh Air", "Indoor Rain & Sky Experience", "Whisper Quiet"],
-                image: "assets/images/projects/vivek-residence/AR24-10-01.webp"
+                tag: "Cooling Choice A",
+                title: "Central Open Courtyard & Cross-Ventilation",
+                desc: "A traditional open-to-sky central courtyard that naturally pulls cooler air through living areas, reducing the need for heavy air conditioning.",
+                perks: ["Fresh Outdoor Air", "Natural Chimney Cooling", "Substantial Energy Savings"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="50" y="50" width="70" height="85" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.8)"/>
+    <rect x="200" y="50" width="70" height="85" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.8)"/>
+    <rect x="120" y="85" width="80" height="50" stroke="#D66A48" stroke-width="1.2" stroke-dasharray="3 3" fill="rgba(214,106,72,0.04)" class="dna-pulse-focal"/>
+    <path d="M160 135 L160 110" stroke="#7A8B71" stroke-width="1.5"/>
+    <circle cx="160" cy="102" r="11" stroke="#7A8B71" stroke-width="1.2" fill="rgba(122,139,113,0.15)"/>
+    <path d="M25 125 Q80 120 120 125 T195 125" stroke="#7A8B71" stroke-width="1.5" stroke-dasharray="5 3" class="dna-wind-path"/>
+    <path d="M160 90 L160 30" stroke="#D66A48" stroke-width="1.5" stroke-dasharray="4 3" class="dna-wind-path"/>
+    <polygon points="160,25 156,33 164,33" fill="#D66A48"/>
+    <text x="160" y="20" font-family="'Lintel', sans-serif" font-size="6" fill="#D66A48" text-anchor="middle">THERMAL STACK</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PASSIVE COURTYARD INDUCTION // CONTINUOUS CROSS-BREEZE</text>
+</svg>`
             },
             optionB: {
                 key: "B",
-                tag: "Ventilation B",
-                title: "Sealed & Air-Conditioned Comfort",
-                desc: "A tightly sealed building envelope with dedicated fresh-air filters and air-conditioning that completely blocks out city traffic noise and dust.",
-                perks: ["Zero Dust & Pollution", "Acoustic Silence from Traffic", "Complete Temperature Control"],
-                image: "assets/images/projects/radhakrishna-residence/AR25-03-02.webp"
+                tag: "Cooling Choice B",
+                title: "Airtight Envelope & High-Efficiency AC",
+                desc: "Precision climate-sealed walls with advanced inverter VRV air-conditioning, keeping dust, road noise, and monsoon humidity out.",
+                perks: ["Zero Dust & City Noise", "Guaranteed 24°C Comfort", "Acoustic Silence"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="35" width="200" height="100" stroke="#1C1D1F" stroke-width="2" fill="rgba(255,255,255,0.85)"/>
+    <rect x="64" y="39" width="192" height="92" stroke="#D66A48" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+    <rect x="80" y="45" width="160" height="12" fill="#ECEAE4" stroke="#1C1D1F" stroke-width="1"/>
+    <line x1="95" y1="57" x2="135" y2="57" stroke="#1C1D1F" stroke-width="2"/>
+    <line x1="185" y1="57" x2="225" y2="57" stroke="#1C1D1F" stroke-width="2"/>
+    <path d="M115 62 Q115 100 160 100 T205 62" stroke="#7A8B71" stroke-width="1.2" stroke-dasharray="4 3" class="dna-flow-arrow"/>
+    <rect x="145" y="75" width="30" height="18" rx="2" stroke="#1C1D1F" stroke-width="1" fill="#FFFFFF"/>
+    <text x="160" y="87" font-family="'Lintel', sans-serif" font-size="7" font-weight="bold" fill="#D66A48" text-anchor="middle">23.5°</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">HIGH-EFFICIENCY VRV // CONTINUOUS THERMAL ENVELOPE</text>
+</svg>`
             }
         },
         {
             id: 6,
-            category: "Vertical Space // Ceiling Heights",
-            question: "Do you prefer high open ceilings or maximum floor area?",
-            tip: "A double-height living void gives an unmistakable feeling of luxury and space, while standard single-height ceilings maximize your built-up square footage.",
+            category: "Vertical Scale // Ceiling Experience",
+            question: "How should ceiling height shape your main living area?",
+            tip: "A double-height living room feels grand and architecturally luxurious, but reduces the total carpet area available for bedrooms on the upper floor.",
             optionA: {
                 key: "A",
-                tag: "Volume A",
-                title: "Double-Height Living / Reception Void",
-                desc: "A dramatic 20-foot tall open ceiling that visually connects upper and lower floors, making everyday living feel grand and expansive.",
-                perks: ["Grand Luxurious Volume", "Visual Connection Between Floors", "Architectural Drama"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (4).webp"
+                tag: "Ceiling A",
+                title: "Double-Height Living Void",
+                desc: "A dramatic 20-foot tall ceiling over the living room with an upper-floor mezzanine bridge that overlooks the family below.",
+                perks: ["Spectacular Visual Drama", "Inter-Floor Connection", "Grand Architectural Luxury"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="25" width="200" height="110" stroke="#1C1D1F" stroke-width="1.8" fill="none"/>
+    <rect x="175" y="75" width="85" height="6" fill="#1C1D1F"/>
+    <line x1="175" y1="65" x2="260" y2="65" stroke="#888888" stroke-width="1"/>
+    <rect x="175" y="60" width="4" height="15" fill="#D66A48"/>
+    <line x1="75" y1="28" x2="75" y2="132" stroke="#D66A48" stroke-width="1"/>
+    <path d="M72 32 L75 27 L78 32 M72 128 L75 133 L78 128" stroke="#D66A48" stroke-width="1"/>
+    <text x="82" y="82" font-family="'Lintel', sans-serif" font-size="7" fill="#D66A48">H: 6.8M VOID</text>
+    <line x1="125" y1="25" x2="125" y2="80" stroke="#1C1D1F" stroke-width="0.8"/>
+    <circle cx="125" cy="84" r="5" stroke="#DDAF4C" stroke-width="1.5" fill="rgba(221,175,76,0.3)" class="dna-pulse-focal"/>
+    <line x1="60" y1="45" x2="60" y2="135" stroke="#7A8B71" stroke-width="3"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">SOARING VERTICAL VOID // MEZZANINE VISUAL OVERLOOK</text>
+</svg>`
             },
             optionB: {
                 key: "B",
-                tag: "Volume B",
-                title: "Maximum Usable Floor Space",
-                desc: "Practical floor layouts with standard, comfortable ceiling heights that give you more usable carpet area and enclosed rooms.",
-                perks: ["More Usable Carpet Area", "Cozy Human Scale", "Easier Temperature Control"],
-                image: "assets/images/projects/rajendra-residence/AR25-01- (2).webp"
+                tag: "Ceiling B",
+                title: "Single-Height Maximized Floor Area",
+                desc: "Standard 10.5-foot ceilings throughout, allowing an extra bedroom suite, gym, or home office on the floor above.",
+                perks: ["Maximum Usable Square Footage", "Extra Bedroom on Upper Floor", "Cozy, Intimate Scale"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="25" width="200" height="110" stroke="#1C1D1F" stroke-width="1.8" fill="none"/>
+    <rect x="60" y="78" width="200" height="8" fill="#1C1D1F"/>
+    <text x="110" y="55" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F">SUITE 01</text>
+    <text x="210" y="55" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F">SUITE 02</text>
+    <line x1="160" y1="25" x2="160" y2="78" stroke="#1C1D1F" stroke-width="1.2"/>
+    <text x="110" y="110" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F">LIVING ROOM</text>
+    <text x="210" y="110" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F">DINING + KITCHEN</text>
+    <line x1="160" y1="86" x2="160" y2="135" stroke="#1C1D1F" stroke-width="1.2"/>
+    <rect x="20" y="45" width="35" height="18" stroke="#D66A48" stroke-width="1" fill="#FFFFFF"/>
+    <text x="37" y="57" font-family="'Lintel', sans-serif" font-size="6" fill="#D66A48" text-anchor="middle">+100%</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">MAXIMIZED FLOOR AREA // DUAL COMPLETE USABLE LEVELS</text>
+</svg>`
             }
         },
         {
             id: 7,
-            category: "Arrival Experience // Main Entrance",
-            question: "What should guests experience the moment they step through your main door?",
-            tip: "An entry foyer with an indirect turn creates a mental sense of calm and decompresses the mind from city chaos before welcoming guests inside.",
+            category: "Entrance Transition // Arrival Experience",
+            question: "What should guests experience the moment they enter your home?",
+            tip: "In traditional Indian homes, an entry foyer protects family privacy from delivery couriers and casual visitors before they see the main living hall.",
             optionA: {
                 key: "A",
-                tag: "Threshold A",
-                title: "Sheltered Private Foyer",
-                desc: "A quiet, welcoming entrance lobby that shields your private living spaces from delivery persons and casual visitors at the door.",
-                perks: ["Complete Privacy at Doorstep", "Calming Transition", "Modest Sense of Mystery"],
-                image: "assets/images/projects/radhakrishna-residence/AR25-03-03.webp"
+                tag: "Entry A",
+                title: "Private Step-Back Foyer & Screened Verandah",
+                desc: "A distinct entrance lobby with a decorative partition screen that shields family activities from the main door and street.",
+                perks: ["Complete Family Privacy", "Formal Welcoming Zone", "Shoe & Coat Storage"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="50" y1="60" x2="50" y2="110" stroke="#1C1D1F" stroke-width="2"/>
+    <path d="M50 110 A40 40 0 0 0 90 70" stroke="#D66A48" stroke-width="1" stroke-dasharray="3 2"/>
+    <rect x="135" y="45" width="6" height="60" fill="#D66A48" stroke="#1C1D1F" stroke-width="1"/>
+    <line x1="145" y1="50" x2="145" y2="100" stroke="#888888" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="150" y1="50" x2="150" y2="100" stroke="#888888" stroke-width="1" stroke-dasharray="2 2"/>
+    <path d="M35 85 L95 85 Q115 85 115 115 T180 115" stroke="#7A8B71" stroke-width="1.5" stroke-dasharray="4 3" class="dna-wind-path"/>
+    <text x="95" y="45" font-family="'Lintel', sans-serif" font-size="6" fill="#888888">FOYER</text>
+    <text x="210" y="85" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F">PRIVATE LIVING</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">L-SHAPED REVEAL // COMPLETE SIGHTLINE BUFFER</text>
+</svg>`
             },
             optionB: {
                 key: "B",
-                tag: "Threshold B",
-                title: "Grand Open View",
-                desc: "An immediate, breathtaking view straight into your double-height hall, water garden, and green backyard the second the door opens.",
-                perks: ["Instant Wow Factor", "Open & Airy Welcome", "Immediate Garden Connection"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (5).webp"
+                tag: "Entry B",
+                title: "Direct Open Arrival into Grand Living",
+                desc: "Opening the front door immediately reveals the full expanse of your living, dining, and garden spaces in one breathtaking vista.",
+                perks: ["Instant 'Wow' Impact", "Expansive Open Feel", "Maximum Visual Continuity"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="55" y1="85" x2="95" y2="55" stroke="#D66A48" stroke-width="2"/>
+    <circle cx="55" cy="85" r="3" fill="#D66A48"/>
+    <path d="M55 85 L260 35 M55 85 L260 135" stroke="#DDAF4C" stroke-width="1.2" stroke-dasharray="4 3" class="dna-sun-path"/>
+    <rect x="140" y="55" width="40" height="25" stroke="#1C1D1F" stroke-width="1"/>
+    <text x="160" y="70" font-family="'Lintel', sans-serif" font-size="6" fill="#666666" text-anchor="middle">LOUNGE</text>
+    <rect x="210" y="55" width="45" height="25" stroke="#1C1D1F" stroke-width="1"/>
+    <text x="232" y="70" font-family="'Lintel', sans-serif" font-size="6" fill="#666666" text-anchor="middle">GARDEN</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">UNOBSTRUCTED PANORAMA // INSTANT SPATIAL DRAMA</text>
+</svg>`
             }
         },
         {
             id: 8,
-            category: "Neighborhood Relations // Privacy & Glass",
-            question: "How should your building interact with the street outside?",
-            tip: "In busy Indian residential layouts, inward-looking homes protect family privacy while letting in plenty of light and fresh air through a central court.",
+            category: "Privacy Gradient // Orientation",
+            question: "How should your home relate to the neighborhood around it?",
+            tip: "In dense Indian cities, inward-looking courtyard layouts keep you completely private from neighboring multi-story buildings and street traffic.",
             optionA: {
                 key: "A",
                 tag: "Orientation A",
-                title: "Private Inward-Looking Courtyard",
-                desc: "Solid external walls that block nosy neighbors and road noise, while the entire home opens inward into a lush, private internal garden.",
-                perks: ["100% Privacy from Neighbors", "Blocks Road Noise", "Safe Internal Garden"],
-                image: "assets/images/projects/vivek-residence/AR24-10-03.webp"
+                title: "Inward-Facing Courtyard Life",
+                desc: "Solid external walls with minimal street windows; all primary living rooms wrap around a private inner garden sanctuary.",
+                perks: ["Total Neighbor Privacy", "Zero Street Noise", "Safe Sanctuary for Kids"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="35" width="200" height="100" stroke="#1C1D1F" stroke-width="2" fill="#FFFFFF"/>
+    <rect x="115" y="60" width="90" height="50" stroke="#7A8B71" stroke-width="1.5" fill="rgba(122,139,113,0.12)"/>
+    <circle cx="160" cy="85" r="9" stroke="#7A8B71" stroke-width="1.2" fill="rgba(122,139,113,0.2)"/>
+    <path d="M85 50 L125 70 M235 50 L195 70 M85 120 L125 100 M235 120 L195 100" stroke="#D66A48" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PROTECTIVE SOLID EXTERIOR // INWARD PRIVATE OASIS</text>
+</svg>`
             },
             optionB: {
                 key: "B",
                 tag: "Orientation B",
-                title: "Outward Balconies & Glass Walls",
-                desc: "Large French windows, corner balconies, and glass sliding walls that keep you visually connected to tree canopies and the neighborhood.",
-                perks: ["Wide Open Balconies", "Neighborhood Connection", "Bright & Panoramic"],
-                image: "assets/images/projects/rajendra-residence/AR25-01- (3).webp"
+                title: "Outward-Facing Panoramic Glazing",
+                desc: "Expansive floor-to-ceiling glass walls that frame surrounding trees, landscapes, skylines, and sunset vistas.",
+                perks: ["Breathtaking Natural Views", "Fluid Indoor-Outdoor Living", "Abundant Sunlight"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="35" width="50" height="100" fill="#ECEAE4" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="110" y1="35" x2="260" y2="35" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="110" y1="135" x2="260" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <line x1="260" y1="35" x2="260" y2="135" stroke="#D66A48" stroke-width="2.5"/>
+    <g stroke="#7A8B71" stroke-width="1.2" stroke-dasharray="4 3" class="dna-wind-path">
+        <line x1="160" y1="85" x2="290" y2="40"/>
+        <line x1="160" y1="85" x2="300" y2="85"/>
+        <line x1="160" y1="85" x2="290" y2="130"/>
+    </g>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">PANORAMIC CURTAIN WALL // HORIZON VIEW CONNECTION</text>
+</svg>`
             }
         },
         {
             id: 9,
-            category: "Ancient Wisdom // Vastu & Modern Living",
-            question: "How would you like to balance Vastu and modern design?",
-            tip: "Vedic Vastu was originally ancient environmental science—placing the kitchen in the South-East aligned with prevailing winds to naturally blow cooking smoke away from living areas.",
+            category: "Vastu & Energy Flow // Philosophy",
+            question: "How important is Vastu Shastra in structuring your floor plans?",
+            tip: "We seamlessly merge Vastu principles with modern bioclimatic architecture so your home honors Vedic traditions without compromising on modern aesthetics.",
             optionA: {
                 key: "A",
                 tag: "Vastu A",
-                title: "Strict Traditional Vastu Alignment",
-                desc: "Complete, uncompromising alignment with cardinal directions for the main door, South-West master bedroom, and South-East kitchen.",
-                perks: ["Complete Peace of Mind", "Strict Cardinal Directions", "Traditional Harmony"],
-                image: "assets/images/projects/radhakrishna-residence/AR25-03-04.webp"
+                title: "Traditional Vastu Mandala Alignment",
+                desc: "Strict adherence to Vastu Purusha Mandala: Kitchen in Agni (SE), Master in Nairutya (SW), Puja/Water in Ishanya (NE), and open Brahmasthan.",
+                perks: ["100% Vastu Compliance", "Harmonious Spiritual Flow", "Complete Peace of Mind"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <g stroke="#1C1D1F" stroke-width="1.2">
+        <rect x="105" y="30" width="110" height="95" fill="rgba(255,255,255,0.8)"/>
+        <line x1="141.6" y1="30" x2="141.6" y2="125"/>
+        <line x1="178.3" y1="30" x2="178.3" y2="125"/>
+        <line x1="105" y1="61.6" x2="215" y2="61.6"/>
+        <line x1="105" y1="93.3" x2="215" y2="93.3"/>
+    </g>
+    <rect x="141.6" y="61.6" width="36.7" height="31.7" fill="rgba(214,106,72,0.15)" stroke="#D66A48" stroke-width="1.5" class="dna-pulse-focal"/>
+    <circle cx="160" cy="77.5" r="4" fill="#D66A48"/>
+    <text x="160" y="24" font-family="'Lintel', sans-serif" font-size="7" font-weight="bold" fill="#D66A48" text-anchor="middle">NORTH</text>
+    <text x="230" y="79" font-family="'Lintel', sans-serif" font-size="7" font-weight="bold" fill="#1C1D1F" text-anchor="middle">EAST</text>
+    <text x="123" y="48" font-family="'Lintel', sans-serif" font-size="6" fill="#7A8B71" text-anchor="middle">NW</text>
+    <text x="197" y="48" font-family="'Lintel', sans-serif" font-size="6" fill="#DDAF4C" text-anchor="middle">NE // WATER</text>
+    <text x="123" y="112" font-family="'Lintel', sans-serif" font-size="6" fill="#888888" text-anchor="middle">SW // EARTH</text>
+    <text x="197" y="112" font-family="'Lintel', sans-serif" font-size="6" fill="#D66A48" text-anchor="middle">SE // FIRE</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">9-SQUARE VASTU MANDALA // SACRED BRAHMASTHAN VOID</text>
+</svg>`
             },
             optionB: {
                 key: "B",
                 tag: "Vastu B",
-                title: "Climate-First Modern Balance",
-                desc: "Adopting the core principles of Vastu while adapting freely to site shapes, mature trees, and summer wind directions for maximum design freedom.",
-                perks: ["Honors Key Principles", "Adapted to Site Trees", "Contemporary Spatial Freedom"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (6).webp"
+                title: "Climate-Calibrated Scientific Vastu",
+                desc: "A scientific interpretation where room orientation prioritizes actual sun angles, prevailing Bangalore breeze directions, and optimal site views.",
+                perks: ["Science & Climate-Driven", "Optimized Daylight & Views", "Modern Design Freedom"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="110" y="60" width="100" height="65" stroke="#1C1D1F" stroke-width="1.5" fill="rgba(255,255,255,0.7)"/>
+    <path d="M60 120 A105 55 0 0 1 260 120" stroke="#DDAF4C" stroke-width="1.5" stroke-dasharray="4 3" class="dna-sun-path"/>
+    <circle cx="85" cy="80" r="5" stroke="#DDAF4C" stroke-width="1.5" fill="#FFFFFF"/>
+    <text x="85" y="70" font-family="'Lintel', sans-serif" font-size="6" fill="#DDAF4C" text-anchor="middle">MORNING</text>
+    <circle cx="160" cy="65" r="6" stroke="#DDAF4C" stroke-width="1.5" fill="rgba(221,175,76,0.3)"/>
+    <text x="160" y="55" font-family="'Lintel', sans-serif" font-size="6" fill="#DDAF4C" text-anchor="middle">NOON PEAK</text>
+    <path d="M40 130 L95 105" stroke="#7A8B71" stroke-width="1.8" class="dna-wind-path"/>
+    <polygon points="95,105 87,105 91,111" fill="#7A8B71"/>
+    <text x="55" y="145" font-family="'Lintel', sans-serif" font-size="6" fill="#7A8B71">SW BREEZE</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">SOLAR PATH CALIBRATION // MICROCLIMATE AERODYNAMICS</text>
+</svg>`
             }
         },
         {
             id: 10,
-            category: "Family Harmony // Multi-Gen Living",
-            question: "How should different family members and guests share the space?",
-            tip: "Placing a walk-in wardrobe between parents' and kids' rooms acts as an acoustic sound-buffer, cutting noise by over 30 decibels so everyone sleeps peacefully.",
+            category: "Generational Living // Family Dynamics",
+            question: "How should private suites be organized for parents and children?",
+            tip: "Having an elder-friendly, step-free master bedroom suite on the ground floor ensures aging parents live comfortably without stair climbing.",
             optionA: {
                 key: "A",
-                tag: "Layout A",
-                title: "Independent Ground & Upper Suites",
-                desc: "Elder-friendly, step-free bedroom suites on the ground floor with direct garden access, separated by acoustic buffers from upper suites.",
-                perks: ["Elder-Friendly Step-Free", "Generational Autonomy", "Peaceful Acoustic Privacy"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (7).webp"
+                tag: "Family A",
+                title: "Dedicated Ground Floor Suite",
+                desc: "A spacious ground-floor master suite with step-free curbless bathrooms and a private sit-out for parents, keeping louder activities upstairs.",
+                perks: ["Elder Comfort (Zero Stairs)", "Private Garden Sit-Out", "Quiet Generational Separation"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="50" y="40" width="130" height="85" stroke="#1C1D1F" stroke-width="1.8" fill="rgba(255,255,255,0.9)"/>
+    <rect x="140" y="40" width="40" height="40" stroke="#1C1D1F" stroke-width="1" fill="#ECEAE4"/>
+    <text x="160" y="62" font-family="'Lintel', sans-serif" font-size="6" fill="#666666" text-anchor="middle">ENSUITE</text>
+    <rect x="65" y="60" width="40" height="35" stroke="#D66A48" stroke-width="1.2" fill="rgba(214,106,72,0.08)"/>
+    <line x1="50" y1="110" x2="20" y2="110" stroke="#7A8B71" stroke-width="2"/>
+    <text x="35" y="105" font-family="'Lintel', sans-serif" font-size="6" fill="#7A8B71">STEP-FREE</text>
+    <line x1="180" y1="35" x2="180" y2="130" stroke="#1C1D1F" stroke-width="2"/>
+    <line x1="183" y1="35" x2="183" y2="130" stroke="#D66A48" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="235" y="85" font-family="'Lintel', sans-serif" font-size="7" fill="#888888" text-anchor="middle">LIVING WING</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">ELDER-FRIENDLY GROUND SUITE // ACOUSTIC SECLUSION</text>
+</svg>`
             },
             optionB: {
                 key: "B",
-                tag: "Layout B",
-                title: "Connected Family Lounges",
-                desc: "Open stairs, shared study zones, and interactive intermediate family lounges that encourage regular everyday conversations.",
-                perks: ["Tight Family Bonding", "Shared Living Lounges", "Interactive Everyday Flow"],
-                image: "assets/images/projects/vivek-residence/AR24-10-04.webp"
+                tag: "Family B",
+                title: "Connected Inter-Generational Lounges",
+                desc: "An open living layout where family lounges on each floor connect visually and acoustically, encouraging everyone to gather and share daily life.",
+                perks: ["Connected Family Life", "Continuous Interaction", "Fluid Social Spaces"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <circle cx="160" cy="80" r="35" stroke="#D66A48" stroke-width="1.5" stroke-dasharray="4 3" fill="rgba(214,106,72,0.06)" class="dna-pulse-focal"/>
+    <text x="160" y="82" font-family="'Lintel', sans-serif" font-size="7" font-weight="bold" fill="#D66A48" text-anchor="middle">COMMUNAL HUB</text>
+    <rect x="40" y="60" width="55" height="40" stroke="#1C1D1F" stroke-width="1.5"/>
+    <text x="67" y="82" font-family="'Lintel', sans-serif" font-size="6" fill="#1C1D1F" text-anchor="middle">GRANDPARENTS</text>
+    <rect x="225" y="60" width="55" height="40" stroke="#1C1D1F" stroke-width="1.5"/>
+    <text x="252" y="82" font-family="'Lintel', sans-serif" font-size="6" fill="#1C1D1F" text-anchor="middle">CHILDREN WING</text>
+    <line x1="95" y1="80" x2="125" y2="80" stroke="#7A8B71" stroke-width="1.5" class="dna-wind-path"/>
+    <line x1="195" y1="80" x2="225" y2="80" stroke="#7A8B71" stroke-width="1.5" class="dna-wind-path"/>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">FLUID MULTI-GENERATIONAL LOUNGES // ZERO BARRIERS</text>
+</svg>`
             }
         },
         {
             id: 11,
-            category: "Focus & Work // Work From Home",
-            question: "How much quiet focus time do you need in your daily routine?",
-            tip: "Standard hollow bedroom doors leak up to 80% of video-meeting voices into the corridor; a dedicated acoustic study keeps client calls 100% private.",
+            category: "Acoustic Sanctuary // Work & Focus",
+            question: "How do you handle work-from-home or study needs?",
+            tip: "Working from home in India requires deliberate acoustic isolation to block out household sounds, kitchen pressure cookers, and street hawkers.",
             optionA: {
                 key: "A",
-                tag: "Work A",
-                title: "Dedicated Soundproof Study / Studio",
-                desc: "A closed, peaceful cabin with solid-core acoustic doors and acoustic ceiling panels for professional video calls and uninterrupted deep work.",
-                perks: ["Zero Background Noise", "Confidential Client Calls", "Deep Focus Sanctuary"],
-                image: "assets/images/projects/radhakrishna-residence/AR25-03-05.webp"
+                tag: "Study A",
+                title: "Soundproof Dedicated Study / Home Office",
+                desc: "An acoustically sealed workspace with double-glazed doors and sound-dampening wall panels for distraction-free video calls and quiet study.",
+                perks: ["Zero Household Distractions", "Professional Video Call Backdrop", "Deep Work Sanctuary"],
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="85" y="35" width="150" height="95" stroke="#1C1D1F" stroke-width="2.5" fill="rgba(255,255,255,0.9)"/>
+    <rect x="89" y="39" width="142" height="87" stroke="#D66A48" stroke-width="1.2" stroke-dasharray="3 2"/>
+    <g stroke="#888888" stroke-width="1">
+        <line x1="95" y1="42" x2="95" y2="70"/><line x1="102" y1="42" x2="102" y2="70"/><line x1="109" y1="42" x2="109" y2="70"/><line x1="116" y1="42" x2="116" y2="70"/>
+    </g>
+    <rect x="140" y="70" width="45" height="24" stroke="#1C1D1F" stroke-width="1.5" fill="#ECEAE4"/>
+    <circle cx="162.5" cy="105" r="5" stroke="#D66A48" stroke-width="1.2"/>
+    <text x="210" y="55" font-family="'Lintel', sans-serif" font-size="7" fill="#7A8B71">&lt; 30 DB</text>
+    <text x="210" y="65" font-family="'Lintel', sans-serif" font-size="5" fill="#888888">STUDIO SILENCE</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">DECIBEL ISOLATION // DEEP WORK STUDY SANCTUARY</text>
+</svg>`
             },
             optionB: {
                 key: "B",
-                tag: "Work B",
-                title: "Integrated Study Nooks",
-                desc: "Open study tables, library reading nooks, and laptop counters tucked neatly into the corners of living rooms and bedrooms.",
+                tag: "Study B",
+                title: "Integrated Living Nooks & Alcoves",
+                desc: "Built-in study desks integrated into family areas, bedroom bay windows, or kitchen corridors, staying naturally connected to home life.",
                 perks: ["Connected to Family Routine", "Flexible Multi-Use Spaces", "Casual & Convenient"],
-                image: "assets/images/projects/naveraa-cafe/02.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="60" y="35" width="200" height="95" stroke="#1C1D1F" stroke-width="1.5" fill="none"/>
+    <polygon points="60,60 35,60 35,105 60,105" stroke="#D66A48" stroke-width="1.8" fill="rgba(214,106,72,0.08)"/>
+    <line x1="35" y1="85" x2="58" y2="85" stroke="#1C1D1F" stroke-width="2"/>
+    <rect x="130" y="75" width="10" height="40" stroke="#1C1D1F" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="195" y="85" font-family="'Lintel', sans-serif" font-size="7" fill="#1C1D1F" text-anchor="middle">FAMILY ACTIVITY</text>
+    <text x="47" y="125" font-family="'Lintel', sans-serif" font-size="6" fill="#D66A48" text-anchor="middle">STUDY ALCOVE</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">SEAMLESS INTEGRATION // WINDOW BAY WORK NOOK</text>
+</svg>`
             }
         },
         {
@@ -262,7 +587,18 @@
                 title: "Large Covered Verandahs & Sit-Outs",
                 desc: "Sacrificing extra bedroom size to create 10-foot-deep sheltered outdoor terrace gardens usable all year round for morning coffee and hosting friends.",
                 perks: ["Usable Outdoor Living All Year", "Natural Thermal Buffer", "Tropical Garden Connection"],
-                image: "assets/images/projects/naveraa-cafe/04.webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="50" y="35" width="90" height="100" stroke="#1C1D1F" stroke-width="1.5" fill="#ECEAE4"/>
+    <text x="95" y="85" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">INDOOR BEDROOM</text>
+    <rect x="140" y="35" width="120" height="100" stroke="#D66A48" stroke-width="1.8" fill="rgba(255,255,255,0.9)"/>
+    <line x1="250" y1="35" x2="250" y2="135" stroke="#1C1D1F" stroke-width="2"/>
+    <rect x="165" y="90" width="45" height="25" rx="3" stroke="#7A8B71" stroke-width="1.2" fill="rgba(122,139,113,0.12)"/>
+    <circle cx="215" cy="102" r="3" fill="#7A8B71"/>
+    <line x1="140" y1="25" x2="260" y2="25" stroke="#D66A48" stroke-width="1"/>
+    <text x="200" y="20" font-family="'Lintel', sans-serif" font-size="6" fill="#D66A48" text-anchor="middle">3.0M DEEP VERANDAH</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">ALL-SEASON OUTDOOR LIVING // VERANDAH CONNECTION</text>
+</svg>`
             },
             optionB: {
                 key: "B",
@@ -270,7 +606,19 @@
                 title: "Bigger Indoor Living & Dressing Areas",
                 desc: "Maximized air-conditioned interior rooms with expansive walk-in dressing parlors, luxurious spa bathrooms, and dedicated private sitting lounges.",
                 perks: ["Spacious Indoor Luxury", "Generous Walk-In Closets", "Year-Round Climate Comfort"],
-                image: "assets/images/projects/nandeesh-residence/AR23-01- (8).webp"
+                svg: `<svg viewBox="0 0 320 160" class="dna-card-svg" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <line x1="20" y1="135" x2="300" y2="135" stroke="#1C1D1F" stroke-width="1.5"/>
+    <rect x="50" y="35" width="220" height="100" stroke="#1C1D1F" stroke-width="1.8" fill="rgba(255,255,255,0.9)"/>
+    <rect x="65" y="60" width="50" height="45" stroke="#1C1D1F" stroke-width="1.2"/>
+    <text x="90" y="85" font-family="'Lintel', sans-serif" font-size="6" fill="#1C1D1F" text-anchor="middle">MASTER SUITE</text>
+    <line x1="135" y1="35" x2="135" y2="135" stroke="#1C1D1F" stroke-width="1.2"/>
+    <rect x="145" y="45" width="45" height="35" stroke="#D66A48" stroke-width="1.2" stroke-dasharray="2 2" fill="rgba(214,106,72,0.06)"/>
+    <text x="167" y="65" font-family="'Lintel', sans-serif" font-size="5" fill="#D66A48" text-anchor="middle">WALK-IN CLOSET</text>
+    <line x1="195" y1="35" x2="195" y2="135" stroke="#1C1D1F" stroke-width="1.2"/>
+    <ellipse cx="230" cy="85" rx="16" ry="10" stroke="#7A8B71" stroke-width="1.2" fill="rgba(122,139,113,0.1)"/>
+    <text x="230" y="87" font-family="'Lintel', sans-serif" font-size="5" fill="#7A8B71" text-anchor="middle">SPA BATH</text>
+    <text x="160" y="152" font-family="'Lintel', sans-serif" font-size="7" fill="#666666" text-anchor="middle">EXPANSIVE INTERIOR // WALK-IN WARDROBE &amp; SPA BATH</text>
+</svg>`
             }
         }
     ];
@@ -365,6 +713,9 @@
     function checkUrlTrigger() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('preview_dna') === 'true') {
+            if (floatingDockEl) {
+                floatingDockEl.classList.add('preview-active');
+            }
             openModal();
         }
     }
@@ -488,9 +839,9 @@
     function renderCard(cardElement, option, isSelected) {
         cardElement.classList.toggle('selected', isSelected);
 
-        const imgEl = cardElement.querySelector('.dna-card-image');
-        if (imgEl) {
-            imgEl.style.backgroundImage = `url('${option.image}')`;
+        const visualEl = cardElement.querySelector('.dna-card-visual') || cardElement.querySelector('.dna-card-image');
+        if (visualEl) {
+            visualEl.innerHTML = option.svg;
         }
 
         const tagEl = cardElement.querySelector('.dna-card-tag');
@@ -509,7 +860,7 @@
     }
 
     // =========================================================================
-    // SIMPLIFIED RESULT DOSSIER SYNTHESIZER
+    // SIMPLIFIED RESULT DOSSIER SYNTHESIZER & LEAD TRANSMISSION
     // =========================================================================
     function showResultDossier() {
         interactiveBodyEl.style.display = 'none';
@@ -572,15 +923,38 @@
         document.getElementById('takeaway-3-title').textContent = take3Title;
         document.getElementById('takeaway-3-text').textContent = take3Text;
 
-        // Configure Inquiry CTA button
-        const subject = encodeURIComponent(`Spatial DNA Profile: ${persona}`);
-        const message = encodeURIComponent(
-            `Hi Prashanth & Studio Equilibrium Team,\n\nI just explored the Spatial DNA Discovery experience on your site and generated my profile:\n\n• Persona: ${persona}\n• Typology: ${isResidential ? 'Residential (Villa / Bungalow)' : 'Commercial / Public'}\n• Style Preference: ${isEarthy ? 'Earthy & Tropical Modernism' : 'Contemporary Minimalist'}\n• Courtyard & Air: ${isCourtyard ? 'Central Open Courtyard' : 'Sealed Conditioned Comfort'}\n• Ceiling Preference: ${isDoubleHeight ? 'Double-Height Living Void' : 'Maximum Usable Floor Space'}\n• Verandahs: ${isVerandah ? 'Large Covered Verandahs' : 'Maximized Indoor Bedrooms'}\n\nI would love to discuss translating these architectural parameters into our upcoming project.`
+        // Configure 12-point summary and inquiry lead data transmission
+        const chapterSummaries = DNA_CHAPTERS_MODAL.map((ch, idx) => {
+            const chosenKey = ans[idx];
+            const chosenOption = chosenKey === 'A' ? ch.optionA : ch.optionB;
+            return `${idx + 1}. ${ch.category}: ${chosenOption.title} [${chosenOption.tag}]`;
+        });
+
+        const subjectParam = encodeURIComponent(`Spatial DNA Profile: ${persona}`);
+        const messageParam = encodeURIComponent(
+`Hi Prashanth & Studio Equilibrium Team,
+
+I have completed The Spatial DNA Discovery on your website and synthesized my architectural profile:
+
+────────────────────────────────────────────
+ARCHITECTURAL PERSONA: ${persona.toUpperCase()}
+────────────────────────────────────────────
+${strapline}
+
+KEY PRINCIPLES:
+• ${take1Title}: ${take1Text}
+• ${take2Title}: ${take2Text}
+• ${take3Title}: ${take3Text}
+
+12-CHAPTER ARCHITECTURAL SELECTIONS:
+${chapterSummaries.map(s => `• ${s}`).join('\n')}
+
+I would like to discuss translating this Spatial DNA blueprint into a schematic concept for our upcoming project.`
         );
 
         const inquiryBtn = document.getElementById('dna-inquiry-cta-btn');
         if (inquiryBtn) {
-            inquiryBtn.href = `contact.html?subject=${subject}&message=${message}`;
+            inquiryBtn.href = `contact.html?subject=${subjectParam}&message=${messageParam}`;
         }
     }
 
