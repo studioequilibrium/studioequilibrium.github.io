@@ -31,6 +31,12 @@
     let btnNextEl = null;
     let interactiveBodyEl = null;
     let resultViewEl = null;
+    let choicesDrawerEl = null;
+    let previewChoicesBtn = null;
+    let drawerCloseBtn = null;
+    let drawerBackdropEl = null;
+    let drawerDoneBtn = null;
+    let backChapterBtn = null;
 
     // -------------------------------------------------------------------------
     // 1. CONTEXT-AWARE DYNAMIC VOCABULARY HELPER
@@ -869,6 +875,12 @@
         btnNextEl = document.getElementById('dna-modal-btn-next');
         interactiveBodyEl = document.getElementById('dna-modal-interactive-body');
         resultViewEl = document.getElementById('dna-modal-result-view');
+        choicesDrawerEl = document.getElementById('dna-choices-drawer');
+        previewChoicesBtn = document.getElementById('dna-preview-choices-btn');
+        drawerCloseBtn = document.getElementById('dna-drawer-close-btn');
+        drawerBackdropEl = document.getElementById('dna-drawer-backdrop');
+        drawerDoneBtn = document.getElementById('dna-drawer-done-btn');
+        backChapterBtn = document.getElementById('dna-result-back-chapter-btn');
     }
 
     function attachEventListeners() {
@@ -900,16 +912,26 @@
         const closeResultBtn = document.getElementById('dna-result-close-btn');
         if (closeResultBtn) closeResultBtn.addEventListener('click', closeModal);
 
-        const modifyBtn = document.getElementById('dna-result-modify-btn');
-        if (modifyBtn) modifyBtn.addEventListener('click', () => jumpToEditChapter(0));
+        if (backChapterBtn) {
+            backChapterBtn.addEventListener('click', stepBackToPreviousChapter);
+        }
+
+        if (previewChoicesBtn) previewChoicesBtn.addEventListener('click', openChoicesDrawer);
+        if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeChoicesDrawer);
+        if (drawerBackdropEl) drawerBackdropEl.addEventListener('click', closeChoicesDrawer);
+        if (drawerDoneBtn) drawerDoneBtn.addEventListener('click', closeChoicesDrawer);
 
         const downloadPdfBtn = document.getElementById('dna-download-pdf-btn');
         if (downloadPdfBtn) downloadPdfBtn.addEventListener('click', () => window.print());
 
         // Escape Key to Close
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && overlayEl && overlayEl.classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (choicesDrawerEl && choicesDrawerEl.classList.contains('active')) {
+                    closeChoicesDrawer();
+                } else if (overlayEl && overlayEl.classList.contains('active')) {
+                    closeModal();
+                }
             }
         });
     }
@@ -1026,7 +1048,7 @@
         btnPrevEl.disabled = index === 0;
         const hasSelection = modalState.userAnswers[index] !== null;
         btnNextEl.disabled = !hasSelection;
-        btnNextEl.innerHTML = (index === 11) ? 'GENERATE ARCHITECTURAL DNA &rarr;' : 'NEXT CHAPTER &rarr;';
+        btnNextEl.innerHTML = (index === 11) ? 'MAP MY SPATIAL VISION &rarr;' : 'NEXT CHAPTER &rarr;';
     }
 
     function renderCard(cardElement, option, isSelected) {
@@ -1053,9 +1075,38 @@
     }
 
     // -------------------------------------------------------------------------
-    // 4. STEP-BACK EDITING FROM RESULT DOSSIER
+    // 4. STEP-BACK NAVIGATION & EDITING
     // -------------------------------------------------------------------------
+    function openChoicesDrawer() {
+        if (!choicesDrawerEl) return;
+        choicesDrawerEl.classList.add('active');
+        choicesDrawerEl.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeChoicesDrawer() {
+        if (!choicesDrawerEl) return;
+        choicesDrawerEl.classList.remove('active');
+        choicesDrawerEl.setAttribute('aria-hidden', 'true');
+    }
+
+    function stepBackToPreviousChapter() {
+        closeChoicesDrawer();
+        const bannerEl = document.getElementById('dna-edit-mode-banner');
+        if (bannerEl) bannerEl.style.display = 'none';
+        modalState.isEditing = false;
+
+        resultViewEl.style.display = 'none';
+        interactiveBodyEl.style.display = 'block';
+        btnPrevEl.style.display = 'inline-block';
+        btnNextEl.style.display = 'inline-block';
+
+        modalState.currentIndex = 11; // Chapter 12
+        renderSlide(11);
+        slideContainerEl.className = 'dna-slide-container slide-active';
+    }
+
     function jumpToEditChapter(targetIndex) {
+        closeChoicesDrawer();
         resultViewEl.style.display = 'none';
         interactiveBodyEl.style.display = 'block';
         btnPrevEl.style.display = 'inline-block';
@@ -1092,9 +1143,11 @@
     }
 
     // -------------------------------------------------------------------------
-    // 5. SIMPLIFIED RESULT DOSSIER & LEDGER GENERATOR
+    // 5. SIMPLIFIED RESULT DOSSIER & DRAWER / PRINT LEDGER GENERATOR
     // -------------------------------------------------------------------------
     function showResultDossier() {
+        closeChoicesDrawer();
+
         // Hide edit banner if visible
         const bannerEl = document.getElementById('dna-edit-mode-banner');
         if (bannerEl) bannerEl.style.display = 'none';
@@ -1174,11 +1227,11 @@
         document.getElementById('takeaway-3-text').textContent = take3Text;
 
         // ---------------------------------------------------------------------
-        // Populate 12-Chapter Selections Ledger with "EDIT ✎" Buttons
+        // Populate Interactive Pop-up Drawer Ledger with "EDIT ✎" Buttons
         // ---------------------------------------------------------------------
-        const ledgerContainer = document.getElementById('dna-selections-ledger');
-        if (ledgerContainer) {
-            ledgerContainer.innerHTML = '';
+        const drawerLedgerContainer = document.getElementById('dna-drawer-ledger');
+        if (drawerLedgerContainer) {
+            drawerLedgerContainer.innerHTML = '';
 
             for (let i = 0; i < 12; i++) {
                 const ch = getChapterData(i);
@@ -1197,10 +1250,35 @@
 
                 const editBtn = itemEl.querySelector('.dna-ledger-edit-btn');
                 editBtn.addEventListener('click', () => {
+                    closeChoicesDrawer();
                     jumpToEditChapter(i);
                 });
 
-                ledgerContainer.appendChild(itemEl);
+                drawerLedgerContainer.appendChild(itemEl);
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // Populate Print-Only Selections Ledger (for 1-Page PDF Export)
+        // ---------------------------------------------------------------------
+        const printLedgerContainer = document.getElementById('dna-print-selections-ledger');
+        if (printLedgerContainer) {
+            printLedgerContainer.innerHTML = '';
+
+            for (let i = 0; i < 12; i++) {
+                const ch = getChapterData(i);
+                const chosenKey = ans[i] || 'A';
+                const chosenOpt = chosenKey === 'A' ? ch.optionA : ch.optionB;
+
+                const itemEl = document.createElement('div');
+                itemEl.className = 'dna-ledger-item';
+                itemEl.innerHTML = `
+                    <div class="dna-ledger-info">
+                        <span class="dna-ledger-meta">CH ${String(i + 1).padStart(2, '0')} // ${ch.category.split('//')[0].trim()}</span>
+                        <span class="dna-ledger-choice">Option ${chosenKey}: ${chosenOpt.title}</span>
+                    </div>
+                `;
+                printLedgerContainer.appendChild(itemEl);
             }
         }
 
@@ -1215,11 +1293,11 @@
             chapterSummaries.push(`${i + 1}. ${ch.category.split('//')[0].trim()}: Option ${chosenKey} - ${chosenOpt.title} [${chosenOpt.tag}]`);
         }
 
-        const subjectParam = encodeURIComponent(`Spatial DNA Profile: ${persona}`);
+        const subjectParam = encodeURIComponent(`The Design Compass Profile: ${persona}`);
         const messageParam = encodeURIComponent(
 `Hi Prashanth & Studio Equilibrium Team,
 
-I have completed The Spatial DNA Discovery on your website and synthesized my architectural profile:
+I have completed THE DESIGN COMPASS (// Map Your Spatial Vision) on your website and synthesized my architectural profile:
 
 ────────────────────────────────────────────
 ARCHITECTURAL PERSONA: ${persona.toUpperCase()}
@@ -1235,7 +1313,7 @@ KEY ARCHITECTURAL PRINCIPLES:
 12-CHAPTER ARCHITECTURAL SELECTIONS:
 ${chapterSummaries.map(s => `• ${s}`).join('\n')}
 
-I would like to discuss translating this Spatial DNA architectural blueprint into a schematic concept for our upcoming project.`
+I would like to discuss translating this Design Compass architectural vision into a schematic concept for our upcoming project.`
         );
 
         const inquiryBtn = document.getElementById('dna-inquiry-cta-btn');
@@ -1245,6 +1323,7 @@ I would like to discuss translating this Spatial DNA architectural blueprint int
     }
 
     function resetModalDiscovery() {
+        closeChoicesDrawer();
         modalState.currentIndex = 0;
         modalState.userAnswers.fill(null);
         modalState.isEditing = false;

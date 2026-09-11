@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/images/logo.png?v=8.0">
-    <link rel="apple-touch-icon" href="assets/images/logo.png?v=8.0">
-    <link rel="stylesheet" href="css/styles.css?v=8.0">
-    <link rel="stylesheet" href="css/dna-modal.css?v=8.0">
+    <link rel="icon" type="image/png" href="assets/images/logo.png?v=8.1">
+    <link rel="apple-touch-icon" href="assets/images/logo.png?v=8.1">
+    <link rel="stylesheet" href="css/styles.css?v=8.1">
+    <link rel="stylesheet" href="css/dna-modal.css?v=8.1">
 </head>
 
 <body>
@@ -369,13 +369,13 @@
         </div>
     </div>
 
-    <!-- Spatial DNA Discovery Floating Dock Trigger -->
-    <div id="dna-floating-dock" class="dna-floating-dock" role="button" aria-label="Explore Spatial DNA">
-        <span>// SPATIAL DNA DISCOVERY</span>
-        <span class="dock-action">EXPLORE YOUR SPACE DNA &rarr;</span>
+    <!-- The Design Compass Floating Dock Trigger -->
+    <div id="dna-floating-dock" class="dna-floating-dock" role="button" aria-label="The Design Compass">
+        <span>// THE DESIGN COMPASS</span>
+        <span class="dock-action">MAP YOUR SPATIAL VISION &rarr;</span>
     </div>
 
-    <!-- Spatial DNA Discovery Modal Overlay -->
+    <!-- The Design Compass Modal Overlay -->
     <div id="dna-modal-overlay" class="dna-modal-overlay" aria-modal="true" role="dialog">
         <div class="dna-modal-dialog">
             <button id="dna-modal-close-btn" class="dna-modal-close-btn" aria-label="Close modal">&times;</button>
@@ -385,7 +385,10 @@
                 <div class="dna-modal-brand-row">
                     <div class="dna-modal-brand">
                         <img src="assets/images/logo.png" alt="Studio Equilibrium" class="dna-modal-logo">
-                        <span class="dna-modal-title">THE SPATIAL DNA DISCOVERY</span>
+                        <div class="dna-modal-title-lockup">
+                            <span class="dna-modal-title">THE DESIGN COMPASS</span>
+                            <span class="dna-modal-subtitle">// Map Your Spatial Vision</span>
+                        </div>
                     </div>
                     <div id="dna-modal-counter" class="dna-modal-counter">01 <span class="counter-total">/ 12</span></div>
                 </div>
@@ -446,7 +449,7 @@
                 <!-- Results View (Hidden by default until Chapter 12 completes) -->
                 <div id="dna-modal-result-view" class="dna-modal-result-view">
                     <div class="dna-result-hero">
-                        <div class="dna-result-eyebrow">// SYNTHESIZED ARCHITECTURAL PROFILE</div>
+                        <div class="dna-result-eyebrow">// THE DESIGN COMPASS DOSSIER &bull; SYNTHESIZED ARCHITECTURAL PROFILE</div>
                         <h2 id="dna-result-persona" class="dna-result-persona">The Tropical Courtyard Modernist</h2>
                         <p id="dna-result-strapline" class="dna-result-strapline"></p>
                     </div>
@@ -470,26 +473,26 @@
                         </div>
                     </div>
 
-                    <!-- Complete Selections Preview Ledger & Step-Back Editing -->
-                    <div class="dna-ledger-section">
-                        <div class="dna-ledger-header">
-                            <h3 class="dna-ledger-title">// REVIEW &amp; CALIBRATE SELECTIONS</h3>
-                            <span class="dna-ledger-sub">Click 'EDIT ✎' on any parameter to revisit and modify that chapter</span>
+                    <!-- Print-Only Selections Container (Revealed in PDF Print Dossier) -->
+                    <div id="dna-print-ledger-section" class="dna-print-ledger-section">
+                        <div class="dna-print-ledger-header">
+                            <h3 class="dna-print-ledger-title">// CALIBRATED ARCHITECTURAL SELECTIONS</h3>
                         </div>
-                        <div id="dna-selections-ledger" class="dna-selections-ledger">
+                        <div id="dna-print-selections-ledger" class="dna-selections-ledger">
                             <!-- Injected dynamically by JS -->
                         </div>
                     </div>
 
                     <!-- CTA Action Box -->
                     <div class="dna-result-cta-box">
-                        <h3 class="dna-result-cta-title">Ready to Bring Your Spatial DNA to Life?</h3>
-                        <p class="dna-result-cta-sub">We’ve compiled your 12 architectural parameters. Share your results directly with our design studio in Bangalore to start your concept schematic.</p>
+                        <h3 class="dna-result-cta-title">Ready to Bring Your Spatial Vision to Life?</h3>
+                        <p class="dna-result-cta-sub">We’ve compiled your 12 calibrated parameters. Share your results directly with our design studio in Bangalore to start your concept schematic.</p>
                         <div class="dna-result-btn-row">
                             <a id="dna-inquiry-cta-btn" href="contact.html" class="dna-inquiry-cta-btn">TRANSLATE DNA INTO A PROJECT &rarr;</a>
+                            <button id="dna-preview-choices-btn" class="dna-secondary-btn">PREVIEW MY 12 CHOICES [&#128065;]</button>
+                            <button id="dna-result-back-chapter-btn" class="dna-secondary-btn">&larr; BACK TO PREVIOUS CHAPTER</button>
                             <button id="dna-download-pdf-btn" class="dna-download-btn">&#128462; DOWNLOAD ARCHITECTURAL DOSSIER (PDF)</button>
-                            <button id="dna-result-modify-btn" class="dna-secondary-btn">&larr; MODIFY CHOICES</button>
-                            <button id="dna-result-reset-btn" class="dna-secondary-btn">RE-EXPLORE DNA</button>
+                            <button id="dna-result-reset-btn" class="dna-secondary-btn">RE-EXPLORE</button>
                             <button id="dna-result-close-btn" class="dna-secondary-btn">CLOSE</button>
                         </div>
                     </div>
@@ -501,12 +504,34 @@
                 <button id="dna-modal-btn-prev" class="dna-btn-back" disabled>&larr; PREVIOUS CHAPTER</button>
                 <button id="dna-modal-btn-next" class="dna-btn-forward" disabled>NEXT CHAPTER &rarr;</button>
             </div>
+
+            <!-- Interactive Pop-up Drawer for 12 Calibrated Choices -->
+            <div id="dna-choices-drawer" class="dna-choices-drawer" aria-hidden="true">
+                <div class="dna-drawer-backdrop" id="dna-drawer-backdrop"></div>
+                <div class="dna-drawer-panel">
+                    <div class="dna-drawer-header">
+                        <div class="dna-drawer-title-group">
+                            <span class="dna-drawer-eyebrow">// THE DESIGN COMPASS</span>
+                            <h3 class="dna-drawer-title">Your 12 Calibrated Choices</h3>
+                        </div>
+                        <button id="dna-drawer-close-btn" class="dna-drawer-close-btn" aria-label="Close choices preview">&times;</button>
+                    </div>
+                    <div class="dna-drawer-body">
+                        <div id="dna-drawer-ledger" class="dna-selections-ledger">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+                    <div class="dna-drawer-footer">
+                        <button id="dna-drawer-done-btn" class="dna-secondary-btn">RETURN TO DOSSIER &rarr;</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Scripts -->
-    <script src="js/app.js?v=8.0"></script>
-    <script src="js/dna-modal.js?v=8.0"></script>
+    <script src="js/app.js?v=8.1"></script>
+    <script src="js/dna-modal.js?v=8.1"></script>
 </body>
 
 </html>
