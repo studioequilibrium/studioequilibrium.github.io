@@ -651,12 +651,18 @@
     max-width: 700px;
 }
 
-/* 3 Simple Takeaways Cards */
+/* 4 Key Principles Cards */
 .dna-takeaways-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
     margin-bottom: 2rem;
+}
+
+@media (max-width: 1050px) and (min-width: 769px) {
+    .dna-takeaways-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .dna-takeaway-card {
@@ -1198,15 +1204,15 @@
 
     .dna-takeaways-grid {
         display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.7rem !important;
-        margin-bottom: 1rem !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 0.5rem !important;
+        margin-bottom: 0.8rem !important;
         page-break-inside: avoid !important;
     }
 
     .dna-takeaway-card {
         border: 1px solid #D8D8D8 !important;
-        padding: 0.8rem !important;
+        padding: 0.65rem 0.75rem !important;
         box-shadow: none !important;
     }
 

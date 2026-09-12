@@ -1,6 +1,6 @@
 /**
  * STUDIO EQUILIBRIUM — THE DESIGN COMPASS MODAL
- * Context-Aware Architectural Discovery Engine (v8.7)
+ * Context-Aware Architectural Discovery Engine (v8.8)
  * Standalone Implementation (js/dna-modal.js)
  */
 
@@ -332,26 +332,32 @@
                 }
             },
 
-            // CHAPTER 11: Focus & Acoustic Sanctuary
+            // STEP 11: Lighting Ambience // Atmospheric Mood
             {
                 id: 11,
-                category: terms.isCommercial ? "Acoustic Engineering // Focus & Confidentiality" : "Acoustic Sanctuary // Work & Focus",
-                question: terms.isCommercial ? "How should acoustic privacy and confidential discussions be handled?" : "How do you handle work-from-home or study needs?",
-                tip: terms.isCommercial ? "Open-plan commercial spaces require specialized high-STC soundproof pods to prevent open bullpen chatter from bleeding into executive conference calls." : "Working from home in India requires deliberate acoustic isolation to block out household sounds, kitchen pressure cookers, and street hawkers.",
+                category: "Lighting Ambience // Atmospheric Mood",
+                question: terms.isCommercial 
+                    ? "What kind of emotional atmosphere and lighting warmth should define your core facility after sunset?" 
+                    : "What kind of emotional atmosphere and lighting warmth should define your home after sunset?",
+                tip: "Warm, layered amber lighting creates an intimate, calming retreat to unwind and relax, whereas bright, balanced luminous daylight illumination maximizes alertness, visual clarity, and active productivity.",
                 optionA: {
                     key: "A",
-                    tag: "Acoustic Isolation",
-                    title: terms.isCommercial ? "Acoustically Isolated Focus Pods & Cabins" : "Soundproof Dedicated Study / Home Office",
-                    desc: terms.isCommercial ? "Acoustically sealed executive cabins and phone booths with drop-seal doors and sound-dampening wall panels, guaranteeing confidentiality for sensitive negotiations." : "An acoustically sealed workspace with double-glazed doors and sound-dampening wall panels for distraction-free video calls and quiet study.",
-                    perks: ["Confidential Conference Calls", "Zero Distractions", "Dedicated Library / Work Zone"],
+                    tag: "Warm & Intimate",
+                    title: "Warm, Intimate & Moody Ambience",
+                    desc: terms.isCommercial
+                        ? "Soft, layered amber wall-grazing, low-glare hidden cove lighting, and tactile moody shadow play designed to unwind clients and create an exclusive lounge feel."
+                        : "Soft, layered amber wall-grazing, low-glare hidden cove lighting, and tactile moody shadow play designed to unwind the mind and create a serene evening retreat.",
+                    perks: ["Calming Evening Atmosphere", "Low-Glare Eye Comfort", "Intimate & Grounding Vibe"],
                     image: "assets/images/designcompass/11a.png"
                 },
                 optionB: {
                     key: "B",
-                    tag: "Integrated Alcoves",
-                    title: terms.isCommercial ? "Integrated Breakout Alcoves & Open Pods" : "Integrated Living Nooks & Alcoves",
-                    desc: terms.isCommercial ? "Semi-private acoustic breakout banquettes and study counters woven into open team areas, keeping collaborative momentum flowing naturally." : "Built-in study desks integrated into family areas, bedroom bay windows, or kitchen corridors, staying naturally connected to home life.",
-                    perks: ["Flexible Everyday Use", "Connected to Household", "Space-Saving Efficiency"],
+                    tag: "Crisp & Luminous",
+                    title: "Crisp, Luminous & Energizing Daylight",
+                    desc: terms.isCommercial
+                        ? "Even, bright, daylight-balanced architectural illumination that maximizes alertness, visual clarity, and active daytime productivity across all work zones."
+                        : "Even, bright, daylight-balanced architectural illumination that maximizes alertness, visual clarity, and active daytime energy throughout the living areas.",
+                    perks: ["Maximized Visual Clarity", "Energizing Daytime Focus", "Crisp Modern Brightness"],
                     image: "assets/images/designcompass/11b.png"
                 }
             },
@@ -755,7 +761,7 @@
             });
         }
 
-        // 3 Simple Takeaways (Adapted with Dynamic Vocabulary & Step 04 Materiality Choice)
+        // 4 Key Principles (Adapted with Dynamic Vocabulary, Materiality, Zoning & Lighting)
         const isNaturalPatina = ans[3] !== 'B';
         const surfacePhilosophy = isNaturalPatina
             ? "Surface Philosophy: Prefers honest, naturally aging materials (exposed brick, stone, and raw concrete) with timeless patina and low long-term maintenance."
@@ -777,12 +783,33 @@
         const take3Title = isResidential ? "3. Spatial Programming & Privacy" : "3. Spatial Programming & Workplace Flow";
         const take3Text = zoningStrategy;
 
-        document.getElementById('takeaway-1-title').textContent = take1Title;
-        document.getElementById('takeaway-1-text').textContent = take1Text;
-        document.getElementById('takeaway-2-title').textContent = take2Title;
-        document.getElementById('takeaway-2-text').textContent = take2Text;
-        document.getElementById('takeaway-3-title').textContent = take3Title;
-        document.getElementById('takeaway-3-text').textContent = take3Text;
+        const isWarmLighting = ans[10] !== 'B';
+        const lightingAmbience = isWarmLighting
+            ? "Lighting Ambience: Prefers warm, intimate, and moody evening lighting for a calming, grounding retreat experience."
+            : "Lighting Ambience: Prefers crisp, luminous, and energizing illumination for maximum visual clarity and daytime focus.";
+
+        const take4Title = isResidential ? "4. Lighting & Atmospheric Mood" : "4. Lighting & Visual Clarity";
+        const take4Text = lightingAmbience;
+
+        const take1TitleEl = document.getElementById('takeaway-1-title');
+        const take1TextEl = document.getElementById('takeaway-1-text');
+        if (take1TitleEl) take1TitleEl.textContent = take1Title;
+        if (take1TextEl) take1TextEl.textContent = take1Text;
+
+        const take2TitleEl = document.getElementById('takeaway-2-title');
+        const take2TextEl = document.getElementById('takeaway-2-text');
+        if (take2TitleEl) take2TitleEl.textContent = take2Title;
+        if (take2TextEl) take2TextEl.textContent = take2Text;
+
+        const take3TitleEl = document.getElementById('takeaway-3-title');
+        const take3TextEl = document.getElementById('takeaway-3-text');
+        if (take3TitleEl) take3TitleEl.textContent = take3Title;
+        if (take3TextEl) take3TextEl.textContent = take3Text;
+
+        const take4TitleEl = document.getElementById('takeaway-4-title');
+        const take4TextEl = document.getElementById('takeaway-4-text');
+        if (take4TitleEl) take4TitleEl.textContent = take4Title;
+        if (take4TextEl) take4TextEl.textContent = take4Text;
 
         // ---------------------------------------------------------------------
         // Populate Interactive Pop-up Drawer Ledger with "EDIT ✎" Buttons
@@ -869,7 +896,8 @@
             keyPrinciples: [
                 { title: take1Title, text: take1Text },
                 { title: take2Title, text: take2Text },
-                { title: take3Title, text: take3Text }
+                { title: take3Title, text: take3Text },
+                { title: take4Title, text: take4Text }
             ],
             selections: chapterSelections
         };
