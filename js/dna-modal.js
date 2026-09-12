@@ -651,7 +651,7 @@
         bannerEl.style.display = 'flex';
         bannerEl.innerHTML = `
             <span class="dna-edit-mode-text">&#9998; CALIBRATING CHAPTER ${String(targetIndex + 1).padStart(2, '0')}: Make adjustments below, or return directly to your results.</span>
-            <button id="dna-return-dossier-btn" class="dna-return-dossier-btn">RETURN TO DOSSIER &rarr;</button>
+            <button id="dna-return-dossier-btn" class="dna-return-dossier-btn">RETURN TO REPORT &rarr;</button>
         `;
 
         const returnBtn = document.getElementById('dna-return-dossier-btn');
@@ -668,7 +668,7 @@
     }
 
     // -------------------------------------------------------------------------
-    // 5. SIMPLIFIED RESULT DOSSIER & DRAWER / PRINT LEDGER GENERATOR
+    // 5. SIMPLIFIED RESULT DOSSIER & DRAWER / PRINT GRID GENERATOR
     // -------------------------------------------------------------------------
     function showResultDossier() {
         closeChoicesDrawer();
@@ -688,7 +688,7 @@
 
         // Persona Algorithm
         let persona = "The Tropical Courtyard Modernist";
-        let strapline = "Your architectural DNA calls for an earthy, climate-calibrated sanctuary built around private central courtyards, natural passive cooling, and lush indoor-outdoor verandas.";
+        let strapline = "Your spatial vision calls for an earthy, climate-calibrated sanctuary built around private central courtyards, natural passive cooling, and lush indoor-outdoor verandas.";
 
         const isResidential = ans[0] === 'A';
         const isEarthy = ans[1] === 'A';
@@ -784,66 +784,77 @@
         }
 
         // ---------------------------------------------------------------------
-        // Populate Print-Only Selections Ledger (for 1-Page PDF Export)
+        // Populate Print-Only Selections Grid (Page 2 of Spatial Vision Report)
         // ---------------------------------------------------------------------
-        const printLedgerContainer = document.getElementById('dna-print-selections-ledger');
-        if (printLedgerContainer) {
-            printLedgerContainer.innerHTML = '';
+        const printGridContainer = document.getElementById('dna-print-selections-grid');
+        if (printGridContainer) {
+            printGridContainer.innerHTML = '';
 
             for (let i = 0; i < 12; i++) {
                 const ch = getChapterData(i);
                 const chosenKey = ans[i] || 'A';
                 const chosenOpt = chosenKey === 'A' ? ch.optionA : ch.optionB;
+                const chapNum = String(i + 1).padStart(2, '0');
+                const categoryName = ch.category.split('//')[0].trim();
 
-                const itemEl = document.createElement('div');
-                itemEl.className = 'dna-ledger-item';
-                itemEl.innerHTML = `
-                    <div class="dna-ledger-info">
-                        <span class="dna-ledger-meta">CH ${String(i + 1).padStart(2, '0')} // ${ch.category.split('//')[0].trim()}</span>
-                        <span class="dna-ledger-choice">Option ${chosenKey}: ${chosenOpt.title}</span>
+                const cardEl = document.createElement('div');
+                cardEl.className = 'dna-print-card-item';
+                cardEl.innerHTML = `
+                    <img src="${chosenOpt.image}" alt="${chosenOpt.title}" class="dna-print-card-thumb">
+                    <div class="dna-print-card-content">
+                        <span class="dna-print-card-chapter">CH ${chapNum} // ${categoryName}</span>
+                        <div class="dna-print-card-title">${chosenOpt.title}</div>
                     </div>
                 `;
-                printLedgerContainer.appendChild(itemEl);
+                printGridContainer.appendChild(cardEl);
             }
         }
 
         // ---------------------------------------------------------------------
-        // Configure 12-Point Summary and Inquiry Lead Data Transmission
+        // Lead Handoff Overhaul: Save to sessionStorage & Route Cleanly
         // ---------------------------------------------------------------------
-        const chapterSummaries = [];
+        const chapterSelections = [];
         for (let i = 0; i < 12; i++) {
             const ch = getChapterData(i);
             const chosenKey = ans[i] || 'A';
             const chosenOpt = chosenKey === 'A' ? ch.optionA : ch.optionB;
-            chapterSummaries.push(`${i + 1}. ${ch.category.split('//')[0].trim()}: Option ${chosenKey} - ${chosenOpt.title} [${chosenOpt.tag}]`);
+            chapterSelections.push({
+                chapter: i + 1,
+                category: ch.category.split('//')[0].trim(),
+                option: chosenKey,
+                title: chosenOpt.title,
+                tag: chosenOpt.tag,
+                image: chosenOpt.image
+            });
         }
 
-        const subjectParam = encodeURIComponent(`The Design Compass Profile: ${persona}`);
-        const messageParam = encodeURIComponent(
-`Hi Prashanth & Studio Equilibrium Team,
+        const reportData = {
+            tool: "THE DESIGN COMPASS",
+            persona: persona,
+            strapline: strapline,
+            typology: terms.context,
+            keyPrinciples: [
+                { title: take1Title, text: take1Text },
+                { title: take2Title, text: take2Text },
+                { title: take3Title, text: take3Text }
+            ],
+            selections: chapterSelections
+        };
 
-I have completed THE DESIGN COMPASS (// Map Your Spatial Vision) on your website and synthesized my architectural profile:
-
-────────────────────────────────────────────
-ARCHITECTURAL PERSONA: ${persona.toUpperCase()}
-TYPOLOGY: ${terms.context.toUpperCase()}
-────────────────────────────────────────────
-${strapline}
-
-KEY ARCHITECTURAL PRINCIPLES:
-• ${take1Title}: ${take1Text}
-• ${take2Title}: ${take2Text}
-• ${take3Title}: ${take3Text}
-
-12-CHAPTER ARCHITECTURAL SELECTIONS:
-${chapterSummaries.map(s => `• ${s}`).join('\n')}
-
-I would like to discuss translating this Design Compass architectural vision into a schematic concept for our upcoming project.`
-        );
+        try {
+            sessionStorage.setItem("se_design_compass_report", JSON.stringify(reportData));
+        } catch (e) {
+            console.warn("Could not write report to sessionStorage:", e);
+        }
 
         const inquiryBtn = document.getElementById('dna-inquiry-cta-btn');
         if (inquiryBtn) {
-            inquiryBtn.href = `contact.html?subject=${subjectParam}&message=${messageParam}`;
+            inquiryBtn.href = `contact.html?compass_attached=true&persona=${encodeURIComponent(persona)}`;
+            inquiryBtn.onclick = function () {
+                try {
+                    sessionStorage.setItem("se_design_compass_report", JSON.stringify(reportData));
+                } catch (e) {}
+            };
         }
     }
 

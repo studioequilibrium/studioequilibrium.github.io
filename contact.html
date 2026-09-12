@@ -12,9 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/images/logo.png?v=8.2">
-    <link rel="apple-touch-icon" href="assets/images/logo.png?v=8.2">
-    <link rel="stylesheet" href="css/styles.css?v=8.2">
+    <link rel="icon" type="image/png" href="assets/images/logo.png?v=8.3">
+    <link rel="apple-touch-icon" href="assets/images/logo.png?v=8.3">
+    <link rel="stylesheet" href="css/styles.css?v=8.3">
 </head>
 
 <body>
@@ -75,6 +75,19 @@
                         </div>
                     </div>
 
+                    <!-- The Design Compass Attached Report Card -->
+                    <div id="compass-attached-card" class="compass-attached-card" style="display: none;">
+                        <div class="compass-card-header">
+                            <span class="compass-card-icon">&#128206;</span>
+                            <span class="compass-card-text">
+                                The Design Compass Report: <strong id="compass-persona-display"></strong> is attached to this inquiry. (You can also download your copy from the link below).
+                            </span>
+                        </div>
+                        <div class="compass-card-subtext">
+                            Your 12 calibrated architectural selections will be delivered directly with your message to our design studio in Bangalore. <a href="index.html?preview_dna=true" style="color: var(--color-terracotta, #D66A48); text-decoration: underline; font-weight: 600;">Download or review your copy &rarr;</a>
+                        </div>
+                    </div>
+
                     <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
                         <!-- Web3Forms hidden config -->
                         <input type="hidden" name="access_key" value="ea5a8a95-e861-4339-b160-cc8dfb1a20fb">
@@ -82,6 +95,7 @@
                         <input type="hidden" name="replyto" value="%email%">
                         <input type="hidden" name="subject" value="New Inquiry — Studio Equilibrium">
                         <input type="hidden" name="recipient" value="prashanth@studioequilibrium.in">
+                        <input type="hidden" id="design-compass-data" name="design_compass_data">
 
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -104,7 +118,7 @@
                         <div class="form-group">
                             <label for="message">Message</label>
                             <div id="dna-loaded-badge" class="dna-prefilled-notice" style="display: none;">
-                                <span class="dna-notice-icon">&#10003;</span> Spatial DNA Profile successfully loaded.
+                                <span class="dna-notice-icon">&#10003;</span> The Design Compass report attached to inquiry.
                             </div>
                             <textarea id="message" name="message" placeholder="Tell us about your project..." required rows="4"></textarea>
                         </div>
@@ -184,7 +198,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/app.js?v=8.2"></script>
+    <script src="js/app.js?v=8.3"></script>
 </body>
 
 </html>

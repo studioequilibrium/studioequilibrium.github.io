@@ -1,6 +1,6 @@
 /* 
 ================================================================================
-   STUDIO EQUILIBRIUM — THE SPATIAL DNA DISCOVERY MODAL
+   STUDIO EQUILIBRIUM — THE DESIGN COMPASS MODAL
    Dedicated Modal & Book-Slide Transition Stylesheet (css/dna-modal.css)
 ================================================================================
 */
@@ -1037,124 +1037,143 @@
     justify-content: flex-end;
 }
 
-/* ── Print Styles for 1-Page Architectural Dossier PDF Export ── */
+/* ── Print Styles for 2-Page Spatial Vision Report PDF Export ── */
 @media print {
-    body * {
-        visibility: hidden !important;
-    }
-    
-    #dna-modal-overlay,
-    #dna-modal-overlay *,
-    #dna-modal-result-view,
-    #dna-modal-result-view * {
-        visibility: visible !important;
-    }
-    
-    #dna-modal-overlay {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
+    /* 1. Global Reset to eliminate extra pages */
+    html, body {
         width: 100% !important;
         height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background: #FFFFFF !important;
+        color: #1C1D1F !important;
+        overflow: visible !important;
+    }
+
+    /* 2. Hide entire public page tree */
+    body > *:not(#dna-modal-overlay),
+    nav, footer, canvas, .cursor, .cursor-follower,
+    .dna-floating-dock, .dna-modal-close-btn, .dna-modal-header,
+    .dna-modal-footer, .dna-result-btn-row, .dna-result-cta-box,
+    .dna-choices-drawer, .dna-edit-mode-banner {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* 3. Isolate the Modal Overlay as the sole document */
+    #dna-modal-overlay {
+        position: static !important;
+        display: block !important;
+        visibility: visible !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        padding: 0 !important;
-        display: block !important;
-        opacity: 1 !important;
     }
-    
+
     .dna-modal-dialog {
         max-width: 100% !important;
-        max-height: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         border: none !important;
         box-shadow: none !important;
-        background: #FFFFFF !important;
+        background: transparent !important;
         transform: none !important;
         overflow: visible !important;
     }
-    
+
     .dna-modal-body {
+        padding: 0.5cm !important;
         overflow: visible !important;
-        padding: 0.8cm !important;
     }
-    
-    .dna-modal-header,
-    .dna-modal-footer,
-    .dna-modal-close-btn,
-    .dna-floating-dock,
-    .dna-result-btn-row,
-    .dna-ledger-edit-btn,
-    .dna-secondary-btn,
-    .dna-download-btn,
-    .dna-choices-drawer,
-    .dna-choices-drawer *,
-    .navbar,
-    footer,
-    canvas {
-        display: none !important;
-    }
-    
+
     #dna-modal-result-view {
         display: block !important;
-        padding: 0 !important;
     }
-    
+
+    /* 4. PDF Page 1: Hero & 3 Key Principles */
     .dna-result-hero {
         background: #1C1D1F !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        padding: 1.5rem !important;
+        padding: 1.25rem 1.5rem !important;
         border-radius: 8px !important;
-        margin-bottom: 1.25rem !important;
+        margin-bottom: 1rem !important;
     }
-    
+
     .dna-takeaways-grid {
-        gap: 0.85rem !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.75rem !important;
         margin-bottom: 1.25rem !important;
+        page-break-inside: avoid !important;
     }
-    
+
     .dna-takeaway-card {
-        border: 1px solid #D0D0D0 !important;
+        border: 1px solid #D8D8D8 !important;
         padding: 0.85rem !important;
         box-shadow: none !important;
     }
-    
-    .dna-selections-ledger {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.5rem !important;
-    }
-    
-    .dna-ledger-item {
-        border: 1px solid #E0E0E0 !important;
-        background: #FAFAFA !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        padding: 0.45rem 0.65rem !important;
-    }
-    
+
+    /* 5. PDF Page 2: Visual 12-Chapter Selections Grid with Images */
     .dna-print-ledger-section {
         display: block !important;
-        border: 1px solid #D0D0D0 !important;
-        padding: 1rem 1.25rem !important;
-        box-shadow: none !important;
+        page-break-before: always !important; /* Forces clean start on Page 2 */
         page-break-inside: avoid !important;
-        margin-bottom: 1.25rem !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
 
-    .dna-print-ledger-title {
-        font-family: var(--font-headings, 'Lintel', sans-serif);
-        font-size: 0.88rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.14em !important;
-        color: #1C1D1F !important;
-        text-transform: uppercase !important;
-        margin-bottom: 0.75rem !important;
+    .dna-print-selections-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.6rem !important;
     }
-    
-    .dna-result-cta-box {
-        display: none !important;
+
+    .dna-print-card-item {
+        display: flex !important;
+        flex-direction: column !important;
+        border: 1px solid #E0E0E0 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+        background: #FFFFFF !important;
+        page-break-inside: avoid !important;
+    }
+
+    .dna-print-card-thumb {
+        width: 100% !important;
+        height: 70px !important;
+        object-fit: cover !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .dna-print-card-content {
+        padding: 0.4rem 0.5rem !important;
+    }
+
+    .dna-print-card-chapter {
+        font-size: 0.62rem !important;
+        font-weight: 700 !important;
+        color: #D66A48 !important;
+        text-transform: uppercase !important;
+    }
+
+    .dna-print-card-title {
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        color: #1C1D1F !important;
+        line-height: 1.2 !important;
+        margin-top: 0.15rem !important;
     }
 }
 

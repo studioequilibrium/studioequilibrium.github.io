@@ -565,43 +565,115 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 5. CONTACT FORM PROCESSOR & SPATIAL DNA PREFILL
+    // 5. CONTACT FORM PROCESSOR & THE DESIGN COMPASS HANDOFF
     // ----------------------------------------------------
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        // Check for URL parameters (e.g. from Spatial DNA Discovery)
+        // Check for URL parameters (e.g. from The Design Compass)
         const urlParams = new URLSearchParams(window.location.search);
+        const isCompassAttached = urlParams.get('compass_attached') === 'true';
+        const personaParam = urlParams.get('persona');
         const messageParam = urlParams.get('message');
         const subjectParam = urlParams.get('subject');
         const messageField = document.querySelector('textarea[name="message"]') || document.querySelector('#message');
         const subjectField = document.querySelector('input[name="subject"]') || document.querySelector('#subject');
+        const projectTypeSelect = document.getElementById('project-type');
 
-        if (messageField && messageParam) {
-            try {
-                messageField.value = decodeURIComponent(messageParam);
-            } catch (e) {
-                messageField.value = messageParam;
+        if (isCompassAttached) {
+            // Reveal sleek attached card above form
+            const compassCard = document.getElementById('compass-attached-card');
+            if (compassCard) {
+                compassCard.style.display = 'block';
             }
-            messageField.rows = 12;
-            messageField.style.borderColor = 'var(--color-rust-orange, #D66A48)';
+            const personaDisplay = document.getElementById('compass-persona-display');
+            if (personaDisplay && personaParam) {
+                try {
+                    personaDisplay.textContent = decodeURIComponent(personaParam);
+                } catch (e) {
+                    personaDisplay.textContent = personaParam;
+                }
+            }
+
+            // Show status badge above message field
             const dnaNotice = document.getElementById('dna-loaded-badge');
             if (dnaNotice) {
                 dnaNotice.style.display = 'inline-flex';
             }
-        }
 
-        if (subjectField && subjectParam) {
-            try {
-                subjectField.value = decodeURIComponent(subjectParam);
-            } catch (e) {
-                subjectField.value = subjectParam;
+            // Auto-select Architecture
+            if (projectTypeSelect) {
+                projectTypeSelect.value = 'Architecture';
             }
-        }
 
-        // Auto-select Architecture if Spatial DNA profile loaded
-        const projectTypeSelect = document.getElementById('project-type');
-        if (projectTypeSelect && (messageParam || subjectParam)) {
-            projectTypeSelect.value = 'Architecture';
+            // Set default subject
+            if (subjectField) {
+                const personaName = personaParam ? decodeURIComponent(personaParam) : "Spatial Vision";
+                subjectField.value = `New Inquiry — The Design Compass: ${personaName}`;
+            }
+
+            // Keep the message textarea completely clean and empty for the client's own message
+            if (messageField) {
+                messageField.value = '';
+                messageField.placeholder = "Tell us about your project or any specific thoughts on your Design Compass profile...";
+            }
+
+            // Retrieve serialized report from sessionStorage and populate hidden input for email delivery
+            const hiddenDataField = document.getElementById('design-compass-data') || contactForm.querySelector('input[name="design_compass_data"]');
+            if (hiddenDataField) {
+                try {
+                    const rawReport = sessionStorage.getItem("se_design_compass_report");
+                    if (rawReport) {
+                        const parsed = JSON.parse(rawReport);
+                        let formattedReport = `=== THE DESIGN COMPASS: SPATIAL VISION REPORT ===\n`;
+                        formattedReport += `ARCHITECTURAL PERSONA: ${parsed.persona || ''}\n`;
+                        formattedReport += `TYPOLOGY: ${parsed.typology || ''}\n`;
+                        formattedReport += `STRAPLINE: ${parsed.strapline || ''}\n\n`;
+                        if (parsed.keyPrinciples && parsed.keyPrinciples.length) {
+                            formattedReport += `KEY PRINCIPLES:\n`;
+                            parsed.keyPrinciples.forEach(kp => {
+                                formattedReport += `• ${kp.title}: ${kp.text}\n`;
+                            });
+                            formattedReport += `\n`;
+                        }
+                        if (parsed.selections && parsed.selections.length) {
+                            formattedReport += `12 CALIBRATED SELECTIONS:\n`;
+                            parsed.selections.forEach(s => {
+                                formattedReport += `• Chapter ${s.chapter} (${s.category}): Option ${s.option} - ${s.title} [${s.tag}]\n`;
+                            });
+                        }
+                        hiddenDataField.value = formattedReport;
+                    }
+                } catch (err) {
+                    console.warn("Error parsing Design Compass report for submission:", err);
+                }
+            }
+        } else {
+            // Fallback for legacy parameters
+            if (messageField && messageParam) {
+                try {
+                    messageField.value = decodeURIComponent(messageParam);
+                } catch (e) {
+                    messageField.value = messageParam;
+                }
+                messageField.rows = 12;
+                messageField.style.borderColor = 'var(--color-rust-orange, #D66A48)';
+                const dnaNotice = document.getElementById('dna-loaded-badge');
+                if (dnaNotice) {
+                    dnaNotice.style.display = 'inline-flex';
+                }
+            }
+
+            if (subjectField && subjectParam) {
+                try {
+                    subjectField.value = decodeURIComponent(subjectParam);
+                } catch (e) {
+                    subjectField.value = subjectParam;
+                }
+            }
+
+            if (projectTypeSelect && (messageParam || subjectParam)) {
+                projectTypeSelect.value = 'Architecture';
+            }
         }
 
         contactForm.addEventListener('submit', async (e) => {
