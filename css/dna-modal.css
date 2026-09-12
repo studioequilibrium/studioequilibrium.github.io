@@ -256,7 +256,7 @@
     opacity: 1;
 }
 
-/* Chapter Question Lockup */
+/* Question Lockup */
 .dna-slide-header {
     text-align: center;
     max-width: 780px;
@@ -540,6 +540,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
 }
 
 .dna-btn-back {
@@ -1207,7 +1210,7 @@
         box-shadow: none !important;
     }
 
-    /* 5. PDF Page 2: Visual 12-Chapter Selections Grid with Images */
+    /* 5. PDF Page 2: Visual 12 Selections Grid with Images */
     .dna-print-ledger-section {
         display: block !important;
         page-break-before: always !important; /* Forces clean start on Page 2 */

@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (parsed.selections && parsed.selections.length) {
                             formattedReport += `12 CALIBRATED SELECTIONS:\n`;
                             parsed.selections.forEach(s => {
-                                formattedReport += `• Chapter ${s.chapter} (${s.category}): Option ${s.option} - ${s.title} [${s.tag}]\n`;
+                                formattedReport += `• ${String(s.chapter).padStart(2, '0')} // ${s.category}: Option ${s.option} - ${s.title} [${s.tag}]\n`;
                             });
                         }
                         hiddenDataField.value = formattedReport;

@@ -36,7 +36,6 @@
     let drawerCloseBtn = null;
     let drawerBackdropEl = null;
     let drawerDoneBtn = null;
-    let backChapterBtn = null;
 
     // -------------------------------------------------------------------------
     // 1. CONTEXT-AWARE DYNAMIC VOCABULARY HELPER
@@ -405,7 +404,6 @@
         drawerCloseBtn = document.getElementById('dna-drawer-close-btn');
         drawerBackdropEl = document.getElementById('dna-drawer-backdrop');
         drawerDoneBtn = document.getElementById('dna-drawer-done-btn');
-        backChapterBtn = document.getElementById('dna-result-back-chapter-btn');
     }
 
     function attachEventListeners() {
@@ -428,17 +426,24 @@
         if (cardAEl) cardAEl.addEventListener('click', () => selectChoice('A'));
         if (cardBEl) cardBEl.addEventListener('click', () => selectChoice('B'));
 
-        if (btnPrevEl) btnPrevEl.addEventListener('click', () => navigateSlide('prev'));
-        if (btnNextEl) btnNextEl.addEventListener('click', () => navigateSlide('next'));
+        if (btnPrevEl) {
+            btnPrevEl.addEventListener('click', () => {
+                if (resultViewEl && resultViewEl.style.display === 'block') {
+                    stepBackToPreviousChapter();
+                } else {
+                    navigateSlide('prev');
+                }
+            });
+        }
 
-        const resetBtn = document.getElementById('dna-result-reset-btn');
-        if (resetBtn) resetBtn.addEventListener('click', resetModalDiscovery);
-
-        const closeResultBtn = document.getElementById('dna-result-close-btn');
-        if (closeResultBtn) closeResultBtn.addEventListener('click', closeModal);
-
-        if (backChapterBtn) {
-            backChapterBtn.addEventListener('click', stepBackToPreviousChapter);
+        if (btnNextEl) {
+            btnNextEl.addEventListener('click', () => {
+                if (resultViewEl && resultViewEl.style.display === 'block') {
+                    resetModalDiscovery();
+                } else {
+                    navigateSlide('next');
+                }
+            });
         }
 
         if (previewChoicesBtn) previewChoicesBtn.addEventListener('click', openChoicesDrawer);
@@ -571,9 +576,10 @@
 
         // Controls
         btnPrevEl.disabled = index === 0;
+        btnPrevEl.innerHTML = '&larr; BACK';
         const hasSelection = modalState.userAnswers[index] !== null;
         btnNextEl.disabled = !hasSelection;
-        btnNextEl.innerHTML = (index === 11) ? 'MAP MY SPATIAL VISION &rarr;' : 'NEXT CHAPTER &rarr;';
+        btnNextEl.innerHTML = (index === 11) ? 'MAP MY SPATIAL VISION &rarr;' : 'NEXT &rarr;';
     }
 
     function renderCard(cardElement, option, isSelected) {
@@ -650,7 +656,7 @@
         }
         bannerEl.style.display = 'flex';
         bannerEl.innerHTML = `
-            <span class="dna-edit-mode-text">&#9998; CALIBRATING CHAPTER ${String(targetIndex + 1).padStart(2, '0')}: Make adjustments below, or return directly to your results.</span>
+            <span class="dna-edit-mode-text">&#9998; MODIFYING ${String(targetIndex + 1).padStart(2, '0')}: Make adjustments below, or return directly to your results.</span>
             <button id="dna-return-dossier-btn" class="dna-return-dossier-btn">RETURN TO REPORT &rarr;</button>
         `;
 
@@ -679,9 +685,17 @@
         modalState.isEditing = false;
 
         interactiveBodyEl.style.display = 'none';
-        btnPrevEl.style.display = 'none';
-        btnNextEl.style.display = 'none';
         resultViewEl.style.display = 'block';
+
+        // Reorganize footer controls on Final Summary Screen:
+        // Left: ← BACK (take user back to step 12) | Right: RE-EXPLORE (restart from step 01)
+        btnPrevEl.style.display = 'inline-block';
+        btnPrevEl.disabled = false;
+        btnPrevEl.innerHTML = '&larr; BACK';
+
+        btnNextEl.style.display = 'inline-block';
+        btnNextEl.disabled = false;
+        btnNextEl.innerHTML = 'RE-EXPLORE';
 
         const ans = modalState.userAnswers;
         const terms = getTypologyTerms();
@@ -778,10 +792,10 @@
                 itemEl.className = 'dna-ledger-item';
                 itemEl.innerHTML = `
                     <div class="dna-ledger-info">
-                        <span class="dna-ledger-meta">CH ${String(i + 1).padStart(2, '0')} // ${ch.category.split('//')[0].trim()}</span>
+                        <span class="dna-ledger-meta">${String(i + 1).padStart(2, '0')} // ${ch.category.split('//')[0].trim()}</span>
                         <span class="dna-ledger-choice">Option ${chosenKey}: ${chosenOpt.title}</span>
                     </div>
-                    <button class="dna-ledger-edit-btn" data-chapter="${i}" title="Modify Chapter ${i + 1}">EDIT &#9998;</button>
+                    <button class="dna-ledger-edit-btn" data-chapter="${i}" title="Modify ${String(i + 1).padStart(2, '0')}">EDIT &#9998;</button>
                 `;
 
                 const editBtn = itemEl.querySelector('.dna-ledger-edit-btn');
@@ -813,7 +827,7 @@
                 cardEl.innerHTML = `
                     <img src="${chosenOpt.image}" alt="${chosenOpt.title}" class="dna-print-card-thumb">
                     <div class="dna-print-card-content">
-                        <span class="dna-print-card-chapter">CH ${chapNum} // ${categoryName}</span>
+                        <span class="dna-print-card-chapter">${chapNum} // ${categoryName}</span>
                         <div class="dna-print-card-title">${chosenOpt.title}</div>
                     </div>
                 `;
