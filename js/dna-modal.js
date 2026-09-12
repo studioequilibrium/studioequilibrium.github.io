@@ -1,6 +1,6 @@
 /**
  * STUDIO EQUILIBRIUM — THE DESIGN COMPASS MODAL
- * Context-Aware Architectural Discovery Engine (v8.6)
+ * Context-Aware Architectural Discovery Engine (v8.7)
  * Standalone Implementation (js/dna-modal.js)
  */
 
@@ -304,26 +304,30 @@
                 }
             },
 
-            // CHAPTER 10: Generational / Zoning Dynamics
+            // STEP 10: Spatial Programming // Interaction vs. Seclusion
             {
                 id: 10,
-                category: terms.isCommercial ? "Zoning Dynamics // Executive vs. Collaborative" : "Generational Living // Family Dynamics",
-                question: terms.isCommercial ? "How should executive leadership suites and collaborative team zones be organized?" : "How should private suites be organized for parents and children?",
-                tip: terms.isCommercial ? "A dedicated ground-floor executive boardroom allows seamless VIP and client access without disrupting confidential upper-level team workflows." : "Having an elder-friendly, step-free master bedroom suite on the ground floor ensures aging parents live comfortably without stair climbing.",
+                category: "Spatial Programming // Interaction vs. Seclusion",
+                question: "How strictly should active, high-traffic zones be separated from quiet, private zones?",
+                tip: "Strict zoning uses acoustic walls and corridor buffers to eliminate noise bleed between public hosting areas and private focus spaces, whereas fluid open continuity maximizes interaction and spatial volume.",
                 optionA: {
                     key: "A",
-                    tag: "Thoughtful Zoning",
-                    title: terms.isCommercial ? "Dedicated Ground-Floor Executive Suite" : "Dedicated Ground Floor Suite",
-                    desc: terms.isCommercial ? "A prime ground-level executive suite, client boardroom, and restroom with step-free access, keeping high-frequency visitor meetings separated from internal team floors." : "A spacious ground-floor master suite with step-free curbless bathrooms and a private sit-out for parents, keeping louder activities upstairs.",
-                    perks: [terms.isCommercial ? "Seamless Client Access" : "Elder Comfort (Zero Stairs)", "Private Garden Sit-Out", terms.isCommercial ? "Confidential Separation" : "Quiet Generational Separation"],
+                    tag: "Zoned & Buffered",
+                    title: "Strict Zoning & Acoustic Buffer Walls",
+                    desc: terms.isCommercial
+                        ? "Clearly separating client reception and high-traffic team zones from confidential executive suites and quiet boardrooms using acoustic corridors and solid buffer walls."
+                        : "Strictly separating active guest-hosting areas from quiet private bedrooms using acoustic corridor buffers, solid doors, and transitional thresholds.",
+                    perks: ["Zero Noise Bleed", "Absolute Privacy & Security", "Clear Operational Boundaries"],
                     image: "assets/images/designcompass/10a.png"
                 },
                 optionB: {
                     key: "B",
-                    tag: "Connected Living",
-                    title: terms.isCommercial ? "Fluid Interconnected Team Lounges" : "Connected Inter-Generational Lounges",
-                    desc: terms.isCommercial ? "An open layout where team lounges and collaboration breakout zones across floors connect visually, encouraging agile cross-functional interaction." : "An open living layout where family lounges on each floor connect visually and acoustically, encouraging everyone to gather and share daily life.",
-                    perks: ["Connected Flow", "Dynamic Interaction", "Spacious Shared Areas"],
+                    tag: "Fluid Continuity",
+                    title: "Fluid Open-Plan Continuity",
+                    desc: terms.isCommercial
+                        ? "An open layout where team lounges, collaborative desks, and breakout zones bleed into one another seamlessly, encouraging maximum cross-functional interaction."
+                        : "An open living layout where family rooms, dining spaces, and garden decks flow seamlessly into one another, creating an expansive, community-focused feel.",
+                    perks: ["Maximum Visual Continuity", "Agile & Dynamic Flow", "Spacious Communal Vibe"],
                     image: "assets/images/designcompass/10b.png"
                 }
             },
@@ -765,14 +769,13 @@
             ? `Your ${terms.building} will prioritize deep shaded balcony overhangs and jali screens, keeping interior ${terms.space}s naturally cool and cutting power consumption.`
             : `Your ${terms.building} will utilize high-performance double-glazed glass and automated louvers for precision temperature control and zero dust infiltration.`;
 
-        const take3Title = isResidential ? "3. Lifestyle & Family Privacy" : "3. Workplace Dynamics & Acoustic Confidentiality";
-        const take3Text = ans[9] === 'A'
-            ? (isResidential
-                ? "You value generational privacy with peaceful, elder-friendly step-free ground suites and sound-isolated quiet zones for work and rest."
-                : "You prioritize clear zoning between high-confidentiality executive suites/boardrooms on the ground floor and collaborative team areas.")
-            : (isResidential
-                ? "You prioritize open, connected family lounges where different generations interact naturally throughout the day."
-                : "You foster agile collaboration with fluid, interconnected team breakout lounges across floors.");
+        const isStrictZoning = ans[9] !== 'B';
+        const zoningStrategy = isStrictZoning
+            ? "Zoning Strategy: Prefers strict spatial zoning with acoustic buffers to isolate active areas from private retreats."
+            : "Zoning Strategy: Prefers fluid open-plan continuity to encourage maximum interaction and spatial freedom.";
+
+        const take3Title = isResidential ? "3. Spatial Programming & Privacy" : "3. Spatial Programming & Workplace Flow";
+        const take3Text = zoningStrategy;
 
         document.getElementById('takeaway-1-title').textContent = take1Title;
         document.getElementById('takeaway-1-text').textContent = take1Text;
