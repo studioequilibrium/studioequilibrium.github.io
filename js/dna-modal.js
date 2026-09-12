@@ -609,7 +609,7 @@
 
         const visualEl = cardElement.querySelector('.dna-card-visual') || cardElement.querySelector('.dna-card-image');
         if (visualEl) {
-            visualEl.innerHTML = `<img src="${option.image}?v=9.0" alt="${option.title}" class="dna-card-illustration" loading="eager">`;
+            visualEl.innerHTML = `<img src="${option.image}?v=9.1" alt="${option.title}" class="dna-card-illustration" loading="eager">`;
         }
 
         const tagEl = cardElement.querySelector('.dna-card-tag');
@@ -879,7 +879,7 @@
                 const cardEl = document.createElement('div');
                 cardEl.className = 'dna-print-card-item';
                 cardEl.innerHTML = `
-                    <img src="${chosenOpt.image}?v=9.0" alt="${chosenOpt.title}" class="dna-print-card-thumb">
+                    <img src="${chosenOpt.image}?v=9.1" alt="${chosenOpt.title}" class="dna-print-card-thumb">
                     <div class="dna-print-card-content">
                         <span class="dna-print-card-chapter">${chapNum} // ${categoryName}</span>
                         <div class="dna-print-card-title">${chosenOpt.title}</div>
