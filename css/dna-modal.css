@@ -651,10 +651,10 @@
     max-width: 700px;
 }
 
-/* 4 Key Principles Cards */
+/* 5 Key Principles Cards */
 .dna-takeaways-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.25rem;
     margin-bottom: 2rem;
 }
@@ -1204,7 +1204,7 @@
 
     .dna-takeaways-grid {
         display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 0.5rem !important;
         margin-bottom: 0.8rem !important;
         page-break-inside: avoid !important;

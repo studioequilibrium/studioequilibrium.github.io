@@ -1,6 +1,6 @@
 /**
  * STUDIO EQUILIBRIUM — THE DESIGN COMPASS MODAL
- * Context-Aware Architectural Discovery Engine (v8.8)
+ * Context-Aware Architectural Discovery Engine (v8.9)
  * Standalone Implementation (js/dna-modal.js)
  */
 
@@ -362,26 +362,32 @@
                 }
             },
 
-            // CHAPTER 12: Plot Utilization & Terraces
+            // STEP 12: Plot Utilization // Terraces vs. Enclosed Space
             {
                 id: 12,
-                category: terms.isCommercial ? "Plot Utilization // Terraces vs. Enclosed Work Area" : "Plot Utilization // Terraces vs. Enclosed Space",
-                question: "How should your built footprint balance covered outdoor verandas with enclosed indoor area?",
-                tip: `In South Indian plateau climates like Bangalore, deep covered outdoor terraces can be enjoyed 10 months of the year for ${terms.isCommercial ? "client entertaining and team lunches" : "morning tea and evening hosting"}...`,
+                category: terms.isCommercial ? "Plot Utilization // Terraces vs. Enclosed Floorplate" : "Plot Utilization // Verandahs vs. Enclosed Rooms",
+                question: terms.isCommercial 
+                    ? "How should your built footprint balance open-air breakout terraces with fully enclosed indoor workspace?" 
+                    : "How should your built footprint balance covered outdoor verandahs with enclosed indoor living area?",
+                tip: "In South Indian plateau climates like Bangalore, deep covered outdoor verandas and sky decks can be enjoyed most of the year for hosting and natural cooling, whereas fully enclosed floorplates maximize indoor air-conditioned capacity.",
                 optionA: {
                     key: "A",
-                    tag: "Outdoor Verandahs",
-                    title: terms.isCommercial ? "Covered Breakout Terraces & Outdoor Verandahs" : "Large Covered Verandahs & Sit-Outs",
-                    desc: terms.isCommercial ? "Generous wrap-around shaded balconies and landscaped roof gardens on every level, providing alfresco casual meeting spaces and natural cooling." : "Generous wrap-around shaded verandahs and open-air garden sit-outs that blend living rooms directly into nature.",
-                    perks: ["Alfresco Garden Living", "Natural Eaves Shading", "All-Season Weather Comfort"],
+                    tag: terms.isCommercial ? "Open-Air Terraces" : "Covered Verandahs",
+                    title: terms.isCommercial ? "Landscaped Sky Decks & Breakout Balconies" : "Large Covered Verandahs & Garden Sit-Outs",
+                    desc: terms.isCommercial
+                        ? "Sacrificing extra internal desk capacity to create 10-foot-deep sheltered landscaped terraces usable year-round for team standups, client mixers, and open-air work."
+                        : "Sacrificing extra bedroom size to create 10-foot-deep sheltered outdoor terrace gardens usable all year round for morning coffee and hosting friends.",
+                    perks: ["Alfresco Living & Working", "Natural Thermal Shading", "Direct Outdoor Connection"],
                     image: "assets/images/designcompass/12a.png"
                 },
                 optionB: {
                     key: "B",
-                    tag: "Enclosed Living",
-                    title: terms.isCommercial ? "Maximized Enclosed Floorplate" : "Maximized Indoor Air-Conditioned Rooms",
-                    desc: terms.isCommercial ? "Full floorplate utilized for enclosed workspaces, client lounges, and executive cabins, prioritizing internal capacity over open terraces." : "Full site footprint utilized for expansive living salons, extra walk-in closets, and spacious indoor suites, prioritizing enclosed square footage over open terraces.",
-                    perks: ["Maximized Usable Floor Area", "Larger Room Dimensions", "Complete Weather Protection"],
+                    tag: terms.isCommercial ? "Enclosed Floorplate" : "Enclosed Indoor Space",
+                    title: terms.isCommercial ? "Maximized Enclosed Floorplate & Boardrooms" : "Maximized Indoor Air-Conditioned Rooms",
+                    desc: terms.isCommercial
+                        ? "Full floorplate utilized for enclosed executive boardrooms, client lounges, and dedicated server/work areas, prioritizing internal capacity over open terraces."
+                        : "Full site footprint utilized for expansive indoor living salons, extra walk-in closets, and spacious suites, prioritizing enclosed square footage over open terraces.",
+                    perks: ["Maximized Usable Area", "All-Season Climate Control", "Complete Weather Protection"],
                     image: "assets/images/designcompass/12b.png"
                 }
             }
@@ -791,6 +797,14 @@
         const take4Title = isResidential ? "4. Lighting & Atmospheric Mood" : "4. Lighting & Visual Clarity";
         const take4Text = lightingAmbience;
 
+        const isVerandahOption = ans[11] !== 'B';
+        const plotUtilization = isVerandahOption
+            ? "Plot Utilization: Prefers allocating square footage to open-air breakout terraces and covered verandahs for alfresco living."
+            : "Plot Utilization: Prefers maximizing fully enclosed indoor floorplates for all-season climate-controlled capacity.";
+
+        const take5Title = isResidential ? "5. Plot Utilization & Verandahs" : "5. Plot Utilization & Floorplate";
+        const take5Text = plotUtilization;
+
         const take1TitleEl = document.getElementById('takeaway-1-title');
         const take1TextEl = document.getElementById('takeaway-1-text');
         if (take1TitleEl) take1TitleEl.textContent = take1Title;
@@ -810,6 +824,11 @@
         const take4TextEl = document.getElementById('takeaway-4-text');
         if (take4TitleEl) take4TitleEl.textContent = take4Title;
         if (take4TextEl) take4TextEl.textContent = take4Text;
+
+        const take5TitleEl = document.getElementById('takeaway-5-title');
+        const take5TextEl = document.getElementById('takeaway-5-text');
+        if (take5TitleEl) take5TitleEl.textContent = take5Title;
+        if (take5TextEl) take5TextEl.textContent = take5Text;
 
         // ---------------------------------------------------------------------
         // Populate Interactive Pop-up Drawer Ledger with "EDIT ✎" Buttons
@@ -897,7 +916,8 @@
                 { title: take1Title, text: take1Text },
                 { title: take2Title, text: take2Text },
                 { title: take3Title, text: take3Text },
-                { title: take4Title, text: take4Text }
+                { title: take4Title, text: take4Text },
+                { title: take5Title, text: take5Text }
             ],
             selections: chapterSelections
         };
