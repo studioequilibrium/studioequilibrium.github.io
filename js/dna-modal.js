@@ -720,6 +720,17 @@
         document.getElementById('dna-result-persona').textContent = persona;
         document.getElementById('dna-result-strapline').textContent = strapline;
 
+        // Set date in print running headers
+        const printDates = document.querySelectorAll('.dna-print-doc-date');
+        if (printDates.length) {
+            const now = new Date();
+            const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            const dateStr = `CONFIDENTIAL &bull; CONCEPT SCHEMATIC &bull; ${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+            printDates.forEach(el => {
+                el.innerHTML = dateStr;
+            });
+        }
+
         // 3 Simple Takeaways (Adapted with Dynamic Vocabulary)
         const take1Title = isResidential ? "1. Residential Identity" : "1. Facility & Brand Identity";
         const take1Text = isEarthy 

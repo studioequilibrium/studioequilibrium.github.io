@@ -790,7 +790,9 @@
 }
 
 /* ── Complete Selections Preview Ledger & Drawers ── */
-.dna-print-ledger-section {
+.dna-print-ledger-section,
+.dna-print-header,
+.dna-print-personal-note {
     display: none; /* Hidden on screen, visible only in print / PDF export */
 }
 
@@ -1038,6 +1040,11 @@
 }
 
 /* ── Print Styles for 2-Page Spatial Vision Report PDF Export ── */
+@page {
+    size: A4 portrait;
+    margin: 0.8cm 1cm;
+}
+
 @media print {
     /* 1. Global Reset to eliminate extra pages */
     html, body {
@@ -1090,12 +1097,89 @@
     }
 
     .dna-modal-body {
-        padding: 0.5cm !important;
+        padding: 0 !important;
         overflow: visible !important;
     }
 
     #dna-modal-result-view {
         display: block !important;
+    }
+
+    /* ── Architectural Letterhead Running Header (Page 1 & Page 2) ── */
+    .dna-print-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        border-bottom: 1.5px solid #1C1D1F !important;
+        padding-bottom: 0.5rem !important;
+        margin-bottom: 0.85rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        page-break-inside: avoid !important;
+    }
+
+    .dna-print-brand {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+
+    .dna-print-logo {
+        height: 32px !important;
+        width: auto !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .dna-print-title-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.15rem !important;
+    }
+
+    .dna-print-firm-name {
+        font-family: var(--font-headings, 'Lintel', sans-serif) !important;
+        font-size: 0.92rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.14em !important;
+        color: #1C1D1F !important;
+        text-transform: uppercase !important;
+        line-height: 1 !important;
+    }
+
+    .dna-print-firm-tag {
+        font-family: var(--font-headings, 'Lintel', sans-serif) !important;
+        font-size: 0.6rem !important;
+        letter-spacing: 0.08em !important;
+        color: #666666 !important;
+        text-transform: uppercase !important;
+    }
+
+    .dna-print-doc-meta {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        gap: 0.2rem !important;
+        text-align: right !important;
+    }
+
+    .dna-print-doc-title {
+        font-family: var(--font-headings, 'Lintel', sans-serif) !important;
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.1em !important;
+        color: #D66A48 !important;
+        text-transform: uppercase !important;
+        line-height: 1 !important;
+    }
+
+    .dna-print-doc-date {
+        font-size: 0.58rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.08em !important;
+        color: #888888 !important;
+        text-transform: uppercase !important;
     }
 
     /* 4. PDF Page 1: Hero & 3 Key Principles */
@@ -1104,22 +1188,22 @@
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        padding: 1.25rem 1.5rem !important;
+        padding: 1.2rem 1.4rem !important;
         border-radius: 8px !important;
-        margin-bottom: 1rem !important;
+        margin-bottom: 0.9rem !important;
     }
 
     .dna-takeaways-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.75rem !important;
-        margin-bottom: 1.25rem !important;
+        gap: 0.7rem !important;
+        margin-bottom: 1rem !important;
         page-break-inside: avoid !important;
     }
 
     .dna-takeaway-card {
         border: 1px solid #D8D8D8 !important;
-        padding: 0.85rem !important;
+        padding: 0.8rem !important;
         box-shadow: none !important;
     }
 
@@ -1132,10 +1216,20 @@
         padding-top: 0 !important;
     }
 
+    .dna-print-ledger-title {
+        font-family: var(--font-headings, 'Lintel', sans-serif) !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        color: #1C1D1F !important;
+        text-transform: uppercase !important;
+        margin: 0 0 0.5rem 0 !important;
+    }
+
     .dna-print-selections-grid {
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.6rem !important;
+        gap: 0.45rem !important;
     }
 
     .dna-print-card-item {
@@ -1150,7 +1244,7 @@
 
     .dna-print-card-thumb {
         width: 100% !important;
-        height: 70px !important;
+        height: 60px !important;
         object-fit: cover !important;
         display: block !important;
         -webkit-print-color-adjust: exact !important;
@@ -1158,22 +1252,90 @@
     }
 
     .dna-print-card-content {
-        padding: 0.4rem 0.5rem !important;
+        padding: 0.3rem 0.45rem !important;
     }
 
     .dna-print-card-chapter {
-        font-size: 0.62rem !important;
+        font-size: 0.58rem !important;
         font-weight: 700 !important;
         color: #D66A48 !important;
         text-transform: uppercase !important;
+        line-height: 1.1 !important;
     }
 
     .dna-print-card-title {
-        font-size: 0.72rem !important;
+        font-size: 0.68rem !important;
         font-weight: 600 !important;
         color: #1C1D1F !important;
-        line-height: 1.2 !important;
-        margin-top: 0.15rem !important;
+        line-height: 1.15 !important;
+        margin-top: 0.12rem !important;
+    }
+
+    /* 6. Warm Personal Architect's Note at the End of Page 2 */
+    .dna-print-personal-note {
+        display: block !important;
+        border: 1px solid #D8D8D8 !important;
+        border-left: 3.5px solid #D66A48 !important;
+        border-radius: 6px !important;
+        padding: 0.65rem 0.85rem !important;
+        margin-top: 0.55rem !important;
+        background: #FAF9F6 !important;
+        page-break-inside: avoid !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .dna-print-note-heading {
+        font-family: var(--font-headings, 'Lintel', sans-serif) !important;
+        font-size: 0.68rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: #D66A48 !important;
+        margin: 0 0 0.25rem 0 !important;
+    }
+
+    .dna-print-note-text {
+        font-size: 0.68rem !important;
+        line-height: 1.38 !important;
+        font-style: italic !important;
+        color: #2B2B2B !important;
+        margin: 0 0 0.45rem 0 !important;
+    }
+
+    .dna-print-signature-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-end !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+        padding-top: 0.35rem !important;
+    }
+
+    .dna-print-sign-left {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.1rem !important;
+    }
+
+    .dna-print-sign-left strong {
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        color: #1C1D1F !important;
+    }
+
+    .dna-print-sign-left span {
+        font-size: 0.6rem !important;
+        color: #666666 !important;
+    }
+
+    .dna-print-contact-details {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        gap: 0.1rem !important;
+        text-align: right !important;
+        font-size: 0.6rem !important;
+        color: #666666 !important;
     }
 }
 
