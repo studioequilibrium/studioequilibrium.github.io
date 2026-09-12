@@ -1,6 +1,6 @@
 /**
  * STUDIO EQUILIBRIUM — THE DESIGN COMPASS MODAL
- * Context-Aware Architectural Discovery Engine (v8.1)
+ * Context-Aware Architectural Discovery Engine (v8.6)
  * Standalone Implementation (js/dna-modal.js)
  */
 
@@ -154,26 +154,32 @@
                 }
             },
 
-            // CHAPTER 4: Natural Light Strategy
+            // STEP 04: Materiality & Aging Philosophy
             {
                 id: 4,
-                category: "Natural Light // Daylight Distribution",
-                question: `How do you want natural sunlight to illuminate your ${terms.space}?`,
-                tip: "Direct tropical sun brings uncomfortable heat and glare. Bouncing light off white ceilings or courtyard walls fills interior spaces with soothing, uniform illumination all day without turning on electric lights.",
+                category: "Materiality & Craft // Aging Philosophy",
+                question: terms.isCommercial 
+                    ? "How do you prefer your surfaces and finishes to wear and mature over time?" 
+                    : "How do you prefer your home's surfaces and materials to age over time?",
+                tip: "Raw natural materials like exposed brick and stone age gracefully with zero repainting needs over decades, whereas sleek polished finishes provide an ultra-clean modern look that benefits from regular maintenance.",
                 optionA: {
                     key: "A",
-                    tag: "Filtered & Diffused",
-                    title: "Soft Indirect Light & Skylights",
-                    desc: `Gentle, uniform daylight brought down through central lightwells and north-facing glass slots that keeps ${terms.isCommercial ? "desks and meeting rooms" : "rooms"} cool, glare-free, and calm.`,
-                    perks: ["Glare-Free Environments", "Reduced Artificial Lighting", "Zen Aesthetic"],
+                    tag: "Natural & Honest Patina",
+                    title: "Exposed Natural Materials & Organic Patina",
+                    desc: terms.isCommercial
+                        ? "Honest board-marked concrete, natural rough-hewn stone plinths, exposed clay brick, and untreated wood that gain character with age without peeling paint or synthetic laminates."
+                        : "Warm wire-cut clay bricks, local dressed granite, board-formed concrete, and natural timber that mature beautifully over 30+ years with practically zero repaint maintenance.",
+                    perks: ["Zero Repaint Maintenance", "Ages Gracefully with Time", "Authentic Earthy Character"],
                     image: "assets/images/designcompass/4a.png"
                 },
                 optionB: {
                     key: "B",
-                    tag: "Dynamic & Dramatic",
-                    title: "Dramatic Sun Cut-outs & Shadows",
-                    desc: `Intentional sunbeams piercing deep into high-ceiling ${terms.isCommercial ? "atrium reception zones" : "living areas"}, creating ever-changing geometric shadow art on bare stone walls.`,
-                    perks: ["Artful Visual Drama", "Dynamic Time Awareness", "Architectural Identity"],
+                    tag: "Pristine & Polished",
+                    title: "Sleek, Refined & Polished Modern Surfaces",
+                    desc: terms.isCommercial
+                        ? "Flawless micro-concrete finishes, seamless engineered quartz, flush matte architectural panels, and pristine monolithic surfaces that project a high-prestige executive identity."
+                        : "Crisp white monolithic surfaces, smooth micro-cement, engineered quartz countertops, and seamless flush panels for a clean, spotless, ultra-modern luxury aesthetic.",
+                    perks: ["Ultra-Clean Modern Aesthetic", "Smooth Seamless Finishes", "High-End Contemporary Luxury"],
                     image: "assets/images/designcompass/4b.png"
                 }
             },
@@ -745,15 +751,14 @@
             });
         }
 
-        // 3 Simple Takeaways (Adapted with Dynamic Vocabulary)
-        const take1Title = isResidential ? "1. Residential Identity" : "1. Facility & Brand Identity";
-        const take1Text = isEarthy 
-            ? (isResidential 
-                ? "You gravitate toward authentic materials like exposed brick and natural stone that mature gracefully over time."
-                : "Your facility embraces earthy authenticity with exposed brickwork, stone plinths, and warm acoustic timber accents.")
-            : (isResidential
-                ? "You prefer sleek, contemporary finishes with crisp lines, large glass expanses, and understated luxury."
-                : "Your facility projects high-prestige modern clarity with monolithic volumes, clean structural glass, and polished executive suites.");
+        // 3 Simple Takeaways (Adapted with Dynamic Vocabulary & Step 04 Materiality Choice)
+        const isNaturalPatina = ans[3] !== 'B';
+        const surfacePhilosophy = isNaturalPatina
+            ? "Surface Philosophy: Prefers honest, naturally aging materials (exposed brick, stone, and raw concrete) with timeless patina and low long-term maintenance."
+            : "Surface Philosophy: Prefers pristine, polished modern surfaces (seamless micro-concrete, flush panels, and engineered quartz) with an ultra-clean aesthetic.";
+
+        const take1Title = isResidential ? "1. Materiality & Aging Philosophy" : "1. Materiality & Finish Philosophy";
+        const take1Text = surfacePhilosophy;
 
         const take2Title = "2. Summer Heat & Climate Engineering";
         const take2Text = ans[2] === 'A'
