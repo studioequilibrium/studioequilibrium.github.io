@@ -478,29 +478,45 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Center-Screen Focal Zone (Middle Third of Viewport)
-        // -30% top and -30% bottom margins restrict trigger area to the vertical center 40%
+        // Optimized Center-Screen Sweet Spot:
+        // -20% top and -20% bottom margins target the vertical 60% comfort zone
+        // threshold: [0, 0.1] catches entrances without dropping frames during touch momentum scroll
         const observerOptions = {
             root: null,
-            rootMargin: '-30% 0px -30% 0px',
-            threshold: 0.15
+            rootMargin: '-20% 0px -20% 0px',
+            threshold: [0, 0.1]
         };
+
+        let rafId = null;
+        const pendingChanges = new Map();
 
         projectScrollObserver = new IntersectionObserver((entries) => {
             const isTouch = isTouchOrMobile();
-            entries.forEach(entry => {
-                if (!isTouch) {
+            if (!isTouch) {
+                entries.forEach(entry => {
                     entry.target.classList.remove('is-revealed');
                     entry.target.style.removeProperty('--scroll-progress');
-                    return;
-                }
+                });
+                return;
+            }
 
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-revealed');
-                } else {
-                    entry.target.classList.remove('is-revealed');
-                }
+            entries.forEach(entry => {
+                pendingChanges.set(entry.target, entry.isIntersecting);
             });
+
+            if (!rafId) {
+                rafId = requestAnimationFrame(() => {
+                    pendingChanges.forEach((isIntersecting, target) => {
+                        if (isIntersecting) {
+                            target.classList.add('is-revealed');
+                        } else {
+                            target.classList.remove('is-revealed');
+                        }
+                    });
+                    pendingChanges.clear();
+                    rafId = null;
+                });
+            }
         }, observerOptions);
 
         cards.forEach(card => projectScrollObserver.observe(card));
@@ -654,8 +670,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         // Check for URL parameters (e.g. from The Design Compass)
         const urlParams = new URLSearchParams(window.location.search);
-        const isCompassAttached = urlParams.get('compass_attached') === 'true';
+        const isCompassAttached = urlParams.get('compass_attached') === 'true' || urlParams.get('dna_attached') === 'true';
         const personaParam = urlParams.get('persona');
+        const cfgParam = urlParams.get('compass_cfg') || urlParams.get('dna_cfg') || urlParams.get('cfg');
         const messageParam = urlParams.get('message');
         const subjectParam = urlParams.get('subject');
         const messageField = document.querySelector('textarea[name="message"]') || document.querySelector('#message');
@@ -668,12 +685,47 @@ document.addEventListener('DOMContentLoaded', () => {
             if (compassCard) {
                 compassCard.style.display = 'block';
             }
-            const personaDisplay = document.getElementById('compass-persona-display');
-            if (personaDisplay && personaParam) {
+
+            // Decode persona name accurately, with sessionStorage fallback
+            let resolvedPersona = "Spatial Vision";
+            if (personaParam) {
                 try {
-                    personaDisplay.textContent = decodeURIComponent(personaParam);
+                    resolvedPersona = decodeURIComponent(personaParam);
                 } catch (e) {
-                    personaDisplay.textContent = personaParam;
+                    resolvedPersona = personaParam;
+                }
+            } else {
+                try {
+                    const rawReport = sessionStorage.getItem("se_design_compass_report");
+                    if (rawReport) {
+                        const parsed = JSON.parse(rawReport);
+                        if (parsed && parsed.persona) resolvedPersona = parsed.persona;
+                    }
+                } catch (e) {}
+            }
+
+            const personaDisplay = document.getElementById('compass-persona-display');
+            if (personaDisplay) {
+                personaDisplay.textContent = resolvedPersona;
+            }
+
+            // Restore & dynamically calibrate the "Download or review your copy →" link
+            const reviewLink = document.getElementById('compass-review-link');
+            if (reviewLink) {
+                let activeCfg = cfgParam;
+                if (!activeCfg) {
+                    try {
+                        const rawReport = sessionStorage.getItem("se_design_compass_report");
+                        if (rawReport) {
+                            const parsed = JSON.parse(rawReport);
+                            activeCfg = parsed.cfg || (parsed.selections && parsed.selections.map(s => s.option).join(''));
+                        }
+                    } catch (e) {}
+                }
+                if (activeCfg) {
+                    reviewLink.href = `index.html?compass=true&compass_cfg=${encodeURIComponent(activeCfg)}`;
+                } else {
+                    reviewLink.href = "index.html?compass=true";
                 }
             }
 
@@ -690,8 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Set default subject
             if (subjectField) {
-                const personaName = personaParam ? decodeURIComponent(personaParam) : "Spatial Vision";
-                subjectField.value = `New Inquiry — The Design Compass: ${personaName}`;
+                subjectField.value = `New Inquiry — The Design Compass: ${resolvedPersona}`;
             }
 
             // Keep the message textarea completely clean and empty for the client's own message
@@ -756,6 +807,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 report += `\n`;
             }
 
+            // Option 2: Cloud-Linked Sharing URL
+            const cfg = parsed.cfg || (parsed.selections && parsed.selections.map(s => s.option).join('')) || '';
+            if (cfg) {
+                report += `=== DIRECT CLOUD VISION REPORT LINK ===\n`;
+                report += `Click to rebuild & view the client's interactive 12-point Spatial Vision Report:\n`;
+                report += `https://studioequilibrium.in/index.html?compass=true&compass_cfg=${cfg}\n\n`;
+            }
+
+            report += `Generated via Studio Equilibrium Design Compass portal.\n`;
             return report;
         }
 
@@ -768,6 +828,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rawReport = sessionStorage.getItem("se_design_compass_report");
                 if (rawReport) {
                     const parsed = JSON.parse(rawReport);
+                    // Ensure cfg is recorded in parsed object if available from URL query
+                    if (!parsed.cfg) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const cfgFromUrl = urlParams.get('compass_cfg') || urlParams.get('dna_cfg') || urlParams.get('cfg');
+                        if (cfgFromUrl) {
+                            parsed.cfg = cfgFromUrl;
+                        }
+                    }
                     hiddenDataField.value = formatCompassReportText(parsed);
                 }
             } catch (err) {

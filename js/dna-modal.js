@@ -494,10 +494,28 @@
         });
     }
 
-    // Check URL trigger e.g. ?compass=true or ?preview_dna=true or #compass
+    // Check URL trigger e.g. ?compass=true or ?compass_cfg=... or ?preview_dna=true or #compass
     function checkUrlTrigger() {
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('compass') === 'true' || urlParams.get('preview_dna') === 'true' || window.location.hash === '#compass') {
+        const cfgParam = urlParams.get('compass_cfg') || urlParams.get('dna_cfg') || urlParams.get('cfg');
+        const hasTrigger = urlParams.get('compass') === 'true' || urlParams.get('preview_dna') === 'true' || window.location.hash === '#compass' || !!cfgParam;
+
+        if (cfgParam) {
+            const cleanCfg = cfgParam.replace(/[^abAB]/g, '').toUpperCase().slice(0, 12);
+            if (cleanCfg.length === 12) {
+                modalState.userAnswers = cleanCfg.split('');
+                if (floatingDockEl) {
+                    floatingDockEl.classList.add('preview-active');
+                }
+                if (overlayEl) {
+                    openModal();
+                    calculateDnaScore();
+                    return;
+                }
+            }
+        }
+
+        if (hasTrigger) {
             if (floatingDockEl) {
                 floatingDockEl.classList.add('preview-active');
             }
@@ -510,7 +528,9 @@
     // Modal Visibility Handlers
     function openModal() {
         if (!overlayEl) {
-            window.location.href = "index.html?compass=true";
+            const currentSearch = window.location.search || '?compass=true';
+            const redirectParam = currentSearch.includes('compass') ? currentSearch : currentSearch + (currentSearch.includes('?') ? '&compass=true' : '?compass=true');
+            window.location.href = "index.html" + redirectParam;
             return;
         }
         overlayEl.classList.add('active');
@@ -918,11 +938,13 @@
             });
         }
 
+        const cfgCode = modalState.userAnswers.join('');
         const reportData = {
             tool: "THE DESIGN COMPASS",
             persona: persona,
             strapline: strapline,
             typology: terms.context,
+            cfg: cfgCode,
             keyPrinciples: [
                 { title: take1Title, text: take1Text },
                 { title: take2Title, text: take2Text },
@@ -941,7 +963,7 @@
 
         const inquiryBtn = document.getElementById('dna-inquiry-cta-btn');
         if (inquiryBtn) {
-            inquiryBtn.href = `contact.html?compass_attached=true&persona=${encodeURIComponent(persona)}`;
+            inquiryBtn.href = `contact.html?compass_attached=true&persona=${encodeURIComponent(persona)}&compass_cfg=${encodeURIComponent(cfgCode)}`;
             inquiryBtn.onclick = function () {
                 try {
                     sessionStorage.setItem("se_design_compass_report", JSON.stringify(reportData));
