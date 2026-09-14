@@ -355,9 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderProjects(dataToRender, container);
                 setupModal();
-                if (isFeaturedOnly) {
-                    setupProjectCardScrollObserver();
-                }
+                setupProjectCardScrollObserver();
                 if (window.setupCursorHovers) {
                     window.setupCursorHovers();
                 }
@@ -443,9 +441,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 3b. HOMEPAGE CENTER-SCREEN SCROLL REVEAL (MOBILE / TOUCH)
+    // 3b. PROJECT CARDS & PORTFOLIO ROWS CENTER-SCREEN SCROLL REVEAL (MOBILE / TOUCH)
     // ----------------------------------------------------
-    let homepageProjectObserver = null;
+    let projectScrollObserver = null;
 
     function setupProjectCardScrollObserver() {
         const isTouchOrMobile = () => {
@@ -459,23 +457,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('is-revealed');
                 card.style.removeProperty('--scroll-progress');
             });
-            if (homepageProjectObserver) {
-                homepageProjectObserver.disconnect();
-                homepageProjectObserver = null;
+            if (projectScrollObserver) {
+                projectScrollObserver.disconnect();
+                projectScrollObserver = null;
             }
             return;
         }
 
-        // Strictly isolate to the homepage featured projects grid
-        const featuredGrid = document.getElementById('featured-grid');
-        if (!featuredGrid) return; // Completely skips portfolio.html and all secondary pages
-
-        const cards = featuredGrid.querySelectorAll('.project-card');
+        // Target both homepage featured cards and portfolio vertical sequence rows
+        const cards = document.querySelectorAll('.project-card, .project-vertical-row');
         if (!cards.length) return;
 
-        if (homepageProjectObserver) {
-            homepageProjectObserver.disconnect();
-            homepageProjectObserver = null;
+        if (projectScrollObserver) {
+            projectScrollObserver.disconnect();
+            projectScrollObserver = null;
         }
 
         if (!('IntersectionObserver' in window)) {
@@ -491,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
             threshold: 0.15
         };
 
-        homepageProjectObserver = new IntersectionObserver((entries) => {
+        projectScrollObserver = new IntersectionObserver((entries) => {
             const isTouch = isTouchOrMobile();
             entries.forEach(entry => {
                 if (!isTouch) {
@@ -508,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, observerOptions);
 
-        cards.forEach(card => homepageProjectObserver.observe(card));
+        cards.forEach(card => projectScrollObserver.observe(card));
     }
 
     window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
@@ -520,9 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('is-revealed');
                 card.style.removeProperty('--scroll-progress');
             });
-            if (homepageProjectObserver) {
-                homepageProjectObserver.disconnect();
-                homepageProjectObserver = null;
+            if (projectScrollObserver) {
+                projectScrollObserver.disconnect();
+                projectScrollObserver = null;
             }
         }
     }, { passive: true });
