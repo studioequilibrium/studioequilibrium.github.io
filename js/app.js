@@ -759,6 +759,146 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Helper function: Client-Side PDF Compilation for The Design Compass Report
+        async function generateCompassPdfBlob(reportData) {
+            if (!window.html2pdf) {
+                throw new Error('html2pdf library is not loaded');
+            }
+
+            const now = new Date();
+            const currentMonthYear = now.toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
+            const persona = reportData.persona || 'Spatial Vision';
+            const strapline = reportData.strapline || '';
+            const keyPrinciples = reportData.keyPrinciples || [];
+            const selections = reportData.selections || [];
+
+            const renderHeader = () => `
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid #1C1D1F; padding-bottom: 8px; margin-bottom: 14px; width: 100%; box-sizing: border-box;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="assets/images/logo.png" alt="Studio Equilibrium" style="height: 28px; width: auto; display: block;">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <span style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #1C1D1F; text-transform: uppercase; line-height: 1;">STUDIO EQUILIBRIUM</span>
+                            <span style="font-family: 'Inter', sans-serif; font-size: 7.5px; letter-spacing: 0.08em; color: #666666; text-transform: uppercase;">ARCHITECTURE + INTERIORS // BENGALURU</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right; display: flex; flex-direction: column; gap: 2px;">
+                        <span style="font-family: 'Inter', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #D66A48; text-transform: uppercase; line-height: 1;">THE DESIGN COMPASS // SPATIAL VISION REPORT</span>
+                        <span style="font-family: 'Inter', sans-serif; font-size: 7.5px; font-weight: 500; letter-spacing: 0.08em; color: #888888; text-transform: uppercase;">CONFIDENTIAL &bull; CONCEPT SCHEMATIC &bull; ${currentMonthYear}</span>
+                    </div>
+                </div>
+            `;
+
+            const container = document.createElement('div');
+            container.id = 'dna-pdf-compile-container';
+            container.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 760px; background: #FFFFFF; color: #1C1D1F; font-family: "Inter", -apple-system, sans-serif; box-sizing: border-box; z-index: -9999; line-height: 1.4;';
+
+            let principlesHtml = '';
+            keyPrinciples.forEach((kp, idx) => {
+                principlesHtml += `
+                    <div style="border: 1px solid #D8D8D8; border-radius: 6px; padding: 12px 14px; background: #FFFFFF; box-sizing: border-box;">
+                        <div style="font-size: 7.5px; font-weight: 700; letter-spacing: 0.12em; color: #DDAF4C; text-transform: uppercase; margin-bottom: 4px;">KEY PRINCIPLE ${String(idx + 1).padStart(2, '0')}</div>
+                        <h4 style="font-size: 10.5px; font-weight: 600; color: #1C1D1F; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: 0.04em;">${kp.title}</h4>
+                        <p style="font-size: 9px; line-height: 1.45; color: #4A4A4A; margin: 0;">${kp.text}</p>
+                    </div>
+                `;
+            });
+
+            let selectionsHtml = '';
+            selections.forEach((sel) => {
+                selectionsHtml += `
+                    <div style="border: 1px solid #E0E0E0; border-radius: 6px; overflow: hidden; background: #FFFFFF; display: flex; flex-direction: column; box-sizing: border-box;">
+                        <img src="${sel.image}" alt="${sel.title}" style="width: 100%; height: 70px; object-fit: cover; display: block;">
+                        <div style="padding: 6px 8px;">
+                            <span style="font-size: 7.5px; font-weight: 700; color: #D66A48; text-transform: uppercase; display: block; margin-bottom: 2px;">${String(sel.chapter).padStart(2, '0')} // ${sel.category}</span>
+                            <div style="font-size: 9px; font-weight: 600; color: #1C1D1F; line-height: 1.25;">${sel.title}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="pdf-page-1" style="padding: 24px 28px 20px 28px; box-sizing: border-box; background: #FFFFFF;">
+                    ${renderHeader()}
+
+                    <div style="background: #1C1D1F; color: #FFFFFF; padding: 20px 24px; border-radius: 8px; margin-bottom: 18px;">
+                        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.16em; color: #DDAF4C; text-transform: uppercase; margin-bottom: 6px;">// THE DESIGN COMPASS &bull; SPATIAL VISION REPORT</div>
+                        <h2 style="font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: #FFFFFF; margin: 0 0 8px 0; text-transform: capitalize;">${persona}</h2>
+                        <p style="font-size: 11px; line-height: 1.5; color: rgba(255, 255, 255, 0.85); margin: 0; font-weight: 300;">${strapline}</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
+                        ${principlesHtml}
+                    </div>
+                </div>
+
+                <div class="html2pdf__page-break" style="page-break-before: always; height: 0; margin: 0; padding: 0;"></div>
+
+                <div class="pdf-page-2" style="padding: 24px 28px 20px 28px; box-sizing: border-box; background: #FFFFFF;">
+                    ${renderHeader()}
+
+                    <div style="margin-bottom: 10px;">
+                        <h3 style="font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; color: #1C1D1F; text-transform: uppercase; margin: 0;">// THE DESIGN COMPASS &bull; 12 CALIBRATED SELECTIONS</h3>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 14px;">
+                        ${selectionsHtml}
+                    </div>
+
+                    <div style="border: 1px solid #D8D8D8; border-left: 3.5px solid #D66A48; border-radius: 6px; padding: 12px 16px; background: #FAF9F6; box-sizing: border-box;">
+                        <h4 style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #D66A48; margin: 0 0 5px 0;">A PERSONAL NOTE FROM OUR PRINCIPAL ARCHITECT</h4>
+                        <p style="font-size: 9px; line-height: 1.45; font-style: italic; color: #2B2B2B; margin: 0 0 8px 0;">
+                            &ldquo;Architecture is never merely about square footage—it is an art of aligning climate, light, human movement, and honest materials. The choices you have curated here form the initial genetic blueprint of your future space. We would love to sit down with you, study your site contours, and translate this vision into a living structural reality.&rdquo;
+                        </p>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(0, 0, 0, 0.08); padding-top: 6px;">
+                            <div>
+                                <strong style="font-size: 9.5px; font-weight: 700; color: #1C1D1F; display: block;">Prashanth Nagabhushan</strong>
+                                <span style="font-size: 8px; color: #666666;">Principal Architect, Studio Equilibrium</span>
+                            </div>
+                            <div style="text-align: right; font-size: 8px; color: #666666; line-height: 1.3;">
+                                <div>+91 99645 14987 &bull; prashanth@studioequilibrium.in</div>
+                                <div>Hoskote, Bengaluru &bull; www.studioequilibrium.in</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(container);
+
+            try {
+                const imgs = Array.from(container.querySelectorAll('img'));
+                await Promise.all(imgs.map(img => {
+                    if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
+                    return new Promise(res => {
+                        img.onload = res;
+                        img.onerror = res;
+                        setTimeout(res, 2000);
+                    });
+                }));
+
+                const opt = {
+                    margin: 0,
+                    filename: 'The_Design_Compass_Spatial_Vision_Report.pdf',
+                    image: { type: 'jpeg', quality: 0.95 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        scrollY: 0
+                    },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: ['css', 'legacy'] }
+                };
+
+                const pdfBlob = await window.html2pdf().from(container).set(opt).outputPdf('blob');
+                return pdfBlob;
+            } finally {
+                if (container && container.parentNode) {
+                    container.parentNode.removeChild(container);
+                }
+            }
+        }
+
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -778,6 +918,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const formData = new FormData(contactForm);
+
+                // Background PDF Compilation for The Design Compass report if present
+                const rawReport = sessionStorage.getItem("se_design_compass_report");
+                if (rawReport) {
+                    try {
+                        const parsedReport = JSON.parse(rawReport);
+                        submitBtn.textContent = 'COMPILING REPORT...';
+                        const pdfBlob = await generateCompassPdfBlob(parsedReport);
+                        if (pdfBlob && (pdfBlob instanceof Blob || (pdfBlob.size && pdfBlob.size > 0))) {
+                            formData.append('attachment', pdfBlob, 'The_Design_Compass_Spatial_Vision_Report.pdf');
+                        }
+                    } catch (pdfErr) {
+                        console.warn("PDF compilation bypassed or failed, proceeding with standard data submission:", pdfErr);
+                    }
+                }
+
+                submitBtn.textContent = 'SENDING...';
+
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     body: formData
@@ -792,6 +950,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         successOverlay.style.display = 'flex';
                     }
                     contactForm.reset();
+                    try {
+                        sessionStorage.removeItem("se_design_compass_report");
+                    } catch (e) {}
                 } else {
                     throw new Error(data.message || 'Submission failed.');
                 }
