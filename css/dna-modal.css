@@ -62,6 +62,10 @@
     background: #BF5736;
 }
 
+.dna-floating-dock:active {
+    transform: scale(0.96);
+}
+
 /* ── 2. Modal Overlay Backdrop ── */
 .dna-modal-overlay {
     position: fixed;
@@ -1374,12 +1378,13 @@
     .dna-floating-dock {
         bottom: 1rem;
         right: 1rem;
-        padding: 0.35rem 0.45rem;
+        padding: 0.32rem 0.42rem;
         border-radius: 30px;
         gap: 0;
         max-width: calc(100vw - 2rem);
         box-sizing: border-box;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 14px rgba(214, 106, 72, 0.35);
+        flex-shrink: 0;
     }
     
     .dna-floating-dock span:first-child {
@@ -1388,19 +1393,23 @@
 
     .dna-floating-dock .dock-action {
         font-size: 0; /* Shorten desktop text on mobile */
-        padding: 0.42rem 0.85rem;
+        padding: 0.44rem 0.9rem;
         border-radius: 20px;
         line-height: 1.2;
         letter-spacing: normal;
         white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .dna-floating-dock .dock-action::after {
-        content: "DESIGN COMPASS \2192";
-        font-size: 0.72rem;
+        content: "MAP VISION \2192";
+        font-size: 0.74rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.09em;
         color: #FFFFFF;
+        text-transform: uppercase;
     }
     
     .dna-modal-overlay {
@@ -1455,7 +1464,8 @@
     .dna-floating-dock {
         bottom: 0.75rem;
         right: 0.75rem;
-        padding: 0.28rem 0.38rem;
+        padding: 0.25rem 0.35rem;
+        max-width: calc(100vw - 1.5rem);
     }
 
     .dna-floating-dock .dock-action {
@@ -1463,8 +1473,8 @@
     }
 
     .dna-floating-dock .dock-action::after {
+        content: "MAP VISION \2192";
         font-size: 0.68rem;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
     }
 }
-

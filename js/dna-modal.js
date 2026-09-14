@@ -431,6 +431,12 @@
     function attachEventListeners() {
         if (floatingDockEl) {
             floatingDockEl.addEventListener('click', openModal);
+            floatingDockEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal();
+                }
+            });
         }
 
         if (closeBtnEl) {
@@ -488,10 +494,10 @@
         });
     }
 
-    // Check URL trigger e.g. ?preview_dna=true
+    // Check URL trigger e.g. ?compass=true or ?preview_dna=true or #compass
     function checkUrlTrigger() {
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('preview_dna') === 'true') {
+        if (urlParams.get('compass') === 'true' || urlParams.get('preview_dna') === 'true' || window.location.hash === '#compass') {
             if (floatingDockEl) {
                 floatingDockEl.classList.add('preview-active');
             }
@@ -504,7 +510,7 @@
     // Modal Visibility Handlers
     function openModal() {
         if (!overlayEl) {
-            window.location.href = "index.html?preview_dna=true";
+            window.location.href = "index.html?compass=true";
             return;
         }
         overlayEl.classList.add('active');
