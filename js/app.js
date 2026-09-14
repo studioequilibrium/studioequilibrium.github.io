@@ -355,7 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderProjects(dataToRender, container);
                 setupModal();
-                setupProjectCardScrollObserver();
+                if (isFeaturedOnly) {
+                    setupProjectCardScrollObserver();
+                }
                 if (window.setupCursorHovers) {
                     window.setupCursorHovers();
                 }
@@ -441,170 +443,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 3b. CONTINUOUS SCROLL-LINKED SCRUBBING FOR PROJECT CARDS (60fps RAF)
+    // 3b. HOMEPAGE CENTER-SCREEN SCROLL REVEAL (MOBILE / TOUCH)
     // ----------------------------------------------------
-    let projectScrollObserver = null;
-    let isScrollListenerAttached = false;
-    const activeCardsInViewport = new Set();
-    let scrollRafId = null;
+    let homepageProjectObserver = null;
 
     function setupProjectCardScrollObserver() {
         const isTouchOrMobile = () => {
             return window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
         };
 
-        const targetCards = document.querySelectorAll('.project-card, .project-vertical-row');
-        if (!targetCards.length) return;
+        // Strictly isolate to the homepage featured projects grid
+        const featuredGrid = document.getElementById('featured-grid');
+        if (!featuredGrid) return; // Completely skips portfolio.html and all secondary pages
 
-        // Disconnect existing observer if re-initializing
-        if (projectScrollObserver) {
-            projectScrollObserver.disconnect();
-            projectScrollObserver = null;
+        const cards = featuredGrid.querySelectorAll('.project-card');
+        if (!cards.length) return;
+
+        if (homepageProjectObserver) {
+            homepageProjectObserver.disconnect();
+            homepageProjectObserver = null;
         }
-        activeCardsInViewport.clear();
 
-        // If desktop mouse user, clean up any inline variables and return
+        // On desktop mouse viewports, ensure is-revealed is not applied
         if (!isTouchOrMobile()) {
-            targetCards.forEach(card => {
-                card.style.removeProperty('--scroll-progress');
-                card.classList.remove('is-revealed');
-                delete card._lastProgress;
-            });
+            cards.forEach(card => card.classList.remove('is-revealed'));
             return;
         }
 
-        // Optimization: IntersectionObserver tracks which cards are near the viewport (+30% margin)
-        // Only cards in this active set have their bounding rects measured on scroll.
-        if ('IntersectionObserver' in window) {
-            const observerOptions = {
-                root: null,
-                rootMargin: '30% 0px 30% 0px',
-                threshold: [0, 0.1, 0.5, 1.0]
-            };
-
-            projectScrollObserver = new IntersectionObserver((entries) => {
-                if (!isTouchOrMobile()) return;
-
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        activeCardsInViewport.add(entry.target);
-                    } else {
-                        activeCardsInViewport.delete(entry.target);
-                        // Out of bounds: safely reset to 0
-                        if (entry.target._lastProgress !== 0) {
-                            entry.target._lastProgress = 0;
-                            entry.target.style.setProperty('--scroll-progress', '0');
-                            entry.target.classList.remove('is-revealed');
-                        }
-                    }
-                });
-
-                // Request RAF update when cards enter/exit
-                requestTick();
-            }, observerOptions);
-
-            targetCards.forEach(card => projectScrollObserver.observe(card));
-        } else {
-            // Fallback for browsers without IntersectionObserver: track all target cards
-            targetCards.forEach(card => activeCardsInViewport.add(card));
+        if (!('IntersectionObserver' in window)) {
+            cards.forEach(card => card.classList.add('is-revealed'));
+            return;
         }
 
-        // Optimized RAF Scroll Updater - Zero Layout Thrashing (Separated Read & Write)
-        function updateScrollProgress() {
-            scrollRafId = null;
+        // Center-Screen Focal Zone (Middle Third of Viewport)
+        // -30% top and -30% bottom margins restrict trigger area to the vertical center 40%
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30% 0px -30% 0px',
+            threshold: 0.15
+        };
 
-            if (!isTouchOrMobile()) {
-                targetCards.forEach(card => {
-                    card.style.removeProperty('--scroll-progress');
-                    card.classList.remove('is-revealed');
-                    delete card._lastProgress;
-                });
-                return;
-            }
-
-            const cardsToUpdate = activeCardsInViewport.size > 0 
-                ? Array.from(activeCardsInViewport) 
-                : Array.from(targetCards);
-
-            if (!cardsToUpdate.length) return;
-
-            const vh = window.innerHeight || document.documentElement.clientHeight;
-            const centerY = vh / 2;
-
-            // Phase 1: BATCH READ (measure geometry without DOM mutations)
-            const measurements = [];
-            for (let i = 0; i < cardsToUpdate.length; i++) {
-                const card = cardsToUpdate[i];
-                const rect = card.getBoundingClientRect();
-                measurements.push({ card, top: rect.top, height: rect.height, bottom: rect.bottom });
-            }
-
-            // Phase 2: BATCH COMPUTE (calculate smooth progress in memory)
-            const updates = [];
-            for (let i = 0; i < measurements.length; i++) {
-                const { card, top, height, bottom } = measurements[i];
-
-                if (bottom < 0 || top > vh) {
-                    updates.push({ card, progress: 0 });
-                    continue;
+        homepageProjectObserver = new IntersectionObserver((entries) => {
+            const isTouch = isTouchOrMobile();
+            entries.forEach(entry => {
+                if (!isTouch) {
+                    entry.target.classList.remove('is-revealed');
+                    return;
                 }
 
-                const cardCenter = top + height / 2;
-                const dist = Math.abs(cardCenter - centerY);
-                // Reach defines the falloff envelope around the viewport center
-                const reach = (vh + height) * 0.42;
-                let raw = 1 - (dist / reach);
-                let clamped = Math.max(0, Math.min(1, raw));
-                // Smoothstep easing (3x^2 - 2x^3) for organic deceleration near peak center
-                let smooth = clamped * clamped * (3 - 2 * clamped);
-                let rounded = Math.round(smooth * 1000) / 1000;
-
-                updates.push({ card, progress: rounded });
-            }
-
-            // Phase 3: BATCH WRITE (apply CSS custom properties only if value changed)
-            for (let i = 0; i < updates.length; i++) {
-                const { card, progress } = updates[i];
-                if (card._lastProgress !== progress) {
-                    card._lastProgress = progress;
-                    card.style.setProperty('--scroll-progress', progress.toString());
-                    if (progress > 0.05) {
-                        card.classList.add('is-revealed');
-                    } else {
-                        card.classList.remove('is-revealed');
-                    }
-                }
-            }
-        }
-
-        function requestTick() {
-            if (!scrollRafId) {
-                scrollRafId = window.requestAnimationFrame(updateScrollProgress);
-            }
-        }
-
-        // Attach scroll and resize listeners only once
-        if (!isScrollListenerAttached) {
-            window.addEventListener('scroll', requestTick, { passive: true });
-            window.addEventListener('resize', () => {
-                if (!isTouchOrMobile()) {
-                    targetCards.forEach(card => {
-                        card.style.removeProperty('--scroll-progress');
-                        card.classList.remove('is-revealed');
-                        delete card._lastProgress;
-                    });
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
                 } else {
-                    requestTick();
+                    entry.target.classList.remove('is-revealed');
                 }
-            }, { passive: true });
-            isScrollListenerAttached = true;
-        }
+            });
+        }, observerOptions);
 
-        // Initial measurement tick
-        requestTick();
+        cards.forEach(card => homepageProjectObserver.observe(card));
     }
 
     window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
+
+    window.addEventListener('resize', () => {
+        const featuredGrid = document.getElementById('featured-grid');
+        if (!featuredGrid) return;
+        const isTouch = window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
+        if (!isTouch) {
+            featuredGrid.querySelectorAll('.project-card.is-revealed').forEach(card => {
+                card.classList.remove('is-revealed');
+            });
+        }
+    }, { passive: true });
 
     // ----------------------------------------------------
     // 4. MODAL (FULL SCREEN PROJECT VIEW WITH SPECS TABLE)

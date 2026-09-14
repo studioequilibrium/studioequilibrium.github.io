@@ -861,7 +861,7 @@ section {
 }
 
 .project-card:hover,
-.project-card.is-revealed {
+#featured-grid .project-card.is-revealed {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
@@ -900,7 +900,7 @@ section {
 }
 
 .project-card:hover .project-image-container,
-.project-card.is-revealed .project-image-container {
+#featured-grid .project-card.is-revealed .project-image-container {
     transform: scale(0.97);
     /* Scale inward */
 }
@@ -916,7 +916,7 @@ section {
 }
 
 .project-card:hover .project-image-container img,
-.project-card.is-revealed .project-image-container img {
+#featured-grid .project-card.is-revealed .project-image-container img {
     filter: grayscale(0%);
     transform: scale(1.05);
     /* Subtle zoom */
@@ -945,7 +945,7 @@ section {
 }
 
 .project-card:hover .project-info-overlay,
-.project-card.is-revealed .project-info-overlay {
+#featured-grid .project-card.is-revealed .project-info-overlay {
     opacity: 1;
     /* Full reveal on hover */
     pointer-events: auto;
@@ -968,61 +968,6 @@ section {
     color: #FFFFFF !important;
     /* Guaranteed white for legibility */
     opacity: 0.85;
-}
-
-/* 
-========================================
-   CONTINUOUS SCROLL-LINKED SCRUBBING (MOBILE & TOUCH)
-========================================
-*/
-@media (max-width: 1024px), (hover: none), (pointer: coarse) {
-    .project-card {
-        --scroll-progress: 0;
-        box-shadow: 0 calc(10px + var(--scroll-progress, 0) * 10px) calc(25px + var(--scroll-progress, 0) * 15px) rgba(0, 0, 0, 0.08),
-                    0 0 calc(var(--scroll-progress, 0) * 20px) rgba(219, 150, 2, 0.15);
-        transition: none !important;
-    }
-
-    .project-card .project-image-container {
-        transform: scale(calc(1 - var(--scroll-progress, 0) * 0.03)) translateZ(0);
-        transition: none !important;
-    }
-
-    .project-card .project-image-container img {
-        /* Direct mathematical scrub: grayscale scales from 0.8 (80%) down to 0 (0%) at peak */
-        filter: grayscale(calc(0.8 - var(--scroll-progress, 0) * 0.8));
-        /* Gentle zoom scales from 1.0 to 1.05 at focal center */
-        transform: scale(calc(1 + var(--scroll-progress, 0) * 0.05)) translateZ(0);
-        transition: none !important;
-    }
-
-    .project-card .project-info-overlay {
-        opacity: var(--scroll-progress, 0);
-        pointer-events: auto;
-        transition: none !important;
-    }
-
-    .project-card::after {
-        opacity: var(--scroll-progress, 0);
-        animation: movingLaser 3s linear infinite;
-        transition: none !important;
-    }
-
-    .project-vertical-row {
-        --scroll-progress: 0;
-    }
-
-    .project-vertical-row .project-vertical-image-container img {
-        filter: grayscale(calc(1 - var(--scroll-progress, 0)));
-        transform: scale(calc(1 + var(--scroll-progress, 0) * 0.02)) translateZ(0);
-        transition: none !important;
-    }
-
-    .project-vertical-row .project-vertical-image-container::after {
-        opacity: var(--scroll-progress, 0);
-        animation: movingLaser 3s linear infinite;
-        transition: none !important;
-    }
 }
 
 /* 
@@ -3024,9 +2969,7 @@ footer {
     will-change: transform, filter;
 }
 
-.project-vertical-image-container:hover img,
-.project-vertical-image-container.is-revealed img,
-.project-vertical-row.is-revealed .project-vertical-image-container img {
+.project-vertical-image-container:hover img {
     filter: grayscale(0%);
     transform: scale(1.02);
 }
@@ -3188,10 +3131,8 @@ footer {
 }
 
 .project-vertical-image-container:hover::after,
-.project-vertical-image-container.is-revealed::after,
 .project-card:hover::after,
-.project-card.is-revealed::after,
-.project-vertical-row.is-revealed .project-vertical-image-container::after {
+#featured-grid .project-card.is-revealed::after {
     opacity: 1;
     animation: movingLaser 3s linear infinite;
 }
