@@ -355,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderProjects(dataToRender, container);
                 setupModal();
+                setupProjectCardScrollObserver();
                 if (window.setupCursorHovers) {
                     window.setupCursorHovers();
                 }
@@ -438,6 +439,67 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(card);
         });
     }
+
+    // ----------------------------------------------------
+    // 3b. MOBILE SCROLL REVEAL OBSERVER FOR PROJECT CARDS
+    // ----------------------------------------------------
+    let projectScrollObserver = null;
+
+    function setupProjectCardScrollObserver() {
+        const isTouchOrMobile = () => {
+            return window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
+        };
+
+        const targetCards = document.querySelectorAll('.project-card, .project-vertical-row');
+        if (!targetCards.length) return;
+
+        if (projectScrollObserver) {
+            projectScrollObserver.disconnect();
+            projectScrollObserver = null;
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            if (isTouchOrMobile()) {
+                targetCards.forEach(card => card.classList.add('is-revealed'));
+            }
+            return;
+        }
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-5% 0px -8% 0px',
+            threshold: [0, 0.15, 0.35, 0.6]
+        };
+
+        projectScrollObserver = new IntersectionObserver((entries) => {
+            const isTouch = isTouchOrMobile();
+            entries.forEach(entry => {
+                if (!isTouch) {
+                    entry.target.classList.remove('is-revealed');
+                    return;
+                }
+
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+                    entry.target.classList.add('is-revealed');
+                } else if (!entry.isIntersecting || entry.intersectionRatio < 0.1) {
+                    entry.target.classList.remove('is-revealed');
+                }
+            });
+        }, observerOptions);
+
+        targetCards.forEach(card => projectScrollObserver.observe(card));
+    }
+
+    window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
+
+    window.addEventListener('resize', () => {
+        const isTouch = window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
+        if (!isTouch) {
+            document.querySelectorAll('.project-card.is-revealed, .project-vertical-row.is-revealed').forEach(el => {
+                el.classList.remove('is-revealed');
+            });
+        }
+    }, { passive: true });
 
     // ----------------------------------------------------
     // 4. MODAL (FULL SCREEN PROJECT VIEW WITH SPECS TABLE)

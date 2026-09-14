@@ -854,11 +854,14 @@ section {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: box-shadow 0.5s var(--transition-smooth);
+    transition: box-shadow 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth);
     cursor: none;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
 }
 
-.project-card:hover {
+.project-card:hover,
+.project-card.is-revealed {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
@@ -892,10 +895,12 @@ section {
     /* Hardware-accelerate for GPU corner clipping */
     isolation: isolate;
     /* Stacking context — seals corner mask on iOS/Safari */
-    transition: transform 0.5s var(--transition-smooth);
+    transition: transform 0.6s var(--transition-smooth);
+    will-change: transform;
 }
 
-.project-card:hover .project-image-container {
+.project-card:hover .project-image-container,
+.project-card.is-revealed .project-image-container {
     transform: scale(0.97);
     /* Scale inward */
 }
@@ -906,9 +911,12 @@ section {
     object-fit: cover;
     filter: grayscale(80%);
     transition: filter 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+    transform: translateZ(0);
+    will-change: transform, filter;
 }
 
-.project-card:hover .project-image-container img {
+.project-card:hover .project-image-container img,
+.project-card.is-revealed .project-image-container img {
     filter: grayscale(0%);
     transform: scale(1.05);
     /* Subtle zoom */
@@ -930,12 +938,14 @@ section {
     padding: var(--spacing-md);
     opacity: 0;
     /* Hidden by default */
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s var(--transition-smooth);
     pointer-events: none;
     /* Non-blocking during idle */
+    will-change: opacity;
 }
 
-.project-card:hover .project-info-overlay {
+.project-card:hover .project-info-overlay,
+.project-card.is-revealed .project-info-overlay {
     opacity: 1;
     /* Full reveal on hover */
     pointer-events: auto;
@@ -2954,10 +2964,14 @@ footer {
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: filter 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth);
+    transition: filter 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+    transform: translateZ(0);
+    will-change: transform, filter;
 }
 
-.project-vertical-image-container:hover img {
+.project-vertical-image-container:hover img,
+.project-vertical-image-container.is-revealed img,
+.project-vertical-row.is-revealed .project-vertical-image-container img {
     filter: grayscale(0%);
     transform: scale(1.02);
 }
@@ -3113,12 +3127,16 @@ footer {
     mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s var(--transition-smooth);
     z-index: 5;
+    will-change: opacity;
 }
 
 .project-vertical-image-container:hover::after,
-.project-card:hover::after {
+.project-vertical-image-container.is-revealed::after,
+.project-card:hover::after,
+.project-card.is-revealed::after,
+.project-vertical-row.is-revealed .project-vertical-image-container::after {
     opacity: 1;
     animation: movingLaser 3s linear infinite;
 }
