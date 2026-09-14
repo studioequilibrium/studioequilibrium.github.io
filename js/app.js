@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const hasHover = window.matchMedia('(hover: hover)').matches;
             if (!hasHover) return; // Do not attach hover triggers on touchscreen devices
 
-            const interactiveElements = document.querySelectorAll('a, button, .project-card, .close-modal, .view-all-btn, .submit-btn, select, option, input, textarea, .client-app-feature-v');
+            const interactiveElements = document.querySelectorAll('a, button, .project-card, .project-vertical-row, .project-vertical-image-container, .close-modal, .view-all-btn, .submit-btn, select, option, input, textarea, .client-app-feature-v');
             interactiveElements.forEach(el => {
                 el.removeEventListener('mouseenter', addHoverState);
                 el.removeEventListener('mouseleave', removeHoverState);
@@ -452,6 +452,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
         };
 
+        // Completely bail out on true desktop mouse environments
+        if (!isTouchOrMobile()) {
+            // Clean up any lingering touch classes or inline variables on all project cards/rows
+            document.querySelectorAll('.project-card, .project-vertical-row').forEach(card => {
+                card.classList.remove('is-revealed');
+                card.style.removeProperty('--scroll-progress');
+            });
+            if (homepageProjectObserver) {
+                homepageProjectObserver.disconnect();
+                homepageProjectObserver = null;
+            }
+            return;
+        }
+
         // Strictly isolate to the homepage featured projects grid
         const featuredGrid = document.getElementById('featured-grid');
         if (!featuredGrid) return; // Completely skips portfolio.html and all secondary pages
@@ -462,12 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (homepageProjectObserver) {
             homepageProjectObserver.disconnect();
             homepageProjectObserver = null;
-        }
-
-        // On desktop mouse viewports, ensure is-revealed is not applied
-        if (!isTouchOrMobile()) {
-            cards.forEach(card => card.classList.remove('is-revealed'));
-            return;
         }
 
         if (!('IntersectionObserver' in window)) {
@@ -488,6 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (!isTouch) {
                     entry.target.classList.remove('is-revealed');
+                    entry.target.style.removeProperty('--scroll-progress');
                     return;
                 }
 
@@ -505,13 +514,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
 
     window.addEventListener('resize', () => {
-        const featuredGrid = document.getElementById('featured-grid');
-        if (!featuredGrid) return;
         const isTouch = window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
         if (!isTouch) {
-            featuredGrid.querySelectorAll('.project-card.is-revealed').forEach(card => {
+            document.querySelectorAll('.project-card, .project-vertical-row').forEach(card => {
                 card.classList.remove('is-revealed');
+                card.style.removeProperty('--scroll-progress');
             });
+            if (homepageProjectObserver) {
+                homepageProjectObserver.disconnect();
+                homepageProjectObserver = null;
+            }
         }
     }, { passive: true });
 

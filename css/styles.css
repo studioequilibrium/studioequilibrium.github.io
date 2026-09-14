@@ -2957,6 +2957,8 @@ footer {
     background-color: var(--color-gray-light);
     position: relative;
     cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.6s var(--transition-smooth), border-color 0.6s var(--transition-smooth);
 }
 
 .project-vertical-image-container img {
@@ -2969,9 +2971,16 @@ footer {
     will-change: transform, filter;
 }
 
-.project-vertical-image-container:hover img {
+.project-vertical-image-container:hover img,
+.project-vertical-row:hover .project-vertical-image-container img,
+.project-vertical-row:hover img {
     filter: grayscale(0%);
     transform: scale(1.02);
+}
+
+.project-vertical-image-container:hover,
+.project-vertical-row:hover .project-vertical-image-container {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.03);
 }
 
 /* Elegant Textual Specification Block */
@@ -3131,6 +3140,7 @@ footer {
 }
 
 .project-vertical-image-container:hover::after,
+.project-vertical-row:hover .project-vertical-image-container::after,
 .project-card:hover::after,
 #featured-grid .project-card.is-revealed::after {
     opacity: 1;
