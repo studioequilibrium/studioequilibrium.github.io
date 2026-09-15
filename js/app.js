@@ -443,109 +443,136 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // 3b. PROJECT CARDS & PORTFOLIO ROWS CENTER-SCREEN SCROLL REVEAL (MOBILE / TOUCH)
     // ----------------------------------------------------
-    let projectRevealObserver = null;
-    let projectExitObserver = null;
+    // 3b. PROJECT CARDS & PORTFOLIO ROWS SINGLE-CARD CENTER LOCK (MOBILE / TOUCH)
+    // ----------------------------------------------------
+    let projectVisibilityObserver = null;
+    let currentActiveProjectCard = null;
+    let isScrollListenerAttached = false;
+    let scrollRafId = null;
 
     function setupProjectCardScrollObserver() {
         const isTouchOrMobile = () => {
             return window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
         };
 
-        const cleanupObservers = () => {
-            if (projectRevealObserver) {
-                projectRevealObserver.disconnect();
-                projectRevealObserver = null;
+        const cards = Array.from(document.querySelectorAll('.project-card, .project-vertical-row'));
+        if (!cards.length) return;
+
+        const cleanup = () => {
+            cards.forEach(card => {
+                card.classList.remove('is-revealed');
+                card.style.removeProperty('--scroll-progress');
+            });
+            currentActiveProjectCard = null;
+            if (projectVisibilityObserver) {
+                projectVisibilityObserver.disconnect();
+                projectVisibilityObserver = null;
             }
-            if (projectExitObserver) {
-                projectExitObserver.disconnect();
-                projectExitObserver = null;
+            if (isScrollListenerAttached) {
+                window.removeEventListener('scroll', onMobileScroll);
+                isScrollListenerAttached = false;
+            }
+            if (scrollRafId) {
+                cancelAnimationFrame(scrollRafId);
+                scrollRafId = null;
             }
         };
 
         // Completely bail out on true desktop mouse environments
         if (!isTouchOrMobile()) {
-            document.querySelectorAll('.project-card, .project-vertical-row').forEach(card => {
-                card.classList.remove('is-revealed');
-                card.style.removeProperty('--scroll-progress');
+            cleanup();
+            return;
+        }
+
+        cleanup();
+
+        const cardsInViewport = new Set();
+
+        const updateCenterLockedCard = () => {
+            scrollRafId = null;
+
+            if (!isTouchOrMobile()) {
+                cleanup();
+                return;
+            }
+
+            if (!cardsInViewport.size) {
+                if (currentActiveProjectCard) {
+                    currentActiveProjectCard.classList.remove('is-revealed');
+                    currentActiveProjectCard = null;
+                }
+                return;
+            }
+
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const viewportCenter = vh / 2;
+
+            let closestCard = null;
+            let minDistance = Infinity;
+
+            cardsInViewport.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                // Ensure card intersects visible viewport
+                if (rect.bottom > 0 && rect.top < vh) {
+                    const cardCenter = rect.top + rect.height / 2;
+                    const dist = Math.abs(cardCenter - viewportCenter);
+
+                    // Focus threshold: Card must be within reaching distance of the center zone
+                    if (dist < minDistance && dist < vh * 0.48) {
+                        minDistance = dist;
+                        closestCard = card;
+                    }
+                }
             });
-            cleanupObservers();
-            return;
-        }
 
-        // Target both homepage featured cards and portfolio vertical sequence rows
-        const cards = document.querySelectorAll('.project-card, .project-vertical-row');
-        if (!cards.length) return;
+            if (closestCard !== currentActiveProjectCard) {
+                if (currentActiveProjectCard) {
+                    currentActiveProjectCard.classList.remove('is-revealed');
+                }
+                if (closestCard) {
+                    closestCard.classList.add('is-revealed');
+                }
+                currentActiveProjectCard = closestCard;
 
-        cleanupObservers();
-
-        if (!('IntersectionObserver' in window)) {
-            cards.forEach(card => card.classList.add('is-revealed'));
-            return;
-        }
-
-        // Reveal Observer: Activates with wider stable margin (-10%)
-        const revealOptions = {
-            root: null,
-            rootMargin: '-10% 0px -10% 0px',
-            threshold: 0
+                // Enforce strict single-card exclusivity across all project cards
+                cards.forEach(c => {
+                    if (c !== currentActiveProjectCard && c.classList.contains('is-revealed')) {
+                        c.classList.remove('is-revealed');
+                    }
+                });
+            }
         };
 
-        // Exit Observer: Only removes reveal when card has fully exited the screen (0px boundary)
-        const exitOptions = {
-            root: null,
-            rootMargin: '0px 0px 0px 0px',
-            threshold: 0
+        const onMobileScroll = () => {
+            if (!scrollRafId) {
+                scrollRafId = requestAnimationFrame(updateCenterLockedCard);
+            }
         };
 
-        let rafId = null;
-        const pendingAdds = new Set();
-        const pendingRemoves = new Set();
-
-        const flushDOMUpdates = () => {
-            pendingAdds.forEach(target => target.classList.add('is-revealed'));
-            pendingRemoves.forEach(target => target.classList.remove('is-revealed'));
-            pendingAdds.clear();
-            pendingRemoves.clear();
-            rafId = null;
-        };
-
-        projectRevealObserver = new IntersectionObserver((entries) => {
-            const isTouch = isTouchOrMobile();
-            if (!isTouch) return;
-
+        // IntersectionObserver pre-filters cards near the viewport to avoid unnecessary rect calculations
+        projectVisibilityObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    pendingRemoves.delete(entry.target);
-                    pendingAdds.add(entry.target);
+                    cardsInViewport.add(entry.target);
+                } else {
+                    cardsInViewport.delete(entry.target);
                 }
             });
 
-            if (!rafId && (pendingAdds.size || pendingRemoves.size)) {
-                rafId = requestAnimationFrame(flushDOMUpdates);
-            }
-        }, revealOptions);
-
-        projectExitObserver = new IntersectionObserver((entries) => {
-            const isTouch = isTouchOrMobile();
-            if (!isTouch) return;
-
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    // Card has completely scrolled out of the visible screen
-                    pendingAdds.delete(entry.target);
-                    pendingRemoves.add(entry.target);
-                }
-            });
-
-            if (!rafId && (pendingAdds.size || pendingRemoves.size)) {
-                rafId = requestAnimationFrame(flushDOMUpdates);
-            }
-        }, exitOptions);
-
-        cards.forEach(card => {
-            projectRevealObserver.observe(card);
-            projectExitObserver.observe(card);
+            onMobileScroll();
+        }, {
+            root: null,
+            rootMargin: '20% 0px 20% 0px',
+            threshold: 0
         });
+
+        cards.forEach(card => projectVisibilityObserver.observe(card));
+
+        window.addEventListener('scroll', onMobileScroll, { passive: true });
+        isScrollListenerAttached = true;
+
+        // Run initial calculation
+        onMobileScroll();
     }
 
     window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
@@ -557,14 +584,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('is-revealed');
                 card.style.removeProperty('--scroll-progress');
             });
-            if (projectRevealObserver) {
-                projectRevealObserver.disconnect();
-                projectRevealObserver = null;
+            if (projectVisibilityObserver) {
+                projectVisibilityObserver.disconnect();
+                projectVisibilityObserver = null;
             }
-            if (projectExitObserver) {
-                projectExitObserver.disconnect();
-                projectExitObserver = null;
+            if (isScrollListenerAttached) {
+                window.removeEventListener('scroll', onMobileScroll);
+                isScrollListenerAttached = false;
             }
+            if (scrollRafId) {
+                cancelAnimationFrame(scrollRafId);
+                scrollRafId = null;
+            }
+            currentActiveProjectCard = null;
+        } else {
+            setupProjectCardScrollObserver();
         }
     }, { passive: true });
 

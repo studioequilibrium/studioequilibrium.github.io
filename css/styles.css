@@ -3586,7 +3586,7 @@ footer {
     .project-vertical-image-container,
     .project-vertical-row.is-revealed .project-vertical-image-container {
         box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04) !important;
-        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
         will-change: transform;
     }
 
@@ -3597,17 +3597,25 @@ footer {
         transform: translateZ(0);
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
-        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
         will-change: transform;
     }
 
     /* Composite-only transitions for mobile reveal state */
+    #featured-grid .project-card .project-image-container {
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    }
+
     #featured-grid .project-card.is-revealed .project-image-container {
         transform: scale(0.98) translateZ(0) !important;
     }
 
     #featured-grid .project-card.is-revealed .project-image-container img {
         transform: scale(1.04) translateZ(0) !important;
+    }
+
+    .project-vertical-row .project-vertical-image-container img {
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
     }
 
     .project-vertical-row.is-revealed .project-vertical-image-container img {
@@ -3617,7 +3625,7 @@ footer {
     /* Overlay and laser border use composite-only opacity */
     #featured-grid .project-card .project-info-overlay {
         transform: translateZ(0);
-        transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
         will-change: opacity;
     }
 
@@ -3628,7 +3636,7 @@ footer {
     #featured-grid .project-card::after,
     .project-vertical-image-container::after {
         transform: translateZ(0);
-        transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
         will-change: opacity;
     }
 
