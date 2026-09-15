@@ -3565,3 +3565,76 @@ footer {
     from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* ── Mobile GPU Rendering & Smooth Scroll Optimizations ── */
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
+    /* Promote project containers to dedicated GPU compositor layers */
+    .project-card,
+    #featured-grid .project-card,
+    .project-vertical-row,
+    .project-image-container,
+    .project-vertical-image-container {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    /* Lock box-shadow to prevent expensive layout repaints on mobile scroll */
+    .project-card,
+    #featured-grid .project-card,
+    #featured-grid .project-card.is-revealed,
+    .project-vertical-image-container,
+    .project-vertical-row.is-revealed .project-vertical-image-container {
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04) !important;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: transform;
+    }
+
+    /* Disable expensive filter shaders on mobile; use natural photographic color */
+    .project-image-container img,
+    .project-vertical-image-container img {
+        filter: none !important;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: transform;
+    }
+
+    /* Composite-only transitions for mobile reveal state */
+    #featured-grid .project-card.is-revealed .project-image-container {
+        transform: scale(0.98) translateZ(0) !important;
+    }
+
+    #featured-grid .project-card.is-revealed .project-image-container img {
+        transform: scale(1.04) translateZ(0) !important;
+    }
+
+    .project-vertical-row.is-revealed .project-vertical-image-container img {
+        transform: scale(1.03) translateZ(0) !important;
+    }
+
+    /* Overlay and laser border use composite-only opacity */
+    #featured-grid .project-card .project-info-overlay {
+        transform: translateZ(0);
+        transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: opacity;
+    }
+
+    #featured-grid .project-card.is-revealed .project-info-overlay {
+        opacity: 1 !important;
+    }
+
+    #featured-grid .project-card::after,
+    .project-vertical-image-container::after {
+        transform: translateZ(0);
+        transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: opacity;
+    }
+
+    #featured-grid .project-card.is-revealed::after,
+    .project-vertical-row.is-revealed .project-vertical-image-container::after {
+        opacity: 1 !important;
+        animation: movingLaser 3s linear infinite;
+    }
+}

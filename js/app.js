@@ -443,24 +443,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // 3b. PROJECT CARDS & PORTFOLIO ROWS CENTER-SCREEN SCROLL REVEAL (MOBILE / TOUCH)
     // ----------------------------------------------------
-    let projectScrollObserver = null;
+    let projectRevealObserver = null;
+    let projectExitObserver = null;
 
     function setupProjectCardScrollObserver() {
         const isTouchOrMobile = () => {
             return window.matchMedia('(max-width: 1024px), (hover: none), (pointer: coarse)').matches;
         };
 
+        const cleanupObservers = () => {
+            if (projectRevealObserver) {
+                projectRevealObserver.disconnect();
+                projectRevealObserver = null;
+            }
+            if (projectExitObserver) {
+                projectExitObserver.disconnect();
+                projectExitObserver = null;
+            }
+        };
+
         // Completely bail out on true desktop mouse environments
         if (!isTouchOrMobile()) {
-            // Clean up any lingering touch classes or inline variables on all project cards/rows
             document.querySelectorAll('.project-card, .project-vertical-row').forEach(card => {
                 card.classList.remove('is-revealed');
                 card.style.removeProperty('--scroll-progress');
             });
-            if (projectScrollObserver) {
-                projectScrollObserver.disconnect();
-                projectScrollObserver = null;
-            }
+            cleanupObservers();
             return;
         }
 
@@ -468,58 +476,76 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = document.querySelectorAll('.project-card, .project-vertical-row');
         if (!cards.length) return;
 
-        if (projectScrollObserver) {
-            projectScrollObserver.disconnect();
-            projectScrollObserver = null;
-        }
+        cleanupObservers();
 
         if (!('IntersectionObserver' in window)) {
             cards.forEach(card => card.classList.add('is-revealed'));
             return;
         }
 
-        // Optimized Center-Screen Sweet Spot:
-        // -20% top and -20% bottom margins target the vertical 60% comfort zone
-        // threshold: [0, 0.1] catches entrances without dropping frames during touch momentum scroll
-        const observerOptions = {
+        // Reveal Observer: Activates with wider stable margin (-10%)
+        const revealOptions = {
             root: null,
-            rootMargin: '-20% 0px -20% 0px',
-            threshold: [0, 0.1]
+            rootMargin: '-10% 0px -10% 0px',
+            threshold: 0
+        };
+
+        // Exit Observer: Only removes reveal when card has fully exited the screen (0px boundary)
+        const exitOptions = {
+            root: null,
+            rootMargin: '0px 0px 0px 0px',
+            threshold: 0
         };
 
         let rafId = null;
-        const pendingChanges = new Map();
+        const pendingAdds = new Set();
+        const pendingRemoves = new Set();
 
-        projectScrollObserver = new IntersectionObserver((entries) => {
+        const flushDOMUpdates = () => {
+            pendingAdds.forEach(target => target.classList.add('is-revealed'));
+            pendingRemoves.forEach(target => target.classList.remove('is-revealed'));
+            pendingAdds.clear();
+            pendingRemoves.clear();
+            rafId = null;
+        };
+
+        projectRevealObserver = new IntersectionObserver((entries) => {
             const isTouch = isTouchOrMobile();
-            if (!isTouch) {
-                entries.forEach(entry => {
-                    entry.target.classList.remove('is-revealed');
-                    entry.target.style.removeProperty('--scroll-progress');
-                });
-                return;
-            }
+            if (!isTouch) return;
 
             entries.forEach(entry => {
-                pendingChanges.set(entry.target, entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    pendingRemoves.delete(entry.target);
+                    pendingAdds.add(entry.target);
+                }
             });
 
-            if (!rafId) {
-                rafId = requestAnimationFrame(() => {
-                    pendingChanges.forEach((isIntersecting, target) => {
-                        if (isIntersecting) {
-                            target.classList.add('is-revealed');
-                        } else {
-                            target.classList.remove('is-revealed');
-                        }
-                    });
-                    pendingChanges.clear();
-                    rafId = null;
-                });
+            if (!rafId && (pendingAdds.size || pendingRemoves.size)) {
+                rafId = requestAnimationFrame(flushDOMUpdates);
             }
-        }, observerOptions);
+        }, revealOptions);
 
-        cards.forEach(card => projectScrollObserver.observe(card));
+        projectExitObserver = new IntersectionObserver((entries) => {
+            const isTouch = isTouchOrMobile();
+            if (!isTouch) return;
+
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    // Card has completely scrolled out of the visible screen
+                    pendingAdds.delete(entry.target);
+                    pendingRemoves.add(entry.target);
+                }
+            });
+
+            if (!rafId && (pendingAdds.size || pendingRemoves.size)) {
+                rafId = requestAnimationFrame(flushDOMUpdates);
+            }
+        }, exitOptions);
+
+        cards.forEach(card => {
+            projectRevealObserver.observe(card);
+            projectExitObserver.observe(card);
+        });
     }
 
     window.setupProjectCardScrollObserver = setupProjectCardScrollObserver;
@@ -531,9 +557,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('is-revealed');
                 card.style.removeProperty('--scroll-progress');
             });
-            if (projectScrollObserver) {
-                projectScrollObserver.disconnect();
-                projectScrollObserver = null;
+            if (projectRevealObserver) {
+                projectRevealObserver.disconnect();
+                projectRevealObserver = null;
+            }
+            if (projectExitObserver) {
+                projectExitObserver.disconnect();
+                projectExitObserver = null;
             }
         }
     }, { passive: true });
