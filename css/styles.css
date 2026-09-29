@@ -719,6 +719,7 @@ section {
     color: inherit;
     transition: box-shadow 0.4s var(--transition-smooth);
     height: 100%;
+    cursor: default;
 }
 
 .service-brief-card:hover {
